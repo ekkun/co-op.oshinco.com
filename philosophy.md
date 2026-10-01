@@ -14,21 +14,30 @@
 - WordPressデフォルトギャラリーブロックはSplideを使用する
 
 - 今後/assets/はViteで管理する
-  - /assets/src/scss/main.scss に全てをインポートする
-  - /assets/src/js/main.js に全てをインポートする
+  - /assets/src/scss/style.scss に必要なファイルを全てインポートする
+    /assets/css/style.css に出力する
+  - /assets/src/js/main.js に必要なファイルを全てインポートする
+    /assets/js/main.js に出力する
   - /assets/fonts/ にフォントを配置する
   - /assets/images/ に画像を配置する
-  - /assets/vendors/ にライブラリを配置する（splideなど）
 
 #### デザイン
 
 - レトロフューチャーな雰囲気
 - 南インド（ポンディシェリ）のような「古い部分」と「新しい部分」が混在するような見た目
-- ベースは/fukasawa/の見た目を参照する
+- ベースは/fukasawa/の見た目を参照する（fukasawa関連のファイルは残さないこと）
 - Masonry Cascading grid layoutのようなグリッドレイアウトにする（参照https://masonry.desandro.com/）
+- カラーは以下の通り
+  0: #444
+  1: #009ddd
+  2: #ff9f40
+  3: #767676
+  4: #fff
 - ベースはtailwind cssを使用する
 - 次節でionic frameworkを導入し、tailwind cssと併用する
 - アイコンはhttps://ionic.io/ionicons/v4を使用する
 - フォントはGen Interface JP（https://gen.typesetting.jp/）で作成
+- サブフォントはNoto Serif JPを使用する
 - GSAPのような動きも◎
+
 - まずFigmaのデザインカンプを作成する
