@@ -1,0 +1,2 @@
+function e(e,t=300){let n;return function(...r){clearTimeout(n),n=setTimeout(()=>{e.apply(this,r)},t)}}var t=!1,n=()=>{if(t)return;let e=document.querySelector(`meta[name="viewport"]`);if(!e)return;let n=(document.documentElement.clientWidth||window.innerWidth)<375?`width=375, initial-scale=1`:`width=device-width, initial-scale=1`;e.getAttribute(`content`)!==n&&(t=!0,e.setAttribute(`content`,n),setTimeout(()=>{t=!1},400))},r=e(n,150);window.addEventListener(`resize`,r,{passive:!0}),window.addEventListener(`orientationchange`,r,!1),n();
+//# sourceMappingURL=main.js.map
