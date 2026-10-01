@@ -1,0 +1,169 @@
+// Width / Height
+@use '../core' as *;
+
+// .l-main {
+//   container-type: inline-size;
+// }
+
+.full-width,
+.u-full-width,
+.u-full-wrapper {
+	--negative-margin: calc((100% - 100cqi) / 2);
+	position: relative !important;
+	margin-inline: var(--negative-margin) !important;
+	padding-inline: abs(var(--negative-margin)) !important;
+}
+
+.max-width,
+.u-max-width,
+.u-wide-width,
+.u-max-wrapper {
+	--negative-margin: calc((100% - 100cqi) / 2);
+	position: relative !important;
+	width: 100dvw !important;
+	margin-inline: var(--negative-margin) !important;
+	padding-inline: 0 !important;
+	//overflow: hidden !important;
+}
+
+.u-width-100 {
+	width: 100%;
+	margin-inline-start: auto;
+	margin-inline-end: auto;
+}
+
+.u-inner-width,
+.u-narrow-width {
+	max-width: var(--contents-width);
+	margin-inline: auto;
+	padding-inline: 20px;
+
+	@include mq(xl) {
+		padding-inline: 0;
+	}
+}
+
+//@for $i from 0 through 20 {
+//	.u-w#{$i * 10} {
+//		width: #{$i * 10}px !important;
+//	}
+//}
+
+$sizes: (
+	'auto': auto,
+	'full': 100%,
+	'min': min-content,
+	'max': max-content,
+	'fit': fit-content
+);
+
+@each $size, $value in $sizes {
+	// Width
+	.u-width-#{$size} {
+		width: #{$value};
+	}
+
+	.u-min-width-#{$size} {
+		min-width: #{$value};
+	}
+
+	.u-max-width-#{$size} {
+		max-width: #{$value};
+	}
+
+	// Height
+	.u-height-#{$size} {
+		height: #{$value};
+	}
+
+	.u-min-height-#{$size} {
+		min-height: #{$value};
+	}
+
+	.u-max-height-#{$size} {
+		max-height: #{$value};
+	}
+
+	@each $breakpoint, $breakpointValue in $breakpoints {
+		@media (width >=#{$breakpointValue}) {
+			// Width
+			.#{$breakpoint}\:u-width-#{$size} {
+				width: #{$value};
+			}
+
+			.#{$breakpoint}\:u-min-width-#{$size} {
+				min-width: #{$value};
+			}
+
+			.#{$breakpoint}\:u-max-width-#{$size} {
+				max-width: #{$value};
+			}
+
+			// Height
+			.#{$breakpoint}\:u-height-#{$size} {
+				height: #{$value};
+			}
+
+			.#{$breakpoint}\:u-min-height-#{$size} {
+				min-height: #{$value};
+			}
+
+			.#{$breakpoint}\:u-max-height-#{$size} {
+				max-height: #{$value};
+			}
+		}
+	}
+}
+
+/**
+ * Full-bleed utilities
+ * - both / left / right
+ */
+
+$fullbleeds: (
+	'fullbleed': (
+		margin-inline-start: calc(-50vw + 50%),
+		margin-inline-end: calc(-50vw + 50%)
+	),
+	'fullbleed-left': (
+		margin-inline-start: calc(-50vw + 50%)
+	),
+	'fullbleed-right': (
+		margin-inline-end: calc(-50vw + 50%)
+	)
+);
+
+// --- base（メディアクエリ無し） ---
+@each $name, $props in $fullbleeds {
+	.u-width-#{$name} {
+		@each $prop, $val in $props {
+			#{$prop}: $val;
+		}
+	}
+}
+
+// --- breakpoints: min（以上のとき / width >= breakpoint） ---
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width >= #{$breakpointValue}) {
+		@each $name, $props in $fullbleeds {
+			.#{$breakpoint}\:u-width-#{$name} {
+				@each $prop, $val in $props {
+					#{$prop}: $val;
+				}
+			}
+		}
+	}
+}
+
+// --- breakpoints: max（以下のとき / width <= breakpoint） ---
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width <= #{$breakpointValue}) {
+		@each $name, $props in $fullbleeds {
+			.#{$breakpoint}-max\:u-width-#{$name} {
+				@each $prop, $val in $props {
+					#{$prop}: $val;
+				}
+			}
+		}
+	}
+}

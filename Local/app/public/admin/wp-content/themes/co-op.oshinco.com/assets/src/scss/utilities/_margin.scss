@@ -1,0 +1,271 @@
+// margin / padding
+@use 'sass:math';
+@use '../core' as *;
+
+$spacing-step: 8;
+$spacing-max: 304; // 8 * 38
+
+$directions: (
+	't': block-start,
+	'r': inline-end,
+	'b': block-end,
+	'l': inline-start,
+	'x': inline,
+	'y': block
+);
+
+/* 0 は個別 */
+.u-m-0 {
+	margin: 0;
+}
+.u-mt-0 {
+	margin-block-start: 0;
+}
+.u-mb-0 {
+	margin-block-end: 0;
+}
+.u-mr-0 {
+	margin-inline-end: 0;
+}
+.u-ml-0 {
+	margin-inline-start: 0;
+}
+.u-mx-0 {
+	margin-inline: 0;
+}
+.u-my-0 {
+	margin-block: 0;
+}
+.u-p-0 {
+	padding: 0;
+}
+.u-pt-0 {
+	padding-block-start: 0;
+}
+.u-pb-0 {
+	padding-block-end: 0;
+}
+.u-pr-0 {
+	padding-inline-end: 0;
+}
+.u-pl-0 {
+	padding-inline-start: 0;
+}
+.u-px-0 {
+	padding-inline: 0;
+}
+.u-py-0 {
+	padding-block: 0;
+}
+
+@for $i from 1 through math.div($spacing-max, $spacing-step) {
+	$size: $i * $spacing-step;
+	$value: #{$size}px;
+
+	/* margin */
+	.u-m-#{$size} {
+		margin: $value;
+	}
+
+	@each $d, $prop in $directions {
+		.u-m#{$d}-#{$size} {
+			margin-#{$prop}: $value;
+		}
+	}
+
+	/* padding */
+	.u-p-#{$size} {
+		padding: $value;
+	}
+
+	@each $d, $prop in $directions {
+		.u-p#{$d}-#{$size} {
+			padding-#{$prop}: $value;
+		}
+	}
+
+	/* breakpoints */
+	@each $breakpoint, $breakpointValue in $breakpoints {
+		@media (width >= #{$breakpointValue}) {
+			.#{$breakpoint}\:u-m-#{$size} {
+				margin: $value;
+			}
+
+			@each $d, $prop in $directions {
+				.#{$breakpoint}\:u-m#{$d}-#{$size} {
+					margin-#{$prop}: $value;
+				}
+			}
+
+			.#{$breakpoint}\:u-p-#{$size} {
+				padding: $value;
+			}
+
+			@each $d, $prop in $directions {
+				.#{$breakpoint}\:u-p#{$d}-#{$size} {
+					padding-#{$prop}: $value;
+				}
+			}
+		}
+	}
+}
+
+.u-ml-auto {
+	margin-inline-start: auto;
+}
+.u-mr-auto {
+	margin-inline-end: auto;
+}
+.u-mx-auto {
+	margin-inline: auto;
+}
+
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width >= #{$breakpointValue}) {
+		.#{$breakpoint}\:u-ml-auto {
+			margin-inline-start: auto;
+		}
+		.#{$breakpoint}\:u-mr-auto {
+			margin-inline-end: auto;
+		}
+		.#{$breakpoint}\:u-mx-auto {
+			margin-inline: auto;
+		}
+	}
+}
+
+$inline-aligns: (
+	'center': (
+		margin-inline: auto
+	),
+	'left': (
+		margin-inline: 0 auto
+	),
+	'right': (
+		margin-inline: auto 0
+	)
+);
+
+// --- base（メディアクエリ無し） ---
+@each $name, $props in $inline-aligns {
+	.u-inline-#{$name} {
+		@each $prop, $val in $props {
+			#{$prop}: $val;
+		}
+	}
+}
+
+// --- breakpoints: min（以上のとき / width >= breakpoint） ---
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width >= #{$breakpointValue}) {
+		@each $name, $props in $inline-aligns {
+			.#{$breakpoint}\:u-inline-#{$name} {
+				@each $prop, $val in $props {
+					#{$prop}: $val;
+				}
+			}
+		}
+	}
+}
+
+// Arbitrary spacing: base only (no breakpoint)
+
+/* -------------------------
+  1) Bridge: --u-* = --u-*-base
+------------------------- */
+
+// padding vars
+[class*='u-p-['] {
+	--u-p: var(--u-p-base, initial);
+}
+[class*='u-pt-['] {
+	--u-pt: var(--u-pt-base, initial);
+}
+[class*='u-pr-['] {
+	--u-pr: var(--u-pr-base, initial);
+}
+[class*='u-pb-['] {
+	--u-pb: var(--u-pb-base, initial);
+}
+[class*='u-pl-['] {
+	--u-pl: var(--u-pl-base, initial);
+}
+[class*='u-px-['] {
+	--u-px: var(--u-px-base, initial);
+}
+[class*='u-py-['] {
+	--u-py: var(--u-py-base, initial);
+}
+
+// margin vars
+[class*='u-m-['] {
+	--u-m: var(--u-m-base, initial);
+}
+[class*='u-mt-['] {
+	--u-mt: var(--u-mt-base, initial);
+}
+[class*='u-mr-['] {
+	--u-mr: var(--u-mr-base, initial);
+}
+[class*='u-mb-['] {
+	--u-mb: var(--u-mb-base, initial);
+}
+[class*='u-ml-['] {
+	--u-ml: var(--u-ml-base, initial);
+}
+[class*='u-mx-['] {
+	--u-mx: var(--u-mx-base, initial);
+}
+[class*='u-my-['] {
+	--u-my: var(--u-my-base, initial);
+}
+
+/* -------------------------
+  2) Apply: use --u-* values
+------------------------- */
+
+// padding (apply)
+[class*='u-p-['] {
+	padding: var(--u-p, initial);
+}
+[class*='u-pt-['] {
+	padding-block-start: var(--u-pt, initial);
+}
+[class*='u-pr-['] {
+	padding-inline-end: var(--u-pr, initial);
+}
+[class*='u-pb-['] {
+	padding-block-end: var(--u-pb, initial);
+}
+[class*='u-pl-['] {
+	padding-inline-start: var(--u-pl, initial);
+}
+[class*='u-px-['] {
+	padding-inline: var(--u-px, initial);
+}
+[class*='u-py-['] {
+	padding-block: var(--u-py, initial);
+}
+
+// margin (apply)
+[class*='u-m-['] {
+	margin: var(--u-m, initial);
+}
+[class*='u-mt-['] {
+	margin-block-start: var(--u-mt, initial);
+}
+[class*='u-mr-['] {
+	margin-inline-end: var(--u-mr, initial);
+}
+[class*='u-mb-['] {
+	margin-block-end: var(--u-mb, initial);
+}
+[class*='u-ml-['] {
+	margin-inline-start: var(--u-ml, initial);
+}
+[class*='u-mx-['] {
+	margin-inline: var(--u-mx, initial);
+}
+[class*='u-my-['] {
+	margin-block: var(--u-my, initial);
+}

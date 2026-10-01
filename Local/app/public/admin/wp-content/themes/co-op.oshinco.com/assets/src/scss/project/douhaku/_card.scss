@@ -1,0 +1,308 @@
+@use '../../core/index' as *;
+
+.p-douhaku-card {
+	display: flex;
+}
+
+.p-douhaku-card__link {
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	position: relative;
+	background-color: var(--color-douhaku-achromatic-1);
+	color: inherit;
+	text-decoration: none;
+	padding: 20px 20px 50px 20px;
+
+	@include mq(tab) {
+		padding: 60px 100px 52px 60px;
+		min-height: 258px;
+	}
+
+	@include any-hover {
+		&:hover {
+			i {
+				background-color: var(--color-corporate-yellow);
+
+				&::before {
+					background-color: var(--color-corporate-green);
+				}
+			}
+		}
+	}
+
+	i {
+		display: grid;
+		place-items: center;
+		position: absolute;
+		inset-block-end: 0;
+		inset-inline-end: 0;
+		inline-size: 40px;
+		block-size: 40px;
+		background-color: var(--color-corporate-green);
+		@include transition();
+
+		@include mq(tab) {
+			inline-size: 77px;
+			block-size: 77px;
+		}
+
+		&::before {
+			content: '';
+			flex: 0 0 auto;
+			inline-size: 10px;
+			block-size: 10px;
+			@include icon-mask($color: var(--color-white), $image: '/assets/images/common/icon_arrow.svg');
+			@include transition();
+
+			@include mq(tab) {
+				inline-size: 20px;
+				block-size: 20px;
+			}
+		}
+	}
+}
+
+.p-douhaku-card__title {
+	@include font-size(20);
+	font-weight: 700;
+	color: var(--color-corporate-green);
+	margin: 0;
+
+	@include mq(tab) {
+		@include font-size(32);
+	}
+
+	&::before {
+		display: none;
+	}
+}
+
+.p-douhaku-card__description {
+	@include font-size(14);
+	line-height: 1.8;
+	margin: 8px 0 0;
+
+	@include mq(tab) {
+		@include font-size(18);
+		margin: 24px 0 0;
+	}
+}
+
+
+// テーマカード
+.p-douhaku-theme-card {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--color-white);
+	text-align: center;
+	padding: 32px 40px;
+	gap: 16px;
+}
+
+.p-douhaku-theme-card__title {
+	color: var(--color-corporate-green);
+	font-weight: 700;
+	@include font-size(24);
+	margin: 0;
+
+	@include mq(tab) {
+		@include font-size(32);
+	}
+}
+
+.p-douhaku-theme-card__description {
+	margin: 0;
+}
+
+
+// テクノロジーカード
+.p-douhaku-technology-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	background-color: var(--color-douhaku-achromatic-1);
+	padding: 24px;
+	text-align: center;
+	gap: 16px;
+
+	@include mq(tab) {
+		padding: 40px 24px 24px;
+	}
+}
+
+.p-douhaku-technology-card__icon {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	width: 20px;
+
+	@include mq(tab) {
+		width: 37px;
+	}
+
+	img {
+		display: block;
+	}
+}
+
+.p-douhaku-technology-card__image {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	img {
+		width: 50px;
+
+		@include mq(tab) {
+			width: 100px;
+		}
+	}
+}
+
+.p-douhaku-technology-card__title {
+	@include font-size(16);
+	font-weight: 700;
+	color: var(--color-douhaku-black);
+	margin: 0;
+	line-height: 1.6;
+	flex: 1;
+	letter-spacing: 0.08em;
+
+	@include mq(tab) {
+		@include font-size(20);
+	}
+}
+
+// どんなシーンで活用できる？例えばこんな使い方はいかがでしょう
+.p-douhaku-scene-card-list {
+	display: flex;
+	flex-direction: column;
+	gap: 40px;
+	counter-reset: strength;
+	color: inherit;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+
+	@include mq(tab) {
+		gap: 104px;
+		margin-block-start: 64px;
+	}
+}
+
+.p-douhaku-scene-card {
+	counter-increment: strength;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-areas:
+		'image'
+		'column';
+	row-gap: 0;
+	align-items: start;
+	position: relative;
+	padding: 0;
+	margin: 0;
+
+	@include mq(tab) {
+		grid-template-columns: minmax(240px, 1fr) minmax(0, 1fr);
+		grid-template-areas: 'image column';
+		align-items: center;
+		gap: 0;
+	}
+
+	&:nth-child(even) {
+		@include mq(tab) {
+			grid-template-areas: 'column image';
+		}
+
+		&:before {
+			@include mq(tab) {
+				right: 32px;
+				left: unset;
+			}
+		}
+
+		.p-douhaku-scene-card__image {
+			@include mq(tab) {
+				margin-inline: -168px 0;
+			}
+		}
+	}
+
+	&:before {
+		display: block;
+		content: counter(strength, decimal-leading-zero);
+		grid-area: no;
+		position: absolute;
+		top: -24px;
+		left: 0;
+		@include font-size(40);
+		font-family: var(--font-roman);
+		font-weight: 400;
+		letter-spacing: var(--letter-spacing-heading);
+		line-height: var(--line-height-reset);
+
+		@include mq(tab) {
+			top: -32px;
+			left: 32px;
+			@include font-size(60);
+		}
+	}
+}
+
+.p-douhaku-scene-card__image {
+	grid-area: image;
+	margin: 0;
+
+	@include mq(tab) {
+		margin-inline: 0 -168px;
+	}
+
+	img {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	@include mq(tab) {
+	}
+}
+
+.p-douhaku-scene-card__column {
+	grid-area: column;
+	display: flex;
+	flex-direction: column;
+	gap: 24px;
+	position: relative;
+	background-color: oklch(from var(--color-douhaku-blue-1) l c h / 80%);
+	margin-block-start: -20px;
+	padding: 20px;
+
+	@include mq(tab) {
+		padding: 56px;
+	}
+}
+
+.p-douhaku-scene-card__title {
+	@include font-size(20);
+	font-weight: 700;
+	letter-spacing: var(--letter-spacing-heading);
+	margin: 0;
+	color: var(--color-corporate-green);
+
+	@include mq(tab) {
+		@include font-size(32);
+	}
+
+	&::before {
+		display: none;
+	}
+}
+
+.p-douhaku-scene-card__summary {
+	@include font-size(14);
+	margin: 0;
+	line-height: var(--line-height-default);
+}

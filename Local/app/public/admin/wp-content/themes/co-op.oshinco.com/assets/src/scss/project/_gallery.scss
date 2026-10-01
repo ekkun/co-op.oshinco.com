@@ -1,0 +1,105 @@
+// Gallery
+@use '../core' as *;
+
+.p-gallery,
+.l-entry-content .p-gallery {
+	container-type: inline-size;
+	position: relative;
+	margin-block: 24px 0;
+	padding-block: 0 40px;
+
+	@include mq(xl, down) {
+		position: relative;
+		// width: 100dvw;
+		// margin-inline: calc(-50dvw + 50%);
+	}
+
+	@include mq(md) {
+		margin-block: 40px 0;
+		padding-block: 0 56px;
+	}
+
+	@include mq(xl) {
+		background-color: var(--color-white);
+		padding-inline: 40px;
+		padding-block: 40px 56px;
+	}
+
+	.--main {
+		display: none;
+
+		@include mq(md) {
+			display: block;
+		}
+	}
+
+	.--thumbnail {
+		position: relative;
+		padding-block: 0 32px;
+
+		@include mq(tab, down) {
+			//width: 100dvw;
+			//margin-inline: calc(-50dvw + 50%) !important;
+			//padding-inline: 0;
+		}
+
+		@include mq(md) {
+			margin-block: 24px 0;
+		}
+
+		@include mq(tab) {
+			padding-block: 0 32px;
+		}
+	}
+
+	.p-gallery__item {
+		border: none;
+
+		@include mq(tab) {
+		}
+	}
+
+	.p-gallery__inner {
+		@include mq(tab) {
+		}
+	}
+
+	.p-gallery__figure {
+		// aspect-ratio: 16 / 9;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+
+		@include mq(tab) {
+		}
+
+		@at-root .p-gallery.--thumbnail .p-gallery__figure {
+			@include any-hover {
+				&:hover {
+					.p-gallery__image {
+						@include mq(tab) {
+							scale: 1.08;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.p-gallery__image {
+		@include mq(tab) {
+			@include transition();
+			scale: 1;
+		}
+	}
+
+	.p-gallery__description {
+		@include font-size(14);
+		line-height: var(--line-height-sm);
+		margin-block: 8px 0;
+
+		@include mq(tab) {
+			@include font-size(18);
+		}
+	}
+}

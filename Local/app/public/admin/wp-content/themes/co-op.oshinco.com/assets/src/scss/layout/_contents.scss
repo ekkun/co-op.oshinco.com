@@ -1,0 +1,58 @@
+// Contents
+@use '../core' as *;
+
+.l-contents {
+	position: relative;
+
+	@include mq(tab) {
+	}
+
+	.l-contents__inner {
+		@include mq(tab) {
+			position: relative;
+			width: 100%;
+		}
+
+		&:has(.l-contents__body, .l-contents__sidebar) {
+			container-type: inline-size;
+
+			@include mq(tab) {
+				display: grid;
+				grid-template-columns: minmax(0, 1fr) var(--aside-width-tab);
+				column-gap: var(--aside-gap-tab);
+				align-items: stretch;
+				//overflow: clip;
+			}
+
+			@include mq(pc) {
+				column-gap: var(--aside-gap-pc);
+			}
+		}
+	}
+
+	.l-contents__body {
+		container-type: inline-size;
+
+		@include mq(tab) {
+			//width: calc(100% - 280px - 40px);
+		}
+
+		@include mq(pc) {
+			//width: calc(100% - 280px - 80px);
+		}
+	}
+
+	.l-contents__sidebar {
+		width: var(--aside-width-sp);
+		height: auto;
+		margin-block-start: 40px;
+		padding-block-end: 64px;
+
+		@include mq(tab) {
+			position: relative;
+			width: var(--aside-width-tab);
+			margin-block-start: 0;
+			//padding-block-end: 40px;
+		}
+	}
+}

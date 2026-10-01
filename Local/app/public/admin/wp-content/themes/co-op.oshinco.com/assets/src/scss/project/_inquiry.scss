@@ -1,0 +1,64 @@
+// Error Page
+@use '../core' as *;
+
+.p-inquiry-thanks {
+	text-align: center;
+	padding-block: 64px;
+
+	@include mq(tab-lg) {
+		padding-block: 80px;
+	}
+}
+
+.p-inquiry-thanks__hgroup {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 20px;
+
+	@include mq(tab) {
+		gap: 20px;
+	}
+}
+
+.p-inquiry-thanks__figure {
+}
+
+.p-inquiry-thanks__title {
+	@include font-size(24);
+	margin: 0;
+
+	@include mq(tab) {
+		@include font-size(32);
+	}
+}
+
+.p-inquiry-thanks__hgroup + .p-inquiry-thanks__text {
+	margin-block-start: 40px;
+}
+
+.p-inquiry-thanks__text {
+	margin-block: 1rem;
+}
+
+.p-inquiry-thanks__small {
+	@include font-size(10);
+}
+
+.p-inquiry-thanks__button {
+	display: grid;
+	grid-template-columns: repeat(1, 1fr);
+	align-items: start;
+	gap: 24px;
+	max-width: 560px;
+	width: 100%;
+	margin-inline: auto;
+	margin-block: 40px;
+
+	@include mq(tab) {
+		grid-template-columns: repeat(2, 1fr);
+		justify-content: center;
+		justify-items: center;
+		gap: 40px;
+	}
+}

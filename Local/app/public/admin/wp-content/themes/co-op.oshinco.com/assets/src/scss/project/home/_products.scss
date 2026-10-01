@@ -1,0 +1,338 @@
+// Products
+@use '../../core' as *;
+
+.p-home-products {
+	@include mq(tab) {
+	}
+
+	.p-home-products__inner {
+		padding-block: 40px;
+
+		@include mq(tab) {
+			padding-block: 80px;
+		}
+	}
+
+	.p-home-products__header {
+		@include mq(tab) {
+		}
+
+		.p-home-products__hgroup {
+			@include mq(tab) {
+			}
+		}
+
+		& > p {
+			@include font-size(14);
+			margin-block-start: 16px;
+
+			@include mq(tab) {
+				@include font-size(18);
+				margin-block-start: 24px;
+			}
+		}
+	}
+
+	.p-home-products__search-method {
+		margin-block-start: 40px;
+
+		@include mq(tab) {
+			margin-block-start: 64px;
+		}
+
+		.--search-method__section {
+			margin-block-start: 40px;
+
+			@include mq(tab) {
+				margin-block-start: 64px;
+			}
+		}
+
+		.--search-method__heading {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			@include font-size(20);
+			font-weight: 700;
+			line-height: var(--line-height-reset);
+
+			@include mq(tab) {
+				@include font-size(24);
+			}
+
+			i {
+				inline-size: 14px;
+				block-size: 14px;
+				@include icon-mask($color: var(--color-corporate-green), $image: '/assets/images/common/icon_diamond.svg');
+
+				@include mq(tab-lg) {
+					inline-size: 16px;
+					block-size: 16px;
+				}
+			}
+		}
+
+		.--search-method__inner {
+			margin-block-start: 24px;
+
+			@include mq(tab) {
+				margin-block-start: 40px;
+			}
+		}
+
+		// Purpose List
+		.--purpose {
+			.--purpose__list {
+				display: grid;
+				grid-auto-flow: row;
+				grid-template-rows: repeat(3, auto);
+				row-gap: 8px;
+				list-style: none;
+
+				@include mq(tab) {
+					display: grid;
+					grid-template-columns: repeat(3, 1fr);
+					grid-template-rows: unset;
+					column-gap: 24px;
+				}
+
+				@include mq(tab) {
+				}
+			}
+
+			.--purpose__item {
+				@include mq(tab) {
+				}
+			}
+
+			.--purpose__link {
+				display: grid;
+				grid-template-columns: 50px 1fr;
+				align-items: center;
+				column-gap: 16px;
+				font-weight: 500;
+				width: 100%;
+				background-color: var(--color-white);
+				padding: 10px 12px;
+
+				@include mq(tab) {
+					grid-template-columns: 100px 1fr;
+					border: 1px solid oklch(from var(--color-white) l c h / 50%);
+					padding: 6px 30px;
+					@include transition();
+				}
+
+				img {
+					inline-size: 50px;
+					block-size: auto;
+
+					@include mq(tab) {
+						inline-size: 100px;
+					}
+				}
+
+				span {
+					display: grid;
+					grid-template-columns: 18px 1fr;
+					align-items: center;
+					column-gap: 16px;
+
+					@include mq(tab) {
+						@include font-size(18);
+					}
+
+					&:before {
+						content: '';
+						inline-size: 18px;
+						block-size: 18px;
+						@include icon-mask($color: var(--color-corporate-green), $image: '/assets/images/common/icon_arrow.svg');
+					}
+				}
+
+				&:hover {
+					@include mq(tab) {
+						box-shadow: 0px 0px 20px 1px oklch(from var(--color-achromatic-secondary-900) l c h / 10%);
+					}
+				}
+			}
+		}
+
+		// Category List
+		.--category {
+			.--category__list {
+				display: grid;
+				grid-template-columns: 1fr;
+				justify-content: center;
+				list-style: none;
+
+				@include mq(tab, down) {
+					position: relative;
+					width: 100vw;
+					margin-inline: calc((100% - 100cqi) / 2);
+					padding-inline: 0;
+				}
+
+				@include mq(tab) {
+					grid-template-columns: repeat(4, 1fr);
+				}
+			}
+
+			.--category__item {
+				@include mq(tab) {
+				}
+			}
+
+			.--category__link {
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				align-items: flex-start;
+				gap: 8px;
+				position: relative;
+				color: var(--color-white);
+				inline-size: 100%;
+				block-size: 100%;
+				aspect-ratio: 16 / 9;
+				background-color: oklch(from var(--color-achromatic-secondary-900) l c h / 30%);
+				padding-inline: 32px;
+				padding-block: 24px;
+
+				@include mq(tab) {
+					padding-inline: 32px;
+					padding-block: 24px;
+				}
+
+				.--en {
+					position: relative;
+					@include font-size(14);
+					font-family: var(--font-roman);
+					line-height: var(--line-height-sm);
+					z-index: 1;
+
+					@include mq(tab) {
+						@include font-size(12);
+					}
+
+					@include mq(tab-lg) {
+						@include font-size(14);
+					}
+				}
+
+				.--ja {
+					position: relative;
+					@include font-size(28);
+					font-weight: 500;
+					line-height: var(--line-height-sm);
+					z-index: 1;
+
+					@include mq(tab) {
+						@include font-size(24);
+					}
+
+					@include mq(tab-lg) {
+						@include font-size(28);
+					}
+				}
+
+				figure {
+					position: absolute;
+					top: 0;
+					left: 0;
+					inline-size: 100%;
+					block-size: 100%;
+					overflow: hidden;
+					z-index: 0;
+
+					&:after {
+						content: '';
+						position: absolute;
+						top: 0;
+						left: 0;
+						inline-size: 100%;
+						block-size: 100%;
+						background-color: oklch(from var(--color-achromatic-secondary-900) l c h / 30%);
+						mix-blend-mode: multiply;
+						@include transition();
+						z-index: 0;
+					}
+
+					img {
+						object-fit: cover;
+						inline-size: 100%;
+						block-size: 100%;
+						@include transition();
+						scale: 1;
+					}
+				}
+
+				i {
+					//display: block;
+					position: absolute;
+					right: 0;
+					bottom: 0;
+					display: grid;
+					place-items: center;
+					inline-size: 50px;
+					block-size: 50px;
+					background-color: var(--color-corporate-green);
+					@include transition();
+					z-index: 1;
+
+					@include mq(tab) {
+					}
+
+					&:after {
+						content: '';
+						position: relative;
+						inline-size: 14px;
+						block-size: 14px;
+						//background-color: var(--color-white);
+						@include icon-mask($color: var(--color-white), $image: '/assets/images/common/icon_arrow.svg');
+						@include transition();
+						z-index: 1;
+					}
+				}
+
+				&:hover {
+					@include any-hover {
+						figure {
+							&:after {
+								background-color: oklch(from var(--color-corporate-green) l c h / 80%);
+							}
+
+							img {
+								scale: 1.08;
+							}
+						}
+
+						i {
+							background-color: var(--color-corporate-yellow);
+
+							&:after {
+								background-color: var(--color-corporate-green);
+							}
+						}
+					}
+				}
+			}
+		}
+
+		// Element List
+		.--element {
+			/*.--search-method__inner {
+				@include mq(tab) {
+					background-color: var(--color-white);
+					padding: 40px;
+				}
+			}*/
+		}
+	}
+
+	.p-home-products__button {
+		margin-block-start: 40px;
+
+		@include mq(tab) {
+			margin-block-start: 40px;
+		}
+	}
+}

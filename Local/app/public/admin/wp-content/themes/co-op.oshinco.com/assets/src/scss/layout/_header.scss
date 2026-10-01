@@ -1,0 +1,239 @@
+// Header
+@use '../core' as *;
+
+.l-header {
+	container-type: inline-size;
+	display: grid;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: var(--header-height-sp);
+	background-color: var(--color-white);
+	//border-bottom: 1px solid red;
+	@include transition($duration: 0.4s);
+	z-index: var(--z-header);
+
+	@include mq(md) {
+		height: var(--header-height-tab);
+	}
+
+	@include mq(tab-lg) {
+		height: var(--header-height-pc);
+	}
+
+	.l-header__inner {
+		display: grid;
+		grid-template-columns: 1fr auto auto;
+		grid-column-gap: 0;
+		align-items: center;
+		padding-inline: 20px;
+
+		@include mq(md) {
+			gap: 16px;
+			padding-inline: 20px;
+		}
+
+		@include mq(tab) {
+		}
+
+		@include mq(tab-lg) {
+			grid-column-gap: 8px;
+			padding-inline: 8px;
+		}
+
+		@include mq(xl) {
+			grid-template-columns: 1fr auto;
+			padding-inline: 32px;
+		}
+
+		@include mq(pc-lg) {
+		}
+	}
+
+	.l-header__logo {
+		//display: grid;
+		justify-self: start;
+		align-items: center;
+		width: var(--header-logo-width-sp);
+		margin: 0;
+
+		@include mq(md) {
+			width: var(--header-logo-width-tab);
+		}
+
+		@include mq(tab) {
+		}
+
+		@include mq(tab-lg) {
+			width: var(--header-logo-width-sp);
+		}
+
+		@include mq(xl) {
+			width: var(--header-logo-width-pc);
+		}
+
+		a {
+			display: block;
+			padding-block: 8px;
+			@include transition();
+
+			img {
+				width: var(--header-logo-width-sp);
+				@include transition();
+
+				@include mq(md) {
+					width: var(--header-logo-width-tab);
+				}
+
+				@include mq(tab) {
+				}
+
+				@include mq(tab-lg) {
+					width: var(--header-logo-width-sp);
+				}
+
+				@include mq(xl) {
+					width: var(--header-logo-width-pc);
+				}
+			}
+		}
+	}
+
+	.l-header__search {
+		--size-sp: 32px;
+		--size-tab: 36px;
+
+		display: grid;
+		place-content: center;
+		justify-self: end;
+		inline-size: var(--size-sp);
+		block-size: var(--size-sp);
+		@include transition();
+		visibility: visible;
+		opacity: 1;
+
+		@include mq(md) {
+			inline-size: var(--size-tab);
+			block-size: var(--size-tab);
+		}
+
+		@include mq(tab) {
+		}
+
+		@include mq(tab-lg) {
+			display: none;
+		}
+
+		.--search-button {
+			display: grid;
+			place-content: center;
+			width: 100%;
+			height: 100%;
+			border: none;
+			padding: 0;
+
+			i {
+				text-indent: -9999px;
+				text-decoration: none;
+				inline-size: 14px;
+				block-size: 14px;
+				overflow: hidden;
+				background-color: var(--color-achromatic-secondary-900);
+				mask-image: url('/assets/images/common/icon_search.svg');
+				mask-position: center;
+				mask-repeat: no-repeat;
+				mask-size: 100% auto;
+
+				@include mq(md) {
+					inline-size: 18px;
+					block-size: 18px;
+				}
+			}
+		}
+
+		.is-open-sp-menu & {
+			visibility: hidden;
+			opacity: 0;
+		}
+	}
+
+	.l-header__menu-toggle {
+		justify-self: end;
+
+		@include mq(tab) {
+		}
+
+		@include mq(tab-lg) {
+			//display: none;
+		}
+
+		@include mq(xl) {
+		}
+	}
+
+	.l-header__navigation {
+		justify-self: end;
+	}
+
+	// Plain Header
+	&.--plain {
+		.l-header__inner {
+			grid-template-columns: 1fr;
+		}
+	}
+}
+
+.is-header-transparent {
+	.l-header {
+		background-color: transparent;
+
+		@include mq(tab-lg) {
+			color: var(--color-white);
+		}
+
+		.l-header__logo {
+			a {
+				// 基本（日本語・共通）のロゴ画像
+				background-image: url('/assets/images/common/header_logo_white.svg');
+				background-position: 0;
+				background-repeat: no-repeat;
+				background-size: 100% auto;
+
+				img {
+					opacity: 0;
+				}
+
+				// 英語サイト（<html lang="en">）のときだけ英語用ロゴ画像に切り替え
+				html:lang(en) & {
+					background-image: url('/assets/images/common/header_logo_white_en.svg');
+				}
+			}
+		}
+
+		.l-header__search {
+			.--search-button {
+				i {
+					background-color: var(--color-white);
+				}
+			}
+		}
+	}
+
+	&.is-open-sp-menu {
+		.l-header {
+			@include mq(tab-lg, down) {
+				background-color: var(--color-white);
+			}
+		}
+
+		.l-header__logo {
+			a {
+				img {
+					opacity: inherit;
+				}
+			}
+		}
+	}
+}

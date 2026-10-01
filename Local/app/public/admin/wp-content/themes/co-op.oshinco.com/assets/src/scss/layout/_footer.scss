@@ -1,0 +1,256 @@
+// Footer
+@use '../core' as *;
+
+.l-footer {
+	position: relative;
+	color: var(--color-white);
+	background-color: var(--color-achromatic-secondary-900);
+	margin-top: auto;
+	padding-block: 80px 24px;
+	z-index: 1;
+
+	@include mq(md) {
+	}
+
+	@include mq(tab) {
+	}
+
+	@include mq(xl) {
+		padding-block: 136px 40px;
+	}
+
+	@include mq(pc-lg) {
+	}
+
+	&.--douhaku {
+		background-color: var(--color-douhaku-black);
+
+		@include mq(xl) {
+			padding-block: 80px 40px;
+		}
+	}
+
+	.l-footer__inner {
+		display: grid;
+		grid-template-rows: repeat(3, auto);
+		gap: 24px;
+		width: min(var(--contents-width), 100%);
+		margin-inline: auto;
+		padding-inline: 20px;
+
+		@include mq(tab) {
+			gap: 40px;
+		}
+
+		@include mq(xl) {
+			padding-inline: 0;
+		}
+	}
+
+	.l-footer-logo {
+		width: 327px;
+
+		@include mq(xl) {
+			width: 640px;
+		}
+	}
+
+	.l-footer-nav {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-template-rows: auto auto;
+		gap: 16px;
+		align-items: start;
+		padding-block-start: 24px;
+
+		@include mq(tab) {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 0 24px;
+			padding-block: 0;
+		}
+
+		.l-footer-nav__wrapper {
+			display: grid;
+			gap: 16px;
+			align-content: start;
+
+			@include mq(tab) {
+				display: contents;
+			}
+		}
+
+		.l-footer-nav__column {
+			@include mq(xl) {
+			}
+
+			.l-footer-nav__heading {
+				@include font-size(14);
+				font-weight: 700;
+				margin-block-start: 24px;
+
+				@include mq(xl) {
+					@include font-size(18);
+				}
+
+				&:first-child {
+					margin-block-start: 0;
+				}
+
+				a {
+					display: block;
+					width: fit-content;
+					@include transition();
+
+					&:hover {
+						@include any-hover {
+							color: var(--color-corporate-yellow);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.l-footer-nav-list {
+		display: flex;
+		flex-direction: column;
+		@include font-size(14);
+		margin-block-start: 8px;
+
+		@include mq(tab) {
+			@include font-size(16);
+		}
+
+		&:has(.l-footer-nav-list__child) {
+			gap: 10px;
+		}
+
+		.l-footer-nav-list__item {
+			display: flex;
+			flex-direction: column;
+			gap: 4px;
+
+			a {
+				color: var(--color-achromatic-secondary-100);
+				text-decoration: underline;
+				text-decoration-color: transparent;
+				text-decoration-thickness: 1px;
+				text-underline-offset: 4px;
+				@include transition();
+				width: fit-content;
+
+				&:hover {
+					@include any-hover {
+						text-decoration-color: currentColor;
+					}
+				}
+
+				&[target='_blank'] {
+					&::after {
+						@include icon-exlink($width: 0.72em, $height: 0.72em, $color: var(--color-achromatic-secondary-400), $image: '/assets/images/common/icon_exlink.svg', $margin-inline: 0.2em 0, $margin-block: -0.2em 0);
+						//background-image: url();
+					}
+				}
+			}
+		}
+
+		.l-footer-nav-list__child {
+			@include font-size(12);
+
+			@include mq(tab) {
+				@include font-size(14);
+			}
+
+			li {
+				display: flex;
+				flex-direction: row;
+				gap: 4px;
+				list-style-type: disc;
+				list-style-position: inside;
+				margin-inline: 0;
+
+				&::marker {
+					display: none;
+				}
+
+				&:before {
+					content: '・';
+				}
+
+				a {
+					color: var(--color-achromatic-secondary-100);
+					width: fit-content;
+					@include transition();
+
+					&:hover {
+						@include any-hover {
+							text-decoration: underline;
+							text-underline-offset: 4px;
+						}
+					}
+				}
+			}
+		}
+	}
+
+	.l-footer-copyright {
+		color: var(--color-achromatic-secondary-400);
+		@include font-size(12);
+		border-top: 1px solid var(--color-achromatic-secondary-400);
+		padding-block: 24px 0;
+
+		@include mq(tab) {
+			padding-block-start: 40px;
+		}
+	}
+
+	// Plain footer
+	&.--plain {
+		padding-block: 24px 32px;
+
+		@include mq(tab) {
+			padding-block: 40px 48px;
+		}
+
+		.l-footer__inner {
+			grid-template-rows: repeat(2, auto);
+			gap: 8px;
+
+			@include mq(tab) {
+				grid-template-columns: auto auto;
+				grid-template-rows: unset;
+				justify-content: space-between;
+				align-items: center;
+				gap: 40px;
+			}
+		}
+
+		.l-footer-copyright {
+			border-top: none;
+			padding-block: 0;
+
+			@include mq(tab) {
+			}
+		}
+
+		.l-footer-nav-list {
+			width: fit-content;
+			margin-block-start: 0;
+
+			@include mq(tab) {
+			}
+		}
+	}
+
+	// Featured-content footer
+	&.--feature {
+		.l-footer__inner {
+			grid-template-rows: repeat(2, auto);
+		}
+		.l-footer-nav-list {
+			flex-direction: row;
+			column-gap: 16px;
+			margin: 0;
+		}
+	}
+}

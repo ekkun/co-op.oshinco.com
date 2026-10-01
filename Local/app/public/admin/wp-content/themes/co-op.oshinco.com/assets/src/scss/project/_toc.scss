@@ -1,0 +1,129 @@
+// TOC
+@use '../core' as *;
+
+.p-toc,
+.l-entry-content .p-toc {
+	display: grid;
+	grid-template-columns: 1fr;
+	gap: 8px;
+
+	background-color: var(--color-achromatic-100);
+	padding-inline: 16px;
+	padding-block: 40px;
+
+	@include mq(tab) {
+		padding-inline: 40px;
+		padding-block: 40px;
+	}
+
+	&:before {
+		content: '目次';
+		display: grid;
+		place-content: center;
+		@include font-size(16);
+		font-weight: 700;
+		line-height: var(--line-height-reset);
+		letter-spacing: var(--letter-spacing-heading);
+
+		@include mq(tab) {
+			@include font-size(20);
+		}
+	}
+
+	ol {
+		counter-reset: toc1;
+		list-style: none;
+		border-top: 1px solid var(--color-achromatic-200);
+		margin: 0;
+		margin-block-start: 8px;
+		padding: 0;
+
+		@include mq(tab) {
+			margin-block-start: 16px;
+		}
+
+		& > li > ol {
+			counter-reset: toc2;
+			border-top: none;
+			margin-inline-start: 16px;
+			margin-block-start: 0;
+
+			@include mq(tab) {
+			}
+		}
+		& > li > ol > li > ol {
+			counter-reset: toc3;
+		}
+		& > li > ol > li > ol > li > ol {
+			counter-reset: toc4;
+		}
+		& > li > ol > li > ol > li > ol > li > ol {
+			counter-reset: toc5;
+		}
+
+		& > li {
+			counter-increment: toc1;
+			border-bottom: 1px solid var(--color-achromatic-200);
+			margin-block: 0;
+			padding-inline-start: 0;
+			padding-block: 8px;
+
+			@include mq(tab) {
+				padding-block: 16px;
+			}
+
+			& > a {
+				color: var(--text-color);
+				text-decoration: none;
+				@include transition();
+
+				&:hover {
+					color: var(--color-corporate-green);
+				}
+			}
+
+			& > a:before {
+				content: counter(toc1) '. ';
+				margin-right: 8px;
+				font-variant-numeric: tabular-nums;
+				color: var(--color-corporate-green);
+				font-weight: 600;
+			}
+		}
+
+		& > li > ol > li {
+			counter-increment: toc2;
+			border-bottom: none;
+			margin-block: 8px;
+			padding-block: 0;
+
+			& > a:before {
+				content: counter(toc1) '-' counter(toc2) '. ';
+			}
+		}
+
+		& > li > ol > li > ol > li {
+			counter-increment: toc3;
+
+			& > a:before {
+				content: counter(toc1) '-' counter(toc2) '-' counter(toc3) '. ';
+			}
+		}
+
+		& > li > ol > li > ol > li > ol > li {
+			counter-increment: toc4;
+
+			& > a:before {
+				content: counter(toc1) '-' counter(toc2) '-' counter(toc3) '-' counter(toc4) '. ';
+			}
+		}
+
+		& > li > ol > li > ol > li > ol > li > ol > li {
+			counter-increment: toc5;
+
+			& > a:before {
+				content: counter(toc1) '-' counter(toc2) '-' counter(toc3) '-' counter(toc4) '-' counter(toc5) '. ';
+			}
+		}
+	}
+}

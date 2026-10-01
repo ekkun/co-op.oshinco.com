@@ -1,0 +1,114 @@
+// menu-toggle
+@use '../core' as *;
+
+.p-menu-toggle {
+	--width-sp: 32px;
+	--height-sp: var(--width-sp);
+	--width-tab: 36px;
+	--height-tab: var(--width-tab);
+
+	position: relative;
+	display: grid;
+	place-content: center;
+	width: var(--width-sp);
+	height: var(--height-sp);
+	@include transition();
+
+	@include mq(md) {
+		width: var(--width-tab);
+		height: var(--height-tab);
+	}
+
+	@include mq(tab-lg) {
+		display: none;
+	}
+}
+
+.p-menu-toggle__button {
+	position: relative;
+	width: 20px;
+	height: 12px;
+	border: none;
+	margin: 0;
+	padding: 0;
+
+	@include mq(md) {
+		width: 32px;
+		height: 16px;
+	}
+
+	.p-menu-toggle__line {
+		content: '';
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 1px;
+		text-align: center;
+		background-color: var(--color-achromatic-secondary-900);
+		@include transition($timingFunction: ease-in-out);
+
+		@include mq(md) {
+			height: 2px;
+		}
+
+		&:nth-child(1) {
+			top: 0;
+
+			@include mq(md) {
+			}
+		}
+
+		&:nth-child(2) {
+			top: 50%;
+			transform: translateX(0) translateY(-50%);
+
+			@include mq(md) {
+			}
+		}
+
+		&:nth-child(3) {
+			bottom: 0;
+
+			@include mq(md) {
+			}
+		}
+	}
+
+	&.is-active {
+		.p-menu-toggle__line {
+			&:nth-child(1) {
+				translate: 0 5.5px;
+				rotate: -30deg;
+
+				@include mq(md) {
+					translate: 0 7px;
+				}
+			}
+
+			&:nth-child(2) {
+				opacity: 0;
+			}
+
+			&:nth-child(3) {
+				translate: 0 -5.5px;
+				rotate: 30deg;
+
+				@include mq(md) {
+					translate: 0 -7px;
+				}
+			}
+		}
+	}
+}
+
+.is-header-transparent {
+	.p-menu-toggle__button .p-menu-toggle__line {
+		background-color: var(--color-white);
+	}
+
+	&.is-open-sp-menu {
+		.p-menu-toggle__button .p-menu-toggle__line {
+			background-color: var(--color-achromatic-secondary-900);
+		}
+	}
+}

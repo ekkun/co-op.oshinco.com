@@ -1,0 +1,68 @@
+// Tag List
+@use '../core' as *;
+
+.c-tag,
+.l-entry-content .c-tag {
+	display: block;
+	color: var(--color-achromatic-secondary-700);
+	@include font-size(12);
+	text-align: center;
+	line-height: var(--line-height-reset);
+	width: fit-content;
+	background-color: var(--color-white);
+	border: 1px solid var(--color-achromatic-secondary-100);
+	border-radius: var(--radius-xs);
+	padding: 3px 8px 5px;
+
+	@include mq(tab) {
+		@include transition();
+		@include font-size(16);
+	}
+
+	&.--divisions {
+		min-width: 150px;
+	}
+
+	&.--fixed {
+		min-width: 150px;
+	}
+
+	&.--hashtag {
+		display: flex;
+		align-items: stretch;
+		gap: 8px;
+		position: relative;
+		color: var(--color-achromatic-secondary-400);
+		text-align: inherit;
+		background-color: transparent;
+		border: none;
+		border-radius: unset;
+		padding: 0;
+
+		&:not(:first-child) {
+			&:before {
+				content: '';
+				inline-size: 1px;
+				background-color: var(--color-achromatic-secondary-100);
+			}
+		}
+	}
+}
+
+a.c-tag,
+.l-entry-content a.c-tag {
+	@include any-hover {
+		&:hover {
+			color: var(--color-corporate-green);
+		}
+	}
+}
+
+.c-tag-list,
+.l-entry-content .c-tag-list {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-start;
+	gap: 8px;
+	//line-height: var(--line-height-reset);
+}

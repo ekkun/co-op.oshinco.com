@@ -1,0 +1,338 @@
+// Grid
+@use '../core' as *;
+
+// Settings
+$gridSizes: 1, 2, 3, 4;
+$gapSizes: (
+	'0': 0,
+	'4': 4px,
+	'8': 8px,
+	'12': 12px,
+	'16': 16px,
+	'24': 24px,
+	'32': 32px,
+	'40': 40px,
+	'48': 48px,
+	'56': 56px,
+	'64': 64px,
+	'80': 80px,
+	'112': 112px
+);
+
+// Utility class for grid
+.u-grid {
+	display: grid;
+}
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width >=#{$breakpointValue}) {
+		.#{$breakpoint}\:u-grid {
+			display: grid;
+		}
+	}
+}
+
+// Grid Template Columns
+@mixin grid-cols($cols) {
+	grid-template-columns: repeat($cols, minmax(0, 1fr));
+}
+
+@each $gridSize in $gridSizes {
+	.u-grid-cols-#{$gridSize} {
+		@include grid-cols($gridSize);
+	}
+
+	@each $breakpoint, $breakpointValue in $breakpoints {
+		@media (width >=#{$breakpointValue}) {
+			.#{$breakpoint}\:u-grid-cols-#{$gridSize} {
+				@include grid-cols($gridSize);
+			}
+		}
+	}
+}
+
+.u-grid-cols-none {
+	grid-template-columns: none;
+}
+
+.u-grid-cols-subgrid {
+	grid-template-columns: subgrid;
+}
+
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width >=#{$breakpointValue}) {
+		.#{$breakpoint}\:u-grid-cols-none {
+			grid-template-columns: none;
+		}
+
+		.#{$breakpoint}\:u-grid-cols-subgrid {
+			grid-template-columns: subgrid;
+		}
+	}
+}
+
+// Grid Template Rows
+@mixin grid-rows($rows) {
+	grid-template-rows: repeat($rows, minmax(0, 1fr));
+}
+
+@each $gridSize in $gridSizes {
+	.u-grid-rows-#{$gridSize} {
+		@include grid-rows($gridSize);
+	}
+
+	@each $breakpoint, $breakpointValue in $breakpoints {
+		@media (width >=#{$breakpointValue}) {
+			.#{$breakpoint}\:u-grid-rows-#{$gridSize} {
+				@include grid-rows($gridSize);
+			}
+		}
+	}
+}
+
+.u-grid-rows-none {
+	grid-template-rows: none;
+}
+
+.u-grid-rows-subgrid {
+	grid-template-rows: subgrid;
+}
+
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width >=#{$breakpointValue}) {
+		.#{$breakpoint}\:u-grid-rows-none {
+			grid-template-rows: none;
+		}
+
+		.#{$breakpoint}\:u-grid-rows-subgrid {
+			grid-template-rows: subgrid;
+		}
+	}
+}
+
+// Grid Auto Flow
+$gridDirections: (row, column);
+
+@each $direction in $gridDirections {
+	.u-grid-flow-#{$direction} {
+		grid-auto-flow: #{$direction};
+	}
+
+	@each $breakpoint, $breakpointValue in $breakpoints {
+		@media (width >=#{$breakpointValue}) {
+			.#{$breakpoint}\:u-grid-flow-#{$direction} {
+				grid-auto-flow: #{$direction};
+			}
+		}
+	}
+}
+
+// Grid Auto Columns
+$autoColsProperties: (
+	'auto': auto,
+	'min': min-content,
+	'max': max-content,
+	'fr': minmax(0, 1fr)
+);
+
+@each $property, $value in $autoColsProperties {
+	.u-auto-cols-#{$property} {
+		grid-auto-columns: $value;
+	}
+
+	@each $breakpoint, $breakpointValue in $breakpoints {
+		@media (width >= #{$breakpointValue}) {
+			.#{$breakpoint}\:u-auto-cols-#{$property} {
+				grid-auto-columns: $value;
+			}
+		}
+	}
+}
+
+// Grid Auto Rows
+$autoRowsProperties: (
+	'auto': auto,
+	'min': min-content,
+	'max': max-content,
+	'fr': minmax(0, 1fr)
+);
+
+@each $property, $value in $autoRowsProperties {
+	.u-auto-rows-#{$property} {
+		grid-auto-rows: $value;
+	}
+
+	@each $breakpoint, $breakpointValue in $breakpoints {
+		@media (width >= #{$breakpointValue}) {
+			.#{$breakpoint}\:u-auto-rows-#{$property} {
+				grid-auto-rows: $value;
+			}
+		}
+	}
+}
+
+// Column Span
+@for $i from 1 through 4 {
+	.u-col-span-#{$i} {
+		grid-column: span #{$i} / span #{$i};
+	}
+
+	.u-col-start-#{$i} {
+		grid-column-start: #{$i};
+	}
+}
+
+.u-col-span-auto {
+	grid-column: auto;
+}
+
+.u-col-span-full {
+	grid-column: 1 / -1;
+}
+
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width >=#{$breakpointValue}) {
+		@for $i from 1 through 4 {
+			.#{$breakpoint}\:u-col-span-#{$i} {
+				grid-column: span #{$i} / span #{$i};
+			}
+
+			.#{$breakpoint}\:u-col-start-#{$i} {
+				grid-column-start: #{$i};
+			}
+		}
+
+		.#{$breakpoint}\:u-col-span-auto {
+			grid-column: auto;
+		}
+
+		.#{$breakpoint}\:u-col-span-full {
+			grid-column: 1 / -1;
+		}
+	}
+}
+
+// Row Span
+@for $i from 1 through 6 {
+	.u-row-span-#{$i} {
+		grid-row: span #{$i} / span #{$i};
+	}
+
+	.u-row-start-#{$i} {
+		grid-row-start: #{$i};
+	}
+}
+
+.u-row-span-auto {
+	grid-row: auto;
+}
+
+.u-row-span-full {
+	grid-row: 1 / -1;
+}
+
+@each $breakpoint, $breakpointValue in $breakpoints {
+	@media (width >=#{$breakpointValue}) {
+		@for $i from 1 through 6 {
+			.#{$breakpoint}\:u-row-span-#{$i} {
+				grid-row: span #{$i} / span #{$i};
+			}
+
+			.#{$breakpoint}\:u-row-start-#{$i} {
+				grid-row-start: #{$i};
+			}
+		}
+
+		.#{$breakpoint}\:u-row-span-auto {
+			grid-row: auto;
+		}
+
+		.#{$breakpoint}\:u-row-span-full {
+			grid-row: 1 / -1;
+		}
+	}
+}
+
+// Gap
+@each $gapSize, $gapValue in $gapSizes {
+	.u-gap-#{$gapSize} {
+		gap: $gapValue;
+	}
+
+	.u-gap-x-#{$gapSize} {
+		column-gap: $gapValue;
+	}
+
+	.u-gap-y-#{$gapSize} {
+		row-gap: $gapValue;
+	}
+
+	@each $breakpoint, $breakpointValue in $breakpoints {
+		@media (width >=#{$breakpointValue}) {
+			.#{$breakpoint}\:u-gap-#{$gapSize} {
+				gap: $gapValue;
+			}
+
+			.#{$breakpoint}\:u-gap-x-#{$gapSize} {
+				column-gap: $gapValue;
+			}
+
+			.#{$breakpoint}\:u-gap-y-#{$gapSize} {
+				row-gap: $gapValue;
+			}
+		}
+	}
+}
+
+// Justify Content
+/* Flexbox Utilities */
+$flex-options: (
+	'justify-content': (
+		'normal': normal,
+		'start': flex-start,
+		'end': flex-end,
+		'center': center,
+		'between': space-between,
+		'around': space-around,
+		'evenly': space-evenly,
+		'stretch': stretch
+	),
+	'justify-items': (
+		'start': start,
+		'end': end,
+		'center': center,
+		'stretch': stretch
+	),
+	'align-content': (
+		'normal': normal,
+		'center': center,
+		'start': flex-start,
+		'between': space-between,
+		'around': space-around,
+		'evenly': space-evenly,
+		'baseline': baseline,
+		'stretch': stretch
+	),
+	'align-items': (
+		'start': flex-start,
+		'end': flex-end,
+		'center': center,
+		'baseline': baseline,
+		'stretch': stretch
+	)
+);
+
+@each $property, $options in $flex-options {
+	@each $name, $value in $options {
+		.u-#{$property}-#{$name} {
+			#{$property}: $value;
+		}
+
+		@each $breakpoint, $breakpointValue in $breakpoints {
+			@media (width >=#{$breakpointValue}) {
+				.#{$breakpoint}\:u-#{$property}-#{$name} {
+					#{$property}: $value;
+				}
+			}
+		}
+	}
+}

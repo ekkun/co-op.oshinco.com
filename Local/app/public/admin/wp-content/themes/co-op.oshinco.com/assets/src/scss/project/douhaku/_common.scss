@@ -1,0 +1,96 @@
+@use '../../core/index' as *;
+
+.p-douhaku {
+	background-color: var(--color-white);
+	color: var(--text--color-douhaku);
+
+	// フォントサイズオーバーライド用のスタイル
+	// プロジェクトのclassのフォントサイズを優先させるため .l-entry-content の詳細度を下げる
+
+	// pのスタイルをオーバーライド
+	:where(.c-paragraph),
+	:where(.l-entry-content) :where(p) {
+		//@include font-size(16);
+
+		@include mq(tab) {
+			@include font-size(18);
+		}
+	}
+
+	// ulのスタイルをオーバーライド
+	:where(.c-list) {
+		//@include font-size(16);
+
+		@include mq(tab) {
+			@include font-size(18);
+		}
+	}
+
+	// h2のスタイルをオーバーライド
+	.c-heading--lv2:not(.no-decoration),
+		//.l-entry-content .c-heading--lv2:not(.no-decoration),
+	:where(.l-entry-content) :where(h2:not(.no-decoration)) {
+		//@include font-size(24);
+
+		@include mq(tab) {
+			@include font-size(40);
+		}
+	}
+
+	// h3のスタイルをオーバーライド
+	.c-heading--lv3.no-decoration,
+	:where(.l-entry-content) :where(h3.no-decoration):not(.c-heading--lv3) {
+		//@include font-size(20);
+
+		@include mq(tab) {
+			@include font-size(32);
+		}
+	}
+
+	.c-heading--lv3:not(.no-decoration):not(.--border):not(.--underline),
+	//.l-entry-content .c-heading--lv3:not(.no-decoration),
+	:where(.l-entry-content) :where(h3:not(.no-decoration):not(.--border):not(.--underline)) {
+		//@include font-size(20);
+
+		@include mq(tab) {
+			@include font-size(32);
+		}
+	}
+
+	// h4のスタイルをオーバーライド
+	.c-heading--lv4:not(.no-decoration):not(.--border):not(.--underline),
+		//.l-entry-content .c-heading--lv4:not(.no-decoration),
+	:where(.l-entry-content) :where(h4:not(.no-decoration):not(.--border):not(.--underline)) {
+		//@include font-size(18);
+
+		@include mq(tab) {
+			@include font-size(24);
+		}
+	}
+
+	// テーブルのスタイルをオーバーライド
+	.c-table,
+	.l-entry-content .c-table,
+	.l-entry-content table {
+		thead {
+			th {
+				background-color: var(--color-douhaku-black);
+			}
+		}
+
+		th,
+		td {
+			@include mq(tab) {
+				@include font-size(16);
+			}
+		}
+	}
+
+	// 黒ボタンのカラーをオーバーライド
+	.c-button-invert,
+	.l-entry-content .c-button-invert {
+		&:not(:hover) {
+			background-color: var(--color-douhaku-black);
+		}
+	}
+}

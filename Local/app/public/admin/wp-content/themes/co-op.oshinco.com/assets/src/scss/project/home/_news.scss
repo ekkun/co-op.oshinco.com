@@ -1,0 +1,7 @@
+// News
+@use '../../core' as *;
+
+.p-home-news {
+	@include mq(tab) {
+	}
+}

@@ -1,0 +1,141 @@
+// Entry
+@use '../core' as *;
+
+// Header
+.l-entry-header {
+	position: relative;
+	padding-block-end: 32px;
+
+	@include mq(tab) {
+		padding-block-end: 32px;
+	}
+
+	&:before {
+		content: '';
+		display: block;
+		position: absolute;
+		bottom: 0;
+		left: 0;
+		inline-size: 100%;
+		block-size: 1px;
+		background-color: var(--color-achromatic-secondary-100);
+		background: linear-gradient(to right, oklch(from var(--color-corporate-green) l c h / 100%) 20px, oklch(from var(--color-achromatic-secondary-100) l c h / 100%) 20px);
+
+		@include mq(tab) {
+		}
+	}
+
+	& + * {
+		margin-block-start: 40px;
+
+		@include mq(tab) {
+			margin-block-start: 64px;
+		}
+	}
+
+	.l-entry-header__category {
+		@include mq(tab) {
+		}
+	}
+
+	.l-entry-header__title {
+		@include font-size(32);
+		font-weight: 700;
+		line-height: var(--line-height-md);
+		letter-spacing: var(--letter-spacing-heading);
+		margin-block: 16px 0;
+
+		@include mq(tab) {
+			@include font-size(40);
+			margin-block-start: 24px;
+		}
+	}
+
+	.l-entry-header__date {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0 16px;
+		color: var(--color-achromatic-secondary-700);
+		@include font-size(12);
+		margin-block-start: 24px;
+
+		@include mq(tab) {
+			@include font-size(18);
+			margin-block-start: 32px;
+		}
+
+		& > dl {
+			display: grid;
+			grid-template-columns: 60px 1fr;
+			align-items: center;
+
+			@include mq(tab) {
+				grid-template-columns: 70px 1fr;
+			}
+
+			dt {
+				font-weight: 400;
+			}
+
+			dd {
+			}
+		}
+	}
+}
+
+// Contents
+.l-entry-content {
+	container-type: initial;
+
+	&:has(.l-entry-content__inner) {
+		padding-block-end: 40px;
+
+		@include mq(tab) {
+			padding-block-end: 104px;
+		}
+	}
+
+	.l-entry-content__inner {
+		background-color: var(--color-white);
+		padding-block: 40px;
+
+		@include mq(tab, down) {
+			margin-inline: calc(50% - 50vw);
+			padding-inline: 20px;
+		}
+
+		@include mq(tab) {
+			padding-inline: 40px;
+			padding-block: 40px;
+		}
+
+		@include mq(xl) {
+			padding-inline: 80px;
+			padding-block: 80px;
+		}
+	}
+
+	.l-entry-content__eyecatch {
+		& + * {
+			margin-block-start: 40px;
+
+			@include mq(tab) {
+				margin-block-start: 80px;
+			}
+		}
+	}
+
+	&:first-child {
+		> .c-heading--lv2 {
+			margin-block-start: 0;
+		}
+		> * + .c-heading--lv2 {
+			margin-block-start: 48px; // 前に要素がある場合だけ余白を付ける
+		}
+	}
+}
+
+// Footer
+.l-entry-footer {
+}

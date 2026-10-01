@@ -1,0 +1,11 @@
+/* =========================================
+  CSS Cascade Layer 設定 (2025最適バランス)
+========================================= */
+
+@layer reset; // 初期化
+@layer base; // ベース
+@layer vendor; // 外部ライブラリ(css)
+@layer components; // UI パーツ
+@layer layout; // 大枠配置
+@layer project; // ページ専用スコープ
+@layer utilities; // 単機能ユーティリティ

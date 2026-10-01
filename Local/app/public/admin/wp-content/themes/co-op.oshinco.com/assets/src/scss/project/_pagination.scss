@@ -1,0 +1,119 @@
+// Pagination
+@use '../core' as *;
+
+.p-pagination {
+	display: flex;
+	justify-content: center;
+	gap: 6px;
+	margin-top: 80px;
+
+	@include mq(tab) {
+		gap: 8px;
+	}
+
+	.p-pagination__item {
+		display: grid;
+		place-content: center;
+		position: relative;
+		color: inherit;
+		@include font-size(14);
+		font-weight: 700;
+		text-decoration: none;
+		line-height: var(--line-height-reset);
+		inline-size: 36px;
+		block-size: 36px;
+		background-color: var(--color-white);
+		//border-radius: 4px;
+		//box-shadow: 0 3px 6px rgb(var(--black-rgb) / 0.16);
+		@include transition();
+
+		@include mq(tab) {
+			font-size: inherit;
+			inline-size: 50px;
+			block-size: 50px;
+		}
+
+		i {
+			position: relative;
+			font-style: normal;
+			z-index: +1;
+		}
+
+		&.is-current {
+			color: var(--color-white);
+			background-color: var(--color-corporate-green);
+		}
+
+		@include any-hover {
+			&:not(span.p-pagination__item) {
+				&:hover {
+					color: var(--color-white);
+					background-color: var(--color-corporate-green);
+					//opacity: 1;
+
+					&.is-current {
+						background-color: var(--color-corporate-green);
+					}
+				}
+			}
+		}
+	}
+
+	.p-pagination__prev,
+	.p-pagination__next {
+		text-indent: -9999px;
+		text-decoration: none;
+		overflow: hidden;
+
+		i {
+			display: inline-block;
+			vertical-align: middle;
+			color: var(--color-text);
+			line-height: var(--line-height-reset);
+			inline-size: 8px;
+			block-size: 8px;
+			border: 1px solid currentColor;
+			box-sizing: border-box;
+
+			@include mq(tab) {
+				inline-size: 10px;
+				block-size: 10px;
+			}
+		}
+
+		@include any-hover {
+			&:hover {
+			}
+		}
+	}
+
+	span.p-pagination__prev,
+	span.p-pagination__next {
+		color: var(--color-achromatic-secondary-400);
+		background-color: var(--color-achromatic-200);
+	}
+
+	.p-pagination__next {
+		@include mq(tab) {
+			margin-inline-start: calc(32px - 8px);
+		}
+
+		i {
+			border-left: 0;
+			border-bottom: 0;
+			transform: translateX(-25%) rotate(45deg);
+		}
+	}
+
+	.p-pagination__prev {
+		@include mq(tab) {
+			margin-inline-end: calc(32px - 8px);
+		}
+
+		i {
+			border-right: 0;
+			border-top: 0;
+			transform: translateX(25%) rotate(45deg);
+		}
+	}
+}

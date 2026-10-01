@@ -1,0 +1,17 @@
+// Radius
+@use '../core' as *;
+
+// Radius
+$radiusSizes: (
+	'xs': var(--radius-xs),
+	'sm': var(--radius-sm),
+	'md': var(--radius-md),
+	'lg': var(--radius-lg),
+	'xl': var(--radius-xl)
+);
+
+@each $size, $value in $radiusSizes {
+	.u-radius-#{$size} {
+		border-radius: $value;
+	}
+}

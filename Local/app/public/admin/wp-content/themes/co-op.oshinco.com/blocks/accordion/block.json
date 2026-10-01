@@ -1,0 +1,29 @@
+{
+  "name": "accordion",
+  "title": "アコーディオン",
+  "category": "theme",
+  "description": "",
+  "style": [],
+  "icon": "<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"200\" height=\"200\" viewBox=\"0 0 364 364\"><path /></svg>",
+  "keywords": ["案件名"],
+  "supports": {
+    "align": true,
+    "mode": true,
+    "jsx": true,
+    "customClassName": "true"
+  },
+  "mode": "auto",
+  "acf": {
+    "postTypes": ["page"],
+    "mode": "auto",
+    "renderTemplate": "block.php"
+  },
+  "example": {
+    "attributes": {
+      "mode": "preview",
+      "data": {
+        "__is_preview": true
+      }
+    }
+  }
+}

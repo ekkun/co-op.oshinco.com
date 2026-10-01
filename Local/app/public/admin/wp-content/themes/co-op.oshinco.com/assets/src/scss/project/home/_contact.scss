@@ -1,0 +1,261 @@
+// Contact
+@use '../../core' as *;
+
+.p-home-contact {
+	color: var(--color-white);
+	background-color: var(--color-corporate-green);
+	background-image: url('/assets/images/common/base-logo.svg');
+	background-position: -8% top;
+	background-repeat: no-repeat;
+	background-size: 375px auto;
+
+	@include mq(tab) {
+		background-size: 800px auto;
+	}
+}
+
+.p-home-contact__inner {
+	padding-block: 46px;
+
+	@include mq(tab) {
+		padding-block: 88px 80px;
+	}
+}
+
+.p-home-contact__header {
+	@include mq(tab) {
+	}
+
+	.p-home-contact__hgroup {
+		border-bottom: 1px solid var(--color-achromatic-secondary-100);
+		padding-block-end: 40px;
+
+		@include mq(tab) {
+			padding-block-end: 80px;
+		}
+
+		.--en {
+			color: var(--color-white);
+		}
+	}
+
+	& > p {
+		@include font-size(14);
+		margin-block-start: 24px;
+
+		@include mq(tab) {
+			@include font-size(18);
+			margin-block-start: 40px;
+		}
+	}
+}
+
+.p-home-contact__products {
+	margin-block-start: 40px;
+
+	@include mq(tab) {
+	}
+
+	&.--products {
+	}
+
+	.--products__list {
+		display: grid;
+		grid-template-columns: 1fr;
+		justify-content: center;
+		list-style: none;
+
+		@include mq(tab) {
+			grid-template-columns: repeat(4, 1fr);
+			gap: 40px;
+		}
+	}
+
+	.--products__item {
+		display: grid;
+		grid-template-rows: auto auto auto;
+		position: relative;
+		padding-block: 24px;
+
+		@include mq(tab) {
+			grid-template-rows: auto 1fr auto;
+			padding-block: 0;
+		}
+
+		&:first-child {
+			padding-block-start: 0;
+		}
+
+		&:last-child {
+			padding-block-end: 0;
+		}
+
+		&:not(:last-child) {
+			&:after {
+				@include mq(tab, down) {
+					content: '';
+					position: absolute;
+					bottom: 0;
+					left: 50%;
+					width: 100%;
+					height: 1px;
+					background-color: var(--color-achromatic-secondary-100);
+					translate: -50% -50%;
+				}
+			}
+		}
+
+		&:not(:nth-child(4n)):not(:last-child) {
+			&:after {
+				@include mq(tab) {
+					content: '';
+					position: absolute;
+					top: 50%;
+					right: -20px;
+					width: 1px;
+					height: 100%;
+					background-color: var(--color-achromatic-secondary-100);
+					translate: 0 -50%;
+				}
+			}
+		}
+	}
+
+	.--products__name {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		@include font-size(20);
+		font-weight: 700;
+		line-height: var(--line-height-reset);
+
+		@include mq(tab) {
+		}
+
+		i {
+			inline-size: 16px;
+			block-size: 16px;
+			@include icon-mask($color: var(--color-corporate-yellow), $image: '/assets/images/common/icon_diamond.svg');
+
+			@include mq(tab-lg) {
+			}
+		}
+	}
+
+	.--products__summary {
+		@include font-size(14);
+		line-height: var(--line-height-md);
+		padding-inline: 6%;
+
+		@include mq(tab) {
+		}
+
+		p {
+			margin-block: 8px;
+
+			&:first-child {
+				margin-block-start: 16px;
+			}
+		}
+	}
+
+	.--products__button {
+		margin-block-start: 24px;
+
+		@include mq(tab) {
+			//margin-top: auto;
+			margin-block-start: 16px;
+			align-self: end;
+		}
+
+		& > .c-button {
+			width: 100%;
+		}
+	}
+}
+
+.p-home-contact__general {
+	margin-block-start: 40px;
+
+	@include mq(tab) {
+		margin-block-start: 40px;
+	}
+
+	.--general__list {
+		display: grid;
+		grid-template-columns: 1fr;
+		justify-content: center;
+		gap: 40px;
+		position: relative;
+		background-color: var(--color-chromatic-color-600);
+		list-style: none;
+		padding-inline: 20px;
+		padding-block: 40px;
+
+		@include mq(tab) {
+			grid-template-columns: repeat(2, 1fr);
+			gap: 128px;
+			padding: 40px;
+		}
+
+		&:before {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: calc(100% - 40px);
+			height: 1px;
+			background-color: var(--color-achromatic-secondary-100);
+			translate: -50% -50%;
+
+			@include mq(tab) {
+				width: 1px;
+				height: 60%;
+			}
+		}
+	}
+
+	.--general__item {
+		display: flex;
+		flex-direction: column;
+		//justify-content: center;
+		align-items: center;
+		gap: 16px;
+
+		@include mq(tab) {
+			gap: 24px;
+			max-width: 530px;
+			width: 100%;
+		}
+	}
+
+	.--general__summary {
+		@include font-size(14);
+		font-weight: 500;
+		width: 100%;
+		text-align: center;
+
+		@include mq(tab) {
+			@include font-size(16);
+		}
+	}
+
+	.--general__button {
+		width: 100%;
+
+		@include mq(tab) {
+		}
+
+		& > .c-button {
+			@include mq(tab, down) {
+				width: 100%;
+			}
+		}
+
+		& > .c-button-inquiry {
+		}
+
+		& > .c-button-exlink {
+		}
+	}
+}

@@ -1,0 +1,62 @@
+// Progress
+@use '../core' as *;
+
+.p-progress {
+}
+
+.p-progress-item {
+	flex: 1;
+	max-width: 300px;
+}
+
+.p-progress-item__inner {
+	position: relative;
+	width: 100%;
+}
+
+.p-progress-svg {
+	width: 100%;
+	height: auto;
+	overflow: visible;
+}
+
+.p-progress-background {
+	fill: none;
+	stroke: var(--color-achromatic-secondary-100);
+	stroke-width: var(--stroke-width);
+}
+
+.p-progress-bar {
+	fill: none;
+	stroke: var(--stroke-color);
+	stroke-width: var(--stroke-width);
+	/* transition は JS でセットします */
+	//stroke-linecap: round;
+	transform-origin: center;
+	transform: rotate(var(--start-rotate, -90deg));
+}
+
+.p-progress-text {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	color: var(--color-corporate-green);
+	@include font-size(20);
+	transform: translate(-50%, -50%);
+
+	@include mq(tab) {
+		@include font-size(25);
+	}
+}
+
+.p-progress-value {
+	color: var(--color-corporate-green);
+	@include font-size(40);
+	//font-size: 2.5rem;
+	font-family: var(--font-roman);
+	//font-weight: 700;
+
+	@include mq(tab) {
+		@include font-size(50);
+	}
+}

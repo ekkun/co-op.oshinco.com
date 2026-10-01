@@ -1,0 +1,284 @@
+// Column
+@use '../core' as *;
+
+// 親カラム
+.c-columns,
+.l-entry-content .c-columns {
+	--columns-gap: 16px;
+	--columns-gap-md: 32px;
+
+	display: flex;
+	flex-wrap: wrap;
+	align-items: normal;
+	gap: var(--columns-gap);
+	box-sizing: border-box;
+
+	@include mq(md) {
+		flex-wrap: nowrap;
+		gap: var(--columns-gap-md);
+	}
+
+	&.--gap-xs {
+		--columns-gap: 8px;
+		--columns-gap-md: 16px;
+	}
+	&.--gap-sm {
+		--columns-gap: 12px;
+		--columns-gap-md: 24px;
+	}
+	&.--gap-md {
+		--columns-gap: 16px;
+		--columns-gap-md: 32px;
+	}
+	&.--gap-lg {
+		--columns-gap: 24px;
+		--columns-gap-md: 40px;
+	}
+	&.--gap-xl {
+		--columns-gap: 32px;
+		--columns-gap-md: 64px;
+	}
+
+	/* 縦位置 */
+	&.--align-top {
+		align-items: flex-start;
+	}
+	&.--align-center {
+		align-items: center;
+	}
+	&.--align-bottom {
+		align-items: flex-end;
+	}
+
+	/* 2カラムの順序入れ替え */
+	&.--swap-column {
+		@include mq(md, down) {
+			flex-direction: column-reverse;
+		}
+
+		@include mq(md) {
+			flex-direction: row;
+		}
+	}
+
+	/* 通常：SPでは縦積み */
+	&:not(.--no-stack) {
+		> .c-column {
+			@include mq(md, down) {
+				flex-basis: 100%;
+			}
+
+			@include mq(md) {
+				flex-basis: 0;
+				flex-grow: 1;
+			}
+
+			/* インラインで flex-basis が指定されている場合 */
+			&[style*='flex-basis'] {
+				@include mq(md) {
+					flex-grow: 0;
+				}
+			}
+		}
+	}
+
+	/* SPでも横並び */
+	&.--no-stack {
+		flex-wrap: nowrap;
+
+		> .c-column {
+			flex-basis: 0;
+			flex-grow: 1;
+
+			&[style*='flex-basis'] {
+				flex-grow: 0;
+			}
+		}
+	}
+
+	// 成り行き幅（auto）
+	&.--auto {
+		> .c-column {
+			flex: 0 1 auto; // grow しない / shrink 可 / basis auto
+		}
+	}
+
+	// 2カラム
+	&.--two-columns {
+		@include mq(md) {
+			flex-wrap: wrap; // （nowrap を上書き）
+		}
+
+		@include mq(md) {
+			> .c-column {
+				flex-basis: calc(50% - (var(--columns-gap-md) / 2));
+				flex-grow: 0;
+			}
+		}
+
+		/* ----------------------------
+   * 比率系（2:8 / 8:2 など）
+   * - gap分を引いた残りを比率配分
+   * - 2カラム想定（先頭と末尾に効かせる）
+   * ---------------------------- */
+		@mixin two-col-ratio($a, $b) {
+			@include mq(md) {
+				$sum: $a + $b;
+				> .c-column:first-child {
+					flex-basis: calc((100% - var(--columns-gap-md)) * (#{$a} / #{$sum}));
+				}
+				> .c-column:last-child {
+					flex-basis: calc((100% - var(--columns-gap-md)) * (#{$b} / #{$sum}));
+				}
+				> .c-column {
+					flex-grow: 0;
+				}
+			}
+		}
+
+		/* 2:8 / 8:2 */
+		&.--ratio-2-8 {
+			@include two-col-ratio(2, 8);
+		}
+		&.--ratio-8-2 {
+			@include two-col-ratio(8, 2);
+		}
+
+		/* 3:7 / 7:3 */
+		&.--ratio-3-7 {
+			@include two-col-ratio(3, 7);
+		}
+		&.--ratio-7-3 {
+			@include two-col-ratio(7, 3);
+		}
+
+		/* 4:6 / 6:4 */
+		&.--ratio-4-6 {
+			@include two-col-ratio(4, 6);
+		}
+		&.--ratio-6-4 {
+			@include two-col-ratio(6, 4);
+		}
+
+		&.--reverse-even {
+			@include mq(md) {
+				display: flex;
+			}
+
+			/* 偶数番目の c-columns を反転 */
+			@include mq(md) {
+				&:nth-of-type(odd) {
+					flex-direction: row-reverse;
+				}
+			}
+		}
+
+		&.--reverse-odd {
+			@include mq(md) {
+				display: flex;
+			}
+
+			/* 奇数番目の c-columns を反転 */
+			@include mq(md) {
+				&:nth-of-type(even) {
+					flex-direction: row-reverse;
+				}
+			}
+		}
+	}
+
+	// 子の高さを揃える
+	&.--subgrid {
+		@include mq(md) {
+			display: grid; // flexからgridに変更
+			grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+			grid-template-rows: auto 1fr;
+
+		}
+		> .c-column {
+			display: grid;
+			grid-template-rows: subgrid;
+			grid-row: span 2;
+
+			// h4のmargin-block-endを0にして、padding-block-endで代替
+			> :where(h1, h2, h3, h4, h5, h6) {
+				margin-block-end: 0 !important;
+			}
+			> :where(h1, h2, h3, h4, h5, h6) + * {
+				margin-block-start: 0 !important;
+			}
+		}
+	}
+
+	> .c-column.c-column { //classを重ね詳細度を上げてc-headingを上書きする
+		gap: 16px;
+		@include mq(md) {
+			gap: 32px;
+		}
+
+		> :is(h1, h2, h3, h4, h5, h6, p, div, figure) {
+			width: 100%;
+			margin-block-start: 16px;
+			margin-block-end: 16px;
+			@include mq(md) {
+				padding: 0;
+				margin: 0 !important;
+			}
+		}
+
+		> :where(div, figure) {
+			img {
+				width: 100%;
+			}
+		}
+	}
+}
+
+// 子カラム
+.c-column,
+.l-entry-content .c-column {
+	flex-grow: 1;
+	min-width: 0;
+	overflow-wrap: break-word;
+	word-break: break-word;
+
+	/* 縦位置（個別指定） */
+	&.--align-top {
+		align-self: flex-start;
+	}
+
+	&.--align-center {
+		align-self: center;
+	}
+
+	&.--align-bottom {
+		align-self: flex-end;
+	}
+
+	&.--align-stretch {
+		align-self: stretch;
+	}
+
+	/* top / center / bottom 指定時は幅100% */
+	&.--align-top,
+	&.--align-center,
+	&.--align-bottom {
+		width: 100%;
+	}
+
+	& > :where(h1, h2, h3, h4, h5, h6, p, div, figure) {
+		&:first-child {
+			margin-block-start: 0;
+		}
+
+		&:last-child {
+			margin-block-end: 0;
+		}
+	}
+
+	@include mq(md) {
+		display: flex;
+		flex-direction: column;
+	}
+
+}

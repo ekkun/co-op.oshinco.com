@@ -1,0 +1,382 @@
+// Periodic Table Component Styles
+@use '../core' as *;
+
+.c-periodic-table,
+.l-entry-content .c-periodic-table {
+	display: grid;
+	grid-template-columns: repeat(18, 1fr);
+	grid-column-gap: 3px;
+	grid-row-gap: 3px;
+	margin: 0;
+	padding: 0;
+
+	@include mq(tab, down) {
+		width: 900px;
+		height: 480px;
+	}
+
+	@include mq(tab) {
+	}
+
+	&:before {
+		display: block;
+		content: '';
+		grid-row: 9 / 11;
+		grid-column: 1 / 4;
+
+		@include mq(tab) {
+		}
+	}
+
+	&:after {
+		@include mq(tab) {
+		}
+	}
+
+	.--item {
+		display: flex;
+		counter-increment: element;
+		aspect-ratio: 32 / 31;
+		width: 100%;
+		height: 100%;
+		margin: 0;
+
+		@include mq(tab) {
+		}
+
+		@include mq(xl) {
+		}
+	}
+
+	.--item:nth-child(n + 59):nth-last-child(n + 48) {
+		grid-row-start: 9;
+
+		@include mq(tab) {
+		}
+	}
+
+	.--item:nth-child(n + 91):nth-last-child(n + 16) {
+		grid-row-start: 10;
+
+		@include mq(tab) {
+		}
+	}
+
+	#el-2,
+	#sp-el-2 {
+		grid-column-start: 18;
+	}
+
+	#el-5,
+	#el-13,
+	#sp-el-5,
+	#sp-el-13 {
+		grid-column-start: 13;
+	}
+
+	#el-58,
+	#el-90,
+	#sp-el-58,
+	#sp-el-90 {
+		grid-column-start: 4;
+	}
+
+	.--inner {
+		display: grid;
+		grid-template-rows: 1fr;
+		justify-items: center;
+		align-items: center;
+		position: relative;
+		text-align: center;
+		text-decoration: inherit;
+		width: 100%;
+		height: 100%;
+		padding: 8px 4px;
+		border-radius: var(--radius-xs);
+		overflow: hidden;
+		z-index: 0;
+		@include transition();
+
+		@include mq(tab) {
+			display: grid;
+			grid-template-rows: 1fr;
+			justify-items: center;
+			align-items: center;
+			position: relative;
+			text-align: center;
+			width: 100%;
+			height: 100%;
+			padding: 4px 4px;
+			border-radius: var(--radius-xs);
+			overflow: hidden;
+			z-index: 0;
+
+			//background-color: red;
+		}
+
+		/*&:before {
+			@include mq(tab) {
+				content: '';
+				position: absolute;
+				top: -4px;
+				left: -16px;
+				width: 0;
+				height: 0;
+				border-style: solid;
+				border-width: 0 22px 22px 22px;
+				border-color: transparent transparent var(--color-white) transparent;
+				transform: rotate(-45deg);
+			}
+
+			@include mq(xl) {
+				//top: -2px;
+				//left: -14px;
+			}
+		}*/
+	}
+
+	a.--inner {
+		color: var(--color-white);
+		background-color: var(--color-corporate-green);
+
+		/*> :not(.--number) {
+			color: var(--color-white);
+		}*/
+
+		&:hover {
+			@include mq(tab) {
+				//grid-template-rows: 1fr 18px;
+				color: var(--color-corporate-green);
+				background-color: var(--color-white);
+				box-shadow: 0px 0px 20px 1px oklch(from var(--color-achromatic-secondary-900) l c h / 50%);
+				padding: 8px 4px;
+				scale: 1.2;
+				z-index: +1;
+
+				.--definition {
+					height: auto;
+					visibility: visible;
+					//scale: 0.8;
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	span.--inner {
+		color: var(--color-achromatic-secondary-400);
+		background-color: var(--color-achromatic-300);
+	}
+
+	.--number {
+		content: counter(element);
+		position: absolute;
+
+		@include mq(tab, down) {
+			top: 0px;
+			left: 4px;
+			@include font-size(6);
+		}
+
+		@include mq(tab) {
+			top: 2px;
+			left: 4px;
+			@include font-size(8);
+		}
+	}
+
+	.--abbreviation {
+		@include font-size(20);
+		font-weight: 700;
+		text-decoration: none;
+		line-height: var(--line-height-reset);
+		@include line-height(1, $position: both);
+		//text-box: trim-both cap alphabetic;
+		cursor: unset;
+
+		@include mq(tab) {
+			@include font-size(20);
+			//font-weight: 700;
+		}
+
+		@include mq(xl) {
+			@include font-size(28);
+		}
+	}
+
+	.--definition {
+		line-height: 1.2;
+		//@include line-height(1.2, $position: both);
+		//text-box: trim-both cap alphabetic;
+
+		@include mq(tab, down) {
+			@include font-size(5);
+			height: auto;
+			visibility: visible;
+			//scale: 0.8;
+			opacity: 1;
+		}
+
+		@include mq(tab) {
+			@include font-size(8);
+			height: 1px;
+			visibility: hidden;
+			scale: 0.8;
+			opacity: 0;
+			@include transition();
+		}
+
+		@include mq(xl) {
+			@include font-size(10);
+		}
+	}
+
+	.--spacer {
+		grid-column: 1 / -1;
+		grid-row: 8;
+		height: 20px;
+		pointer-events: none;
+
+		@include mq(tab) {
+		}
+	}
+}
+
+// 囲い
+.c-periodic-table__wrapper,
+.l-entry-content .c-periodic-table__wrapper {
+	&.--home,
+	&.--products {
+		@include mq(tab, down) {
+			display: none;
+		}
+
+		@include mq(tab) {
+			background-color: var(--color-white);
+			margin-block-start: 40px;
+			padding: 40px;
+		}
+	}
+
+	&.--search {
+		@include mq(tab, down) {
+			display: none;
+		}
+	}
+}
+
+// モーダル
+.c-periodic-table-modal,
+.l-entry-content .c-periodic-table-modal {
+	@include mq(tab) {
+		display: none;
+	}
+
+	&.--home,
+	&.--products {
+		background-color: var(--color-white);
+		margin-block-start: 24px;
+		padding: 16px;
+	}
+
+	[data-type='button'] {
+		border: none;
+		margin: 0;
+		padding: 0;
+		@include transition();
+
+		@include any-hover {
+			&:hover {
+				opacity: 0.8;
+			}
+		}
+	}
+
+	[data-type='dialog'] {
+		box-shadow: 0px 0px 20px 1px oklch(from var(--color-achromatic-secondary-900) l c h / 50%);
+		opacity: 0;
+		transform: translateY(-20px);
+		@include transition();
+		overflow: hidden;
+		pointer-events: none;
+
+		&::backdrop {
+			background-color: oklch(from var(--color-achromatic-secondary-900) l c h / 60%);
+			@include transition();
+		}
+
+		&[open].is-visible {
+			opacity: 1;
+			transform: translateY(0);
+			pointer-events: auto;
+		}
+	}
+
+	[data-type='panel'] {
+		position: relative;
+		width: calc(100dvw - (24px * 2));
+		height: calc(100dvh - (24px * 2));
+		max-height: 536px;
+		background-color: var(--color-white);
+		padding-inline: 24px;
+		padding-block: 24px;
+		overflow: hidden;
+
+		.--panel-inner {
+			height: 100%;
+			overflow: auto;
+			-ms-overflow-style: none;
+			scrollbar-width: none;
+
+			&::-webkit-scrollbar {
+				display: none;
+			}
+		}
+
+		.--panel-header,
+		.--panel-footer {
+			color: transparent;
+			width: 900px;
+			height: 8px;
+		}
+	}
+
+	[data-type='close'] {
+		display: block;
+		position: absolute;
+		right: 10px;
+		top: 10px;
+		color: var(--color-achromatic-secondary-900);
+		text-indent: -9999px;
+		text-decoration: none;
+		line-height: var(--line-height-reset);
+		width: 24px;
+		height: 24px;
+		border: none;
+		margin: 0;
+		padding: 0;
+		overflow: hidden;
+		z-index: +1;
+
+		&:before,
+		&:after {
+			content: '';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 2px;
+			height: 80%;
+			background-color: currentColor;
+			border-radius: 1px;
+			transform: translate(-50%, -50%);
+		}
+
+		&:before {
+			transform: translate(-50%, -50%) rotate(45deg);
+		}
+
+		&:after {
+			transform: translate(-50%, -50%) rotate(135deg);
+		}
+	}
+}

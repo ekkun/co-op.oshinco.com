@@ -1,0 +1,255 @@
+@use '../../core/index' as *;
+
+// 通常のCTA
+.p-douhaku-cta {
+	display: grid;
+	gap: 24px;
+	background-color: var(--color-corporate-green);
+	@include oklch-gradient(to bottom right, var(--color-corporate-green-3), var(--color-corporate-green-2));
+	color: var(--color-white);
+	padding-block: 40px;
+	padding-inline: 20px;
+	position: relative;
+
+	@include mq(tab) {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 40px;
+		padding-block: 80px;
+		padding-inline: 60px 70px;
+		background-position: left center;
+		background-size: auto 100%;
+	}
+
+	&::before {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 50%;
+		translate: -50% 0;
+		width: 280px;
+		height: 100%;
+		background-image: url('/assets/images/douhaku/contact-base-logo.svg');
+		background-repeat: no-repeat;
+		background-size: 100% auto;
+
+		@include mq(tab) {
+			width: 100%;
+			height: 100%;
+			background-size: auto 100%;
+		}
+	}
+}
+
+.p-douhaku-cta__title {
+	margin-block: 0;
+	display: grid;
+	gap: 8px;
+	text-align: center;
+	position: relative;
+
+	@include mq(tab) {
+		flex-shrink: 0;
+		text-align: left;
+		gap: 16px;
+	}
+
+	.--en {
+		font-family: var(--font-roman);
+		@include font-size(48);
+		font-weight: 400;
+		line-height: 1;
+		color: var(--color-white);
+		margin: 0;
+
+		@include mq(tab) {
+			font-size: clamp(2rem, 6.25vw, 5rem);
+		}
+	}
+
+	.--ja {
+		@include font-size(20);
+		font-weight: 700;
+		margin: 0;
+		padding: 0;
+
+		@include mq(tab) {
+			font-size: clamp(1rem, 2.1875vw, 1.75rem);
+		}
+
+		&::before {
+			display: none;
+		}
+	}
+}
+
+.p-douhaku-cta__buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	position: relative;
+
+	@include mq(tab) {
+		width: clamp(400px, 100%, 630px);
+		flex-direction: row;
+		gap: 8px;
+		position: relative;
+	}
+}
+
+.p-douhaku-cta__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	flex-grow: 1;
+
+	@include mq(tab) {
+		gap: 20px;
+	}
+}
+
+.p-douhaku-cta__lead {
+	@include font-size(14);
+	font-weight: 700;
+	text-align: center;
+	margin: 0;
+
+	@include mq(tab) {
+		@include font-size(16);
+		line-height: calc(24.5 / 16);
+	}
+}
+
+.p-douhaku-cta__button {
+	width: min(260px, 100%);
+
+	.c-button-inquiry {
+		border: 1px solid var(--color-corporate-yellow);
+
+		@include any-hover {
+			&:hover {
+				border-color: var(--color-white);
+			}
+		}
+	}
+
+	.c-button-download-invert {
+		border: 1px solid var(--color-white);
+	}
+}
+
+
+// シンプルverのCTA
+.p-douhaku-cta-simple {
+	margin-block-end: 64px;
+	padding: 24px 20px;
+	background-color: var(--color-corporate-green);
+	@include oklch-gradient(to bottom right, var(--color-corporate-green), var(--color-corporate-green-2));
+}
+
+.p-douhaku-cta-simple__buttons {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 16px 40px;
+}
+
+.p-douhaku-cta-simple__button {
+	width: min(260px, 100%);
+
+	.c-button-inquiry {
+		border: 1px solid var(--color-corporate-yellow);
+
+		@include any-hover {
+			&:hover {
+				border-color: var(--color-white);
+			}
+		}
+	}
+
+	.c-button-download-invert {
+		border: 1px solid var(--color-white);
+	}
+}
+
+
+// 銅箔トップのCTA
+.p-douhaku-cta-secondary {
+	display: grid;
+	gap: 24px;
+	background-color: var(--color-white);
+	padding-block: 40px;
+	padding-inline: 20px;
+
+	@include mq(tab) {
+		gap: 20px;
+		padding-block: 40px 54px;
+		padding-inline: 40px;
+		max-width: 920px;
+		margin-inline: auto;
+	}
+}
+
+.p-douhaku-cta-secondary__title {
+	margin-block: 0;
+	@include font-size(20);
+	font-weight: 700;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	color: var(--color-corporate-green);
+
+	@include mq(tab) {
+		@include font-size(28);
+	}
+
+	&::before {
+		display: none;
+	}
+}
+
+.p-douhaku-cta-secondary__buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 32px;
+	position: relative;
+	margin: 0;
+
+	@include mq(tab) {
+		flex-direction: row;
+		justify-content: center;
+		gap: 40px;
+		position: relative;
+	}
+}
+
+.p-douhaku-cta-secondary__item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+
+	@include mq(tab) {
+		gap: 20px;
+		width: min(290px, 100%);
+	}
+}
+
+.p-douhaku-cta-secondary__lead {
+	@include font-size(14);
+	font-weight: 700;
+	line-height: var(--line-height-default);
+	text-align: center;
+	margin: 0;
+
+	@include mq(tab) {
+		@include font-size(16);
+	}
+}
+
+.p-douhaku-cta-secondary__button {
+	width: min(290px, 100%);
+}

@@ -1,0 +1,57 @@
+// Text
+@use '../core' as *;
+
+// Text Color
+$textColors: (
+	'black': var(--text-color),
+	'white': var(--color-white),
+	'green': var(--color-corporate-green),
+	'yellow': var(--color-corporate-yellow),
+	'notice': var(--color-achromatic-secondary-400),
+	'inherit': inherit
+);
+
+.u-text {
+	@each $color, $value in $textColors {
+		&-#{$color} {
+			color: $value;
+		}
+	}
+}
+
+// Text Align
+$textAligns: (
+	'left': left,
+	'center': center,
+	'right': right
+);
+
+@each $align, $value in $textAligns {
+	.u-text-#{$align} {
+		text-align: $value;
+	}
+
+	@each $breakpoint, $bpValue in $breakpoints {
+		@media (width >=#{$bpValue}) {
+			.#{$breakpoint}\:u-text-#{$align} {
+				text-align: $value;
+			}
+		}
+	}
+}
+
+// Text Decoration
+$textDecorations: (
+	'underline': underline,
+	'overline': overline,
+	'line-through': line-through,
+	'no-underline': none
+);
+
+.u-text {
+	@each $decoration, $value in $textDecorations {
+		&-#{$decoration} {
+			text-decoration: $value;
+		}
+	}
+}
