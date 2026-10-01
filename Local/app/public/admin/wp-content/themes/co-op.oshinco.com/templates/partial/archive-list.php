@@ -1,7 +1,7 @@
 <?php
 
 /* 
-	Included as part of template-archive.php.
+	Included as part of templates/page/archive.php.
  */
 
 ?>

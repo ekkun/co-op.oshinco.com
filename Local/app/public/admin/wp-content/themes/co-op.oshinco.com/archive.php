@@ -1,24 +1,19 @@
 <?php
-$post_type_object = get_post_type_object(get_post_type());
-$post_type_name = $post_type_object ? esc_html($post_type_object->name) : '';
-$post_type_label = $post_type_object ? esc_html($post_type_object->label) : '';
+// 投稿タイプ固有テンプレートを選択する。
+$post_type_name = get_query_var('post_type');
+$post_type_name = is_array($post_type_name) ? reset($post_type_name) : $post_type_name;
+$post_type_name = $post_type_name ? sanitize_key($post_type_name) : '';
+
+// 日付・著者など投稿タイプを持たないアーカイブは共通一覧を使う。
 if (!$post_type_name) {
-  $post_type_name = esc_html(get_query_var('post_type'));
-}
-$template = dirname(__FILE__) . '/templates/archive/' . $post_type_name . '.php';
-
-// カテゴリー
-if (is_category()) {
-  $template = dirname(__FILE__) . '/templates/archive/category.php';
+  require get_template_directory() . '/templates/archive/default.php';
+  return;
 }
 
-// タグ
-if (is_tag()) {
-  $template = dirname(__FILE__) . '/templates/archive/tag.php';
-}
+$template = get_template_directory() . '/templates/archive/' . $post_type_name . '.php';
 
 if (file_exists($template)) {
-  require_once $template;
+  require $template;
 } else {
-  echo '"' . $post_type_name . '" テンプレートが存在しません！';
+  echo '"' . esc_html($post_type_name) . '" のテンプレートが存在しません！';
 }

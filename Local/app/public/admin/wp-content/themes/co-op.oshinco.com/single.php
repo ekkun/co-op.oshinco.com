@@ -1,31 +1,10 @@
 <?php
-$post_type_name = esc_html(get_post_type_object(get_post_type())->name);
-$post_type_label = esc_html(get_post_type_object(get_post_type())->label);
-$template = dirname(__FILE__) . '/templates/single/' . $post_type_name . '.php';
+// 投稿タイプ固有テンプレートを選択する。
+$post_type_name = sanitize_key(get_post_type());
+$template = get_template_directory() . '/templates/single/' . $post_type_name . '.php';
 
-//if ( empty($contents) ) {
 if (file_exists($template)) {
-  require_once $template;
+  require $template;
 } else {
-  echo '"' . $post_type_name . '" のテンプレートが存在しません！';
+  echo '"' . esc_html($post_type_name) . '" のテンプレートが存在しません！';
 }
-//} else {
-//  get_header();
-//
-//  if (have_posts()) {
-//    while (have_posts()) {
-//      the_post();
-//      echo '<div class="post" id="post-'. the_ID() .'">';
-//      echo '<h3 class="post-title"><a href="'. get_the_permalink() .'" rel="bookmark" title="">'. get_the_title() .'</a></h3>';
-//      echo '<div>'. get_the_excerpt() .'</div>';
-//    }
-//    if (function_exists("pagination")) {
-//      pagination($additional_loop->max_num_pages);
-//    }
-//  } else {
-//    echo '<h2>記事がありません。</h2>';
-//  }
-//
-//  //get_sidebar();
-//  get_footer();
-//}

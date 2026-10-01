@@ -19,11 +19,9 @@ add_action('admin_menu', 'hide_posts_menu');
 
 // 投稿（post）をフロントエンドのクエリから除外する
 function exclude_posts_from_query($query) {
-  if (!is_admin() && $query->is_main_query() && !$query->is_singular()) {
-    $post_types = $query->get('post_type');
-    if (empty($post_types) || $post_types === 'post') {
-      $query->set('post_type', array('case', 'news', 'page'));
-    }
+  if (!is_admin() && $query->is_main_query() && $query->is_home()) {
+    // 旧「投稿」は実績へ移行し、トップでは実績だけを見せる。
+    $query->set('post_type', array('case'));
   }
 }
 add_action('pre_get_posts', 'exclude_posts_from_query');
@@ -71,11 +69,27 @@ if (!function_exists('coop_theme_setup')) :
   add_action('after_setup_theme', 'coop_theme_setup');
 endif;
 
+// Fukasawa 互換のサイドバー。
+function coop_sidebar_registration() {
+  register_sidebar(array(
+    'name'          => __('Sidebar', 'co-op-oshinco'),
+    'id'            => 'sidebar',
+    'description'   => __('Widgets shown in the fixed sidebar.', 'co-op-oshinco'),
+    'before_title'  => '<h3 class="widget-title">',
+    'after_title'   => '</h3>',
+    'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clear">',
+    'after_widget'  => '</div></div>',
+  ));
+}
+add_action('widgets_init', 'coop_sidebar_registration');
+
 // JS エンキュー（fukasawa の flexslider + global.js を流用）
 if (!function_exists('coop_enqueue_scripts')) :
   function coop_enqueue_scripts() {
     wp_register_script('coop_flexslider', get_template_directory_uri() . '/assets/js/flexslider.js', array(), '2.7.0', true);
     wp_enqueue_script('coop_global', get_template_directory_uri() . '/assets/js/global.js', array('jquery', 'masonry', 'imagesloaded', 'coop_flexslider'), wp_get_theme()->get('Version'), true);
+    wp_enqueue_script('coop_splide', get_template_directory_uri() . '/assets/js/splide.min.js', array(), '4.1.4', true);
+    wp_enqueue_script('coop_gallery', get_template_directory_uri() . '/assets/js/gallery.js', array('coop_splide'), wp_get_theme()->get('Version'), true);
     if (is_singular()) wp_enqueue_script('comment-reply');
   }
   add_action('wp_enqueue_scripts', 'coop_enqueue_scripts');
@@ -88,14 +102,38 @@ if (!function_exists('coop_enqueue_styles')) :
       $ver = wp_get_theme()->get('Version');
       // Google Fonts + フォント定義
       wp_enqueue_style('coop_fonts', get_theme_file_uri('/assets/css/fonts.css'), array(), $ver);
+      // Fukasawa のメニュー・検索・引用などで使うアイコンフォント
+      wp_enqueue_style('coop_genericons', get_theme_file_uri('/assets/fonts/genericons/genericons.css'), array(), $ver);
       // fukasawa メインスタイル
-      wp_enqueue_style('coop_fukasawa', get_theme_file_uri('/assets/css/fukasawa-style.css'), array('coop_fonts'), $ver);
+      wp_enqueue_style('coop_fukasawa', get_theme_file_uri('/assets/css/fukasawa-style.css'), array('coop_fonts', 'coop_genericons'), $ver);
+      wp_enqueue_style('coop_splide', get_theme_file_uri('/assets/css/splide.min.css'), array(), '4.1.4');
       // テーマ固有スタイル（style.css）
       wp_enqueue_style('coop_style', get_stylesheet_uri(), array('coop_fukasawa'), $ver);
     }
   }
   add_action('wp_enqueue_scripts', 'coop_enqueue_styles');
 endif;
+
+// Fukasawa の gallery 投稿フォーマットで使うスライダー。
+function fukasawa_flexslider($size = 'thumbnail') {
+  $images = get_posts(array(
+    'numberposts'    => -1,
+    'orderby'        => 'menu_order',
+    'order'          => 'ASC',
+    'post_parent'    => get_the_ID(),
+    'post_type'      => 'attachment',
+    'post_status'    => 'inherit',
+    'post_mime_type' => 'image',
+  ));
+
+  if (!$images) return;
+
+  echo '<div class="flexslider"><ul class="slides">';
+  foreach ($images as $image) {
+    echo '<li>' . wp_get_attachment_image($image->ID, $size) . '</li>';
+  }
+  echo '</ul></div>';
+}
 
 // ブロックエディタスタイル
 if (!function_exists('coop_block_editor_styles')) :
