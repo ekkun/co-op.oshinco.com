@@ -1,0 +1,139 @@
+@layer project {
+	:root {
+		--coop-charcoal: #444;
+		--coop-blue: #009ddd;
+		--coop-orange: #ff9f40;
+		--coop-gray: #767676;
+		--coop-white: #fff;
+		--coop-sidebar: 250px;
+	}
+
+	body {
+		min-inline-size: 320px;
+		margin: 0;
+		color: var(--coop-charcoal);
+		background: var(--coop-white);
+		font-family: 'Gen Interface JP', 'Noto Sans JP', sans-serif;
+	}
+	.wrapper { inline-size: auto; max-inline-size: none; margin-inline-start: var(--coop-sidebar); }
+	.skip-link { position: fixed; inset-block-start: -80px; inset-inline-start: 16px; z-index: 200; padding: 12px; color: #111; background: #fff; }
+	.skip-link:focus { inset-block-start: 16px; }
+
+	.coop-header {
+		position: fixed;
+		inset-block: 0;
+		inset-inline-start: 0;
+		z-index: 50;
+		display: flex;
+		inline-size: var(--coop-sidebar);
+		min-block-size: 100dvh;
+		padding-block: 40px 28px;
+		padding-inline: 28px;
+		flex-direction: column;
+		color: #fff;
+		background: var(--coop-charcoal);
+	}
+	.coop-logo { display: block; inline-size: 100%; color: inherit; font-size: 16px; font-weight: 600; letter-spacing: .12em; text-decoration: none; }
+	.coop-logo__name { display: block; padding: 13px 14px; border: 1px solid currentColor; text-align: center; white-space: nowrap; }
+	.coop-navigation { margin-block-start: 42px; padding-block-start: 36px; border-block-start: 1px solid rgb(255 255 255 / 25%); }
+	.coop-navigation__list { margin: 0; padding: 0; list-style: none; }
+	.coop-navigation__item { margin-block-end: 28px; }
+	.coop-navigation__link { color: #fff; font-size: 11px; font-weight: 400; letter-spacing: .08em; text-decoration: none; transition: color .2s ease; }
+	.coop-navigation__link:hover { color: var(--coop-blue); }
+	.coop-header__foot { margin-block-start: auto; font-size: 8px; letter-spacing: .04em; }
+	.coop-header__foot p { margin: 0; }
+	.coop-menu-toggle { display: none; }
+
+	.coop-home { letter-spacing: .08em; }
+	.coop-news { display: grid; grid-template-columns: 118px 1fr; min-block-size: 64px; color: #fff; background: var(--coop-gray); }
+	.coop-news__label { display: flex; align-items: center; margin: 0; padding-inline: 28px; font-size: 10px; font-weight: 600; }
+	.coop-news__link { display: grid; grid-template-columns: 90px 1fr auto; gap: 20px; align-items: center; padding-inline: 32px; color: inherit; font-size: 10px; text-decoration: none; }
+	.coop-news__link time { opacity: .75; }
+	.coop-news__arrow { font-size: 17px; }
+	.coop-news__empty { align-self: center; margin: 0; padding-inline: 32px; font-size: 10px; }
+
+	.coop-cases { container-type: inline-size; padding-block: 38px 80px; padding-inline: clamp(32px, 4.5vw, 64px); }
+	.coop-cases__header { margin-block-end: 30px; }
+	.coop-cases__title { margin: 0; font-size: 12px; font-weight: 600; line-height: 1.3; }
+	.coop-cases__grid { margin-inline-end: -20px; }
+	.coop-cases__sizer,
+	.coop-case-card { inline-size: calc((100% - 40px) / 3); }
+	.coop-case-card { min-inline-size: 0; margin-block-end: 48px; }
+	.coop-case-card__link { display: block; color: inherit; text-decoration: none; }
+	.coop-case-card__media { position: relative; aspect-ratio: 1.25 / 1; margin: 0; overflow: hidden; background: #f3f3f3; }
+	.coop-case-card__media img { inline-size: 100%; block-size: 100%; object-fit: cover; transition: transform .5s ease; }
+	.coop-case-card__placeholder { display: block; inline-size: 100%; block-size: 100%; background: #f3f3f3; }
+	.coop-case-card__body { position: relative; min-block-size: 132px; padding-block: 18px 32px; padding-inline: 14px 32px; }
+	.coop-case-card__title { margin: 0; font-size: 15px; font-weight: 600; line-height: 1.5; }
+	.coop-case-card__excerpt { margin-block-start: 17px; color: var(--coop-gray); font-family: 'Noto Serif JP', serif; font-size: 10px; line-height: 1.9; }
+	.coop-case-card__excerpt p { margin: 0; }
+	.coop-case-card__arrow { position: absolute; inset-inline-end: 8px; inset-block-end: 4px; inline-size: 20px; block-size: 20px; font-size: 18px; line-height: 1; transition: translate .2s ease; }
+	.coop-case-card__link:hover img { transform: scale(1.025); }
+	.coop-case-card__link:hover .coop-case-card__arrow { translate: 4px 0; color: var(--coop-blue); }
+	ion-infinite-scroll { min-block-size: 70px; --color: var(--coop-blue); }
+	.coop-singular { padding-block: clamp(64px, 9vw, 128px); padding-inline: clamp(32px, 7vw, 104px); }
+	.coop-entry { max-inline-size: 1120px; margin-inline: auto; letter-spacing: .08em; }
+	.coop-entry__header { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px 32px; align-items: end; margin-block-end: clamp(48px, 8vw, 104px); padding-block-end: 28px; border-block-end: 1px solid #cfcfcf; }
+	.coop-entry__eyebrow { grid-column: 1 / -1; margin: 0; color: var(--coop-blue); font-size: 10px; font-weight: 600; }
+	.coop-entry__title { margin: 0; font-size: clamp(32px, 5vw, 68px); font-weight: 500; letter-spacing: .04em; line-height: 1.15; text-wrap: balance; }
+	.coop-entry__date { color: var(--coop-gray); font-size: 10px; white-space: nowrap; }
+	.coop-entry__hero { margin-block: 0 clamp(48px, 8vw, 96px); }
+	.coop-entry__hero img { inline-size: 100%; block-size: auto; }
+	.coop-entry-nav { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); margin-block-start: clamp(72px, 10vw, 128px); border-block: 1px solid #cfcfcf; }
+	.coop-entry-nav__item { min-inline-size: 0; }
+	.coop-entry-nav__item + .coop-entry-nav__item { border-inline-start: 1px solid #cfcfcf; }
+	.coop-entry-nav a { display: block; padding-block: 24px; padding-inline: 20px; font-size: 12px; text-decoration: none; }
+	.coop-entry-nav span { display: block; margin-block-end: 8px; color: var(--coop-blue); font-size: 9px; }
+	.coop-entry-nav__item--next { text-align: end; }
+
+	@container (inline-size <= 760px) {
+		.coop-cases__sizer,
+		.coop-case-card { inline-size: calc((100% - 20px) / 2); }
+	}
+
+	@media (width <= 767px) {
+		.wrapper { margin-inline-start: 0; padding-block-start: 72px; }
+		.coop-header { inset-block: 0 auto; inset-inline: 0; inline-size: 100%; min-block-size: 0; block-size: 72px; padding-block: 16px; padding-inline: 20px; flex-direction: row; align-items: center; justify-content: space-between; }
+		.coop-header__brand { position: relative; z-index: 2; }
+		.coop-logo { inline-size: 202px; font-size: 14px; }
+		.coop-logo__name { padding: 10px 12px; }
+		.coop-menu-toggle { position: relative; z-index: 3; display: block; inline-size: 40px; block-size: 40px; padding: 0; background: transparent; }
+		.coop-menu-toggle__line { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; display: block; inline-size: 22px; block-size: 1px; background: #fff; translate: -50% -50%; transition: transform .25s ease; transform-origin: center; }
+		.coop-menu-toggle__line:first-of-type { transform: translateY(-4px); }
+		.coop-menu-toggle__line:nth-of-type(2) { transform: translateY(4px); }
+		.is-coop-menu-open .coop-menu-toggle__line:first-of-type { transform: rotate(45deg); }
+		.is-coop-menu-open .coop-menu-toggle__line:nth-of-type(2) { transform: rotate(-45deg); }
+		.is-coop-menu-open .coop-menu-toggle { background: #666; }
+		.coop-navigation { position: fixed; inset: 0; z-index: 1; display: flex; margin: 0; padding-block: 124px 30px; padding-inline: 20px; flex-direction: column; border: 0; background: var(--coop-charcoal); visibility: hidden; opacity: 0; pointer-events: none; transition: opacity .2s ease, visibility .2s ease; }
+		.is-coop-menu-open { overflow: hidden; }
+		.is-coop-menu-open .coop-navigation { visibility: visible; opacity: 1; pointer-events: auto; }
+		.coop-navigation__list { padding-block-start: 28px; border-block-start: 1px solid rgb(255 255 255 / 25%); }
+		.coop-navigation__item { margin: 0; border: 0; }
+		.coop-navigation__link { display: block; padding-block: 14px; font-size: 24px; font-weight: 500; letter-spacing: .08em; line-height: 1; }
+		.coop-header__foot { position: fixed; inset-inline-end: 20px; inset-block-end: 24px; z-index: 2; display: none; }
+		.is-coop-menu-open .coop-header__foot { display: block; }
+		.coop-news { grid-template-columns: 76px 1fr; min-block-size: 54px; }
+		.coop-news__label { padding-inline: 16px; font-size: 8px; }
+		.coop-news__link { grid-template-columns: 1fr auto; gap: 8px; padding-inline: 16px; }
+		.coop-news__link time { display: none; }
+		.coop-news__title { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+		.coop-news__empty { padding-inline: 16px; }
+		.coop-cases { padding-block: 32px 64px; padding-inline: 20px; }
+		.coop-cases__header { margin-block-end: 24px; }
+		.coop-cases__grid { margin-inline-end: 0; }
+		.coop-cases__sizer, .coop-case-card { inline-size: 100%; }
+		.coop-case-card { margin-block-end: 42px; }
+		.coop-case-card__media { aspect-ratio: 1.25 / 1; }
+		.coop-case-card__body { min-block-size: 120px; padding-inline-start: 0; }
+		.coop-singular { padding-block: 48px 72px; padding-inline: 20px; }
+		.coop-entry__header { display: block; margin-block-end: 48px; padding-block-end: 20px; }
+		.coop-entry__title { margin-block-start: 12px; font-size: clamp(30px, 10vw, 44px); }
+		.coop-entry__date { display: block; margin-block-start: 18px; }
+		.coop-entry-nav { grid-template-columns: 1fr; }
+		.coop-entry-nav__item + .coop-entry-nav__item { border-block-start: 1px solid #cfcfcf; border-inline-start: 0; }
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.coop-navigation, .coop-menu-toggle__line, .coop-case-card__media img, .coop-case-card__arrow { transition: none; }
+	}
+}

@@ -69,7 +69,7 @@ if (!function_exists('coop_theme_setup')) :
   add_action('after_setup_theme', 'coop_theme_setup');
 endif;
 
-// Fukasawa 互換のサイドバー。
+// ウィジェットエリア。
 function coop_sidebar_registration() {
   register_sidebar(array(
     'name'          => __('Sidebar', 'co-op-oshinco'),
@@ -83,39 +83,34 @@ function coop_sidebar_registration() {
 }
 add_action('widgets_init', 'coop_sidebar_registration');
 
-// JS エンキュー（fukasawa の flexslider + global.js を流用）
+// Viteで生成したフロントエンドJSを読み込む。
 if (!function_exists('coop_enqueue_scripts')) :
   function coop_enqueue_scripts() {
-    wp_register_script('coop_flexslider', get_template_directory_uri() . '/assets/js/flexslider.js', array(), '2.7.0', true);
-    wp_enqueue_script('coop_global', get_template_directory_uri() . '/assets/js/global.js', array('jquery', 'masonry', 'imagesloaded', 'coop_flexslider'), wp_get_theme()->get('Version'), true);
-    wp_enqueue_script('coop_splide', get_template_directory_uri() . '/assets/js/splide.min.js', array(), '4.1.4', true);
-    wp_enqueue_script('coop_gallery', get_template_directory_uri() . '/assets/js/gallery.js', array('coop_splide'), wp_get_theme()->get('Version'), true);
+    wp_enqueue_script('coop_app', get_template_directory_uri() . '/assets/js/main.js', array(), filemtime(get_template_directory() . '/assets/js/main.js'), true);
     if (is_singular()) wp_enqueue_script('comment-reply');
   }
   add_action('wp_enqueue_scripts', 'coop_enqueue_scripts');
 endif;
 
-// CSS エンキュー（fukasawa からコピーしたスタイルを読み込む）
+// ViteのentryはES moduleとして読み込む。
+function coop_vite_script_tag($tag, $handle, $src) {
+  if ('coop_app' !== $handle) return $tag;
+  return '<script type="module" src="' . esc_url($src) . '"></script>' . "\n";
+}
+add_filter('script_loader_tag', 'coop_vite_script_tag', 10, 3);
+
+// Viteで生成したフロントエンドCSSを読み込む。
 if (!function_exists('coop_enqueue_styles')) :
   function coop_enqueue_styles() {
     if (!is_admin()) {
-      $ver = wp_get_theme()->get('Version');
-      // Google Fonts + フォント定義
-      wp_enqueue_style('coop_fonts', get_theme_file_uri('/assets/css/fonts.css'), array(), $ver);
-      // Fukasawa のメニュー・検索・引用などで使うアイコンフォント
-      wp_enqueue_style('coop_genericons', get_theme_file_uri('/assets/fonts/genericons/genericons.css'), array(), $ver);
-      // fukasawa メインスタイル
-      wp_enqueue_style('coop_fukasawa', get_theme_file_uri('/assets/css/fukasawa-style.css'), array('coop_fonts', 'coop_genericons'), $ver);
-      wp_enqueue_style('coop_splide', get_theme_file_uri('/assets/css/splide.min.css'), array(), '4.1.4');
-      // テーマ固有スタイル（style.css）
-      wp_enqueue_style('coop_style', get_stylesheet_uri(), array('coop_fukasawa'), $ver);
+      wp_enqueue_style('coop_app', get_theme_file_uri('/assets/css/style.css'), array(), filemtime(get_template_directory() . '/assets/css/style.css'));
     }
   }
   add_action('wp_enqueue_scripts', 'coop_enqueue_styles');
 endif;
 
-// Fukasawa の gallery 投稿フォーマットで使うスライダー。
-function fukasawa_flexslider($size = 'thumbnail') {
+// 添付画像を標準ギャラリーと同じSplideマークアップで出力する。
+function coop_attachment_gallery($size = 'thumbnail') {
   $images = get_posts(array(
     'numberposts'    => -1,
     'orderby'        => 'menu_order',
@@ -128,18 +123,18 @@ function fukasawa_flexslider($size = 'thumbnail') {
 
   if (!$images) return;
 
-  echo '<div class="flexslider"><ul class="slides">';
+  echo '<div class="wp-block-gallery">';
   foreach ($images as $image) {
-    echo '<li>' . wp_get_attachment_image($image->ID, $size) . '</li>';
+    echo '<figure class="wp-block-image">' . wp_get_attachment_image($image->ID, $size) . '</figure>';
   }
-  echo '</ul></div>';
+  echo '</div>';
 }
 
 // ブロックエディタスタイル
 if (!function_exists('coop_block_editor_styles')) :
   function coop_block_editor_styles() {
-    add_editor_style(array('assets/css/fukasawa-block-editor-styles.css', 'assets/css/fonts.css'));
-    wp_enqueue_style('coop-block-editor-styles', get_theme_file_uri('/assets/css/fukasawa-block-editor-styles.css'), array(), wp_get_theme()->get('Version'), 'all');
+    add_editor_style('assets/css/style.css');
+    wp_enqueue_style('coop-block-editor-styles', get_theme_file_uri('/assets/css/style.css'), array(), filemtime(get_template_directory() . '/assets/css/style.css'), 'all');
   }
   add_action('enqueue_block_editor_assets', 'coop_block_editor_styles', 1);
   add_action('init', 'coop_block_editor_styles');

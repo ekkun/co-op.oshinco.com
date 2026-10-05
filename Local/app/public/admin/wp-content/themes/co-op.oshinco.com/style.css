@@ -1,63 +1,10 @@
 /*
 Theme Name: co-op.oshinco.com
 Theme URI: https://oshinco.com/co-op/
-Description: co-op.oshinco.com テーマ（fukasawa ベース）
+Description: Oshinco Co-op. portfolio theme
 Version: 1.0
 Author: Oshinco Co-op.
 Author URI: https://oshinco.com
 Text Domain: co-op-oshinco
 Tags: masonry, grid-layout, custom-post-type
 */
-
-/* WordPress gallery block enhanced by Splide. */
-.wp-block-gallery.coop-gallery {
-  display: block;
-  margin: 2em 0;
-}
-
-.coop-gallery .splide__slide {
-  margin: 0 !important;
-  width: 100% !important;
-}
-
-.coop-gallery .splide__slide img {
-  display: block;
-  height: auto;
-  width: 100%;
-}
-
-.coop-gallery .splide__arrow {
-  background: rgba(255, 255, 255, .9);
-}
-
-/* Card interactions: retain the Fukasawa image zoom and make the whole card react. */
-.posts .post-container > .post {
-  border-top: 3px solid transparent;
-  box-shadow: 0 0 0 rgba(1, 158, 189, 0);
-  transition: transform .28s ease, box-shadow .28s ease, border-color .28s ease;
-}
-
-.posts .post-container:hover > .post,
-.posts .post-container:focus-within > .post {
-  border-top-color: #019ebd;
-  box-shadow: 0 14px 32px rgba(20, 32, 38, .14);
-  transform: translateY(-6px);
-}
-
-.posts .post-container:hover .post-title a,
-.posts .post-container:focus-within .post-title a {
-  color: #019ebd;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .posts .post-container > .post,
-  .posts .featured-media img,
-  .posts .post-overlay {
-    transition: none;
-  }
-
-  .posts .post-container:hover > .post,
-  .posts .post-container:focus-within > .post {
-    transform: none;
-  }
-}

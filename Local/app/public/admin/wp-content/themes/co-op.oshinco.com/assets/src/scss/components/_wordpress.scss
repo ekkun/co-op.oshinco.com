@@ -1,0 +1,49 @@
+@layer components {
+	.entry-content {
+		--content-gap: clamp(24px, 3vw, 40px);
+		color: var(--coop-charcoal);
+		font-family: 'Gen Interface JP', 'Noto Sans JP', sans-serif;
+		font-size: clamp(14px, 1.15vw, 16px);
+		letter-spacing: .08em;
+		line-height: 2;
+	}
+	.entry-content > * { margin-block: 0 var(--content-gap); }
+	.entry-content > :last-child { margin-block-end: 0; }
+	.entry-content > :where(p, ul, ol, h2, h3, h4, h5, h6, blockquote, pre) { max-inline-size: 760px; }
+	.entry-content a:not(.wp-element-button) { color: var(--coop-blue); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: .25em; }
+	.entry-content :where(h2, h3, h4, h5, h6) { margin-block-start: clamp(56px, 8vw, 96px); font-weight: 600; line-height: 1.45; text-wrap: pretty; }
+	.entry-content h2 { padding-block-end: 16px; border-block-end: 1px solid #cfcfcf; font-size: clamp(24px, 3vw, 38px); }
+	.entry-content h3 { padding-inline-start: 16px; border-inline-start: 2px solid var(--coop-blue); font-size: clamp(20px, 2.2vw, 28px); }
+	.entry-content h4 { font-size: clamp(17px, 1.6vw, 21px); }
+	.entry-content :where(ul, ol) { padding-inline-start: 1.5em; }
+	.entry-content ul { list-style: square; }
+	.entry-content ol { list-style: decimal-leading-zero; }
+	.entry-content li + li { margin-block-start: .65em; }
+	.entry-content :where(figure, .wp-block-image) img { inline-size: 100%; block-size: auto; }
+	.entry-content figcaption { margin-block-start: 10px; color: var(--coop-gray); font-size: 11px; line-height: 1.6; }
+	.entry-content .alignwide { max-inline-size: 1040px; }
+	.entry-content .alignfull { inline-size: calc(100% + clamp(40px, 8vw, 120px)); max-inline-size: none; margin-inline-start: calc(clamp(20px, 4vw, 60px) * -1); }
+	.wp-block-gallery.coop-gallery { display: block; }
+	.coop-gallery .splide__slide { inline-size: 100% !important; margin: 0 !important; }
+	.coop-gallery .splide__slide img { display: block; inline-size: 100%; block-size: auto; }
+	.coop-gallery .splide__arrow { border: 1px solid #d8d8d8; border-radius: 0; background: rgb(255 255 255 / 92%); }
+	.wp-block-quote { padding-block: 8px; padding-inline: clamp(20px, 4vw, 40px); border-inline-start: 2px solid var(--coop-blue); font-family: 'Noto Serif JP', serif; font-size: 1.1em; }
+	.wp-block-quote cite { display: block; margin-block-start: 16px; color: var(--coop-gray); font-family: 'Gen Interface JP', sans-serif; font-size: 11px; font-style: normal; }
+	.wp-block-pullquote { padding-block: clamp(40px, 7vw, 72px); border-block: 1px solid #cfcfcf; text-align: start; }
+	.wp-block-pullquote blockquote { margin: 0; }
+	.wp-block-table { overflow-x: auto; }
+	.wp-block-table table { min-inline-size: 560px; border-collapse: collapse; }
+	.wp-block-table :where(th, td) { padding-block: 14px; padding-inline: 16px; border-block-end: 1px solid #d8d8d8; text-align: start; }
+	.wp-block-table th { color: #fff; background: var(--coop-charcoal); font-weight: 500; }
+	.wp-block-button__link { padding-block: 15px; padding-inline: 28px; border: 1px solid var(--coop-charcoal); border-radius: 0; color: #fff; background: var(--coop-charcoal); font-size: 12px; font-weight: 500; letter-spacing: .08em; transition: color .2s ease, background-color .2s ease; }
+	.wp-block-button__link:hover { color: var(--coop-charcoal); background: transparent; }
+	.is-style-outline > .wp-block-button__link { color: var(--coop-charcoal); background: transparent; }
+	.is-style-outline > .wp-block-button__link:hover { color: #fff; background: var(--coop-charcoal); }
+	.wp-block-separator { inline-size: 100%; border: 0; border-block-start: 1px solid #cfcfcf; }
+	.wp-block-code, .wp-block-preformatted { overflow-x: auto; padding-block: 20px; padding-inline: 24px; color: #fff; background: var(--coop-charcoal); font-size: 13px; line-height: 1.8; }
+	.wp-block-cover { min-block-size: min(62vw, 560px); }
+	.wp-block-media-text { gap: clamp(24px, 5vw, 64px); }
+	.wp-block-details { padding-block: 18px; border-block: 1px solid #d8d8d8; }
+	.wp-block-details summary { cursor: pointer; font-weight: 600; }
+	.wp-block-embed iframe { max-inline-size: 100%; }
+}

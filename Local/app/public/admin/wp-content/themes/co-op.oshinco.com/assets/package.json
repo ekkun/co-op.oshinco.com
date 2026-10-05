@@ -14,9 +14,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@ionic/core": "9.0.6",
     "@splidejs/splide": "4.1.4",
-    "kiso.css": "1.2.4",
-    "scroll-hint": "1.2.9"
+    "@tailwindcss/vite": "4.3.3",
+    "imagesloaded": "5.0.0",
+    "masonry-layout": "4.2.2",
+    "tailwindcss": "4.3.3"
   },
   "devDependencies": {
     "sass": "1.105.0",

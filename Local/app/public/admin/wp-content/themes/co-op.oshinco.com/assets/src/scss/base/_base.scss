@@ -27,9 +27,9 @@
 		-webkit-text-size-adjust: 100%;
 		-webkit-font-smoothing: antialiased;
 		text-rendering: optimizeLegibility;
-		min-width: 375px;
+		min-inline-size: 320px;
 		//width: max(375px, 100%);
-		min-height: 100dvh;
+		min-block-size: 100dvh;
 		background-color: var(--white);
 		overflow-wrap: anywhere; /* 収まらない場合に折り返す */
 		word-break: normal; /* 単語の分割はデフォルトに依存 */
@@ -53,13 +53,13 @@
 
 			@supports (-webkit-touch-callout: none) {
 				html {
-					height: -webkit-fill-available;
+					block-size: -webkit-fill-available;
 				}
 
 				body {
-					min-height: 100svh;
-					min-height: 100dvh;
-					height: -webkit-fill-available;
+					min-block-size: 100svh;
+					min-block-size: 100dvh;
+					block-size: -webkit-fill-available;
 				}
 			}
 		}
@@ -78,8 +78,8 @@
 	}
 
 	img {
-		max-width: 100%;
-		height: auto;
+		max-inline-size: 100%;
+		block-size: auto;
 	}
 
 	button {
@@ -89,10 +89,10 @@
 	}
 
 	[id] {
-		scroll-margin-top: calc(var(--header-height-sp) + 16px);
+		scroll-margin-block-start: calc(var(--header-height-sp) + 16px);
 
 		@include mq(tab) {
-			scroll-margin-top: calc(var(--header-height-tab) + 24px);
+			scroll-margin-block-start: calc(var(--header-height-tab) + 24px);
 		}
 	}
 }

@@ -36,7 +36,7 @@
 			elseif ( $post_format == 'gallery' ) : ?>
 
 				<figure class="featured-media">
-					<?php fukasawa_flexslider( 'post-thumb' ); ?>
+					<?php coop_attachment_gallery( 'post-thumb' ); ?>
 				</figure><!-- .featured-media -->
 		
 			<?php 

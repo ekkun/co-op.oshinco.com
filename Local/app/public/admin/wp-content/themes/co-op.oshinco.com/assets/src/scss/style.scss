@@ -10,14 +10,9 @@
 /* レイヤー宣言だけ */
 @use 'core/config.layer';
 
-/* コア（変数・関数・mixin） */
-//@use 'core/index' as core;
-
 /* base層（中で @layer reset/base を定義） */
 @use 'base/index' as *;
 
-/* vendor層：外部ライブラリ（Splide など） */
-//@use 'vendor/index' as *;
 @layer vendor {
 	@include meta.load-css('vendor/index');
 }
