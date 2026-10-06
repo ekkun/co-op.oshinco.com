@@ -19,9 +19,19 @@ add_action('admin_menu', 'hide_posts_menu');
 
 // 投稿（post）をフロントエンドのクエリから除外する
 function exclude_posts_from_query($query) {
-  if (!is_admin() && $query->is_main_query() && $query->is_home()) {
+  if (is_admin() || !$query->is_main_query()) return;
+
+  if ($query->is_home()) {
     // 旧「投稿」は実績へ移行し、トップでは実績だけを見せる。
     $query->set('post_type', array('case'));
+  }
+
+  if (
+    $query->is_home()
+    || $query->is_post_type_archive(array('case', 'news'))
+    || $query->is_tax(array('case_category', 'case_tags', 'news_category', 'news_tags'))
+  ) {
+    $query->set('posts_per_page', 6);
   }
 }
 add_action('pre_get_posts', 'exclude_posts_from_query');

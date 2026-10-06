@@ -4,95 +4,95 @@
 @use '../core' as *;
 
 @layer base {
-	html {
-		text-size-adjust: 100%;
-		-webkit-tap-highlight-color: transparent;
-		-webkit-text-size-adjust: 100%;
-		-webkit-font-smoothing: antialiased;
-		-moz-osx-font-smoothing: grayscale;
-		//background-color: var(--color-bg);
-		overflow-x: auto;
-	}
+  html {
+    text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    //background-color: var(--color-bg);
+    overflow-x: auto;
+  }
 
-	body {
-		display: flex;
-		flex-direction: column;
-		position: relative;
-		color: var(--text-color);
-		font-family: var(--font-sans-serif);
-		font-size: var(--font-base);
-		font-feature-settings: 'palt' 1; // palt, pwid, pkna
-		line-height: var(--line-height-default);
-		text-size-adjust: none;
-		-webkit-text-size-adjust: 100%;
-		-webkit-font-smoothing: antialiased;
-		text-rendering: optimizeLegibility;
-		min-inline-size: 320px;
-		//width: max(375px, 100%);
-		min-block-size: 100dvh;
-		background-color: var(--white);
-		overflow-wrap: anywhere; /* 収まらない場合に折り返す */
-		word-break: normal; /* 単語の分割はデフォルトに依存 */
-		line-break: strict; /* 禁則処理を厳格に適用 */
-		margin: 0;
+  body {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    color: var(--text-color);
+    font-family: var(--font-sans-serif);
+    font-size: var(--font-base);
+    font-feature-settings: 'palt' 1; // palt, pwid, pkna
+    line-height: var(--line-height-default);
+    text-size-adjust: none;
+    -webkit-text-size-adjust: 100%;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-inline-size: 320px;
+    //width: max(375px, 100%);
+    min-block-size: 100dvh;
+    background-color: var(--white);
+    overflow-wrap: anywhere; /* 収まらない場合に折り返す */
+    word-break: normal; /* 単語の分割はデフォルトに依存 */
+    line-break: strict; /* 禁則処理を厳格に適用 */
+    margin: 0;
 
-		::selection,
-		::-moz-selection {
-			//color: var(--black);
-			//background: var(--white);
-		}
+    ::selection,
+    ::-moz-selection {
+      //color: var(--black);
+      //background: var(--white);
+    }
 
-		//&.home {
-		//	padding: 0;
-		//}
+    //&.home {
+    //  padding: 0;
+    //}
 
-		&.is-open-sp-menu,
-		&.is-open-sp-search {
-			_zoom: 1;
-			overflow: hidden;
+    &.is-open-sp-menu,
+    &.is-open-sp-search {
+      _zoom: 1;
+      overflow: hidden;
 
-			@supports (-webkit-touch-callout: none) {
-				html {
-					block-size: -webkit-fill-available;
-				}
+      @supports (-webkit-touch-callout: none) {
+        html {
+          block-size: -webkit-fill-available;
+        }
 
-				body {
-					min-block-size: 100svh;
-					min-block-size: 100dvh;
-					block-size: -webkit-fill-available;
-				}
-			}
-		}
-	}
+        body {
+          min-block-size: 100svh;
+          min-block-size: 100dvh;
+          block-size: -webkit-fill-available;
+        }
+      }
+    }
+  }
 
-	/* アプリ的UI操作感 */
-	:focus-visible {
-		//outline: 2px solid var(--color-primary);
-		outline-offset: 2px;
-	}
+  /* アプリ的UI操作感 */
+  :focus-visible {
+    //outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+  }
 
-	a[href^='tel:'] {
-		@include mq(md) {
-			pointer-events: none;
-		}
-	}
+  a[href^='tel:'] {
+    @include mq(md) {
+      pointer-events: none;
+    }
+  }
 
-	img {
-		max-inline-size: 100%;
-		block-size: auto;
-	}
+  img {
+    max-inline-size: 100%;
+    block-size: auto;
+  }
 
-	button {
-		cursor: pointer;
-		border: none;
-		background: none;
-	}
+  button {
+    cursor: pointer;
+    border: none;
+    background: none;
+  }
 
-	[id] {
-		scroll-margin-block-start: calc(var(--header-height-sp) + 16px);
+  [id] {
+    scroll-margin-block-start: calc(var(--header-height-sp) + 16px);
 
-		@include mq(tab) {
-			scroll-margin-block-start: calc(var(--header-height-tab) + 24px);
-		}
-	}
+    @include mq(tab) {
+      scroll-margin-block-start: calc(var(--header-height-tab) + 24px);
+    }
+  }
 }

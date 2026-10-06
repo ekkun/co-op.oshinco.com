@@ -38,4 +38,5 @@ conf/*
 logs/*
 
 *.code-workspace
-memo.txtLocal/app/sql/local.sql
+memo.txt
+Local/app/sql/local.sql

@@ -7,19 +7,21 @@ import '../css/fonts.css';
 import '../scss/style.scss';
 import '@splidejs/splide/css';
 import Splide from '@splidejs/splide';
-import { defineCustomElement as defineIonInfiniteScroll } from '@ionic/core/components/ion-infinite-scroll.js';
-import { defineCustomElement as defineIonInfiniteScrollContent } from '@ionic/core/components/ion-infinite-scroll-content.js';
-import '@ionic/core/css/core.css';
+import { addIcons } from 'ionicons';
+import { defineCustomElement as defineIonIcon } from 'ionicons/components/ion-icon.js';
+import { arrowForward } from 'ionicons/icons';
 import './component/adjustViewport';
 import { initGalleries } from './component/gallery';
 import { initCaseInfiniteScroll } from './component/caseInfiniteScroll';
 import { initCaseMasonry } from './component/caseMasonry';
+import { initArchiveInfiniteScroll } from './component/archiveInfiniteScroll';
 
-defineIonInfiniteScroll();
-defineIonInfiniteScrollContent();
+addIcons({ 'arrow-round-forward': arrowForward });
+defineIonIcon();
 initGalleries(Splide);
 const caseMasonry = initCaseMasonry();
 initCaseInfiniteScroll(caseMasonry);
+initArchiveInfiniteScroll(caseMasonry);
 
 const menuToggle = document.querySelector('.coop-menu-toggle');
 const navigation = document.querySelector('.coop-navigation');

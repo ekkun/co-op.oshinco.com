@@ -24,35 +24,47 @@ const createCard = (post) => {
 				${image ? `<img src="${image}" alt="" loading="lazy">` : '<span class="coop-case-card__placeholder" aria-hidden="true"></span>'}
 			</figure>
 			<div class="coop-case-card__body">
-				<h2 class="coop-case-card__title"></h2>
+				<h2 class="coop-case-card__title"><span class="coop-case-card__title-text"></span></h2>
 				<div class="coop-case-card__excerpt"><p></p></div>
-				<span class="coop-case-card__arrow" aria-hidden="true">→</span>
+				<ion-icon class="coop-case-card__arrow" name="arrow-round-forward" aria-hidden="true"></ion-icon>
 			</div>
 		</a>`;
-	article.querySelector('.coop-case-card__title').textContent = title;
+	article.querySelector('.coop-case-card__title-text').textContent = title;
 	article.querySelector('.coop-case-card__excerpt p').textContent = excerpt;
 	return article;
 };
 
 export function initCaseInfiniteScroll(masonry) {
 	const section = document.querySelector('.coop-cases[data-rest-url]');
-	const infiniteScroll = section?.querySelector('ion-infinite-scroll');
+	const infiniteScroll = section?.querySelector('.coop-infinite-scroll');
 	const grid = section?.querySelector('.coop-cases__grid');
 	if (!section || !infiniteScroll || !grid) return;
 
 	let page = Number(section.dataset.currentPage || 1);
 	const totalPages = Number(section.dataset.totalPages || 1);
+	let loading = false;
+	let observer;
+
+	const disable = () => {
+		observer?.disconnect();
+		infiniteScroll.hidden = true;
+	};
+
 	if (page >= totalPages) {
-		infiniteScroll.disabled = true;
+		disable();
 		return;
 	}
 
-	infiniteScroll.addEventListener('ionInfinite', async (event) => {
+	const loadNextPage = async () => {
+		if (loading) return;
+		loading = true;
+		infiniteScroll.setAttribute('aria-busy', 'true');
+
 		try {
 			page += 1;
 			const url = new URL(section.dataset.restUrl);
 			url.searchParams.set('page', String(page));
-			url.searchParams.set('per_page', '10');
+			url.searchParams.set('per_page', '6');
 			url.searchParams.set('_embed', 'wp:featuredmedia');
 			const response = await fetch(url.toString(), { headers: { Accept: 'application/json' } });
 			if (!response.ok) throw new Error(`Case request failed: ${response.status}`);
@@ -60,12 +72,18 @@ export function initCaseInfiniteScroll(masonry) {
 			const cards = posts.map(createCard);
 			cards.forEach((card) => grid.appendChild(card));
 			masonry?.append(cards);
-			if (page >= totalPages) infiniteScroll.disabled = true;
+			if (page >= totalPages) disable();
 		} catch (error) {
 			page -= 1;
 			console.error(error);
 		} finally {
-			await event.target.complete();
+			loading = false;
+			infiniteScroll.setAttribute('aria-busy', 'false');
 		}
-	});
+	};
+
+	observer = new IntersectionObserver((entries) => {
+		if (entries.some((entry) => entry.isIntersecting)) void loadNextPage();
+	}, { rootMargin: '300px 0px' });
+	observer.observe(infiniteScroll);
 }

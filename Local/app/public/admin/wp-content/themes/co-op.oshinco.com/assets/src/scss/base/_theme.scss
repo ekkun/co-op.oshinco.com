@@ -1,0 +1,18 @@
+@layer base {
+  :root {
+    --coop-charcoal: #444;
+    --coop-blue: #009ddd;
+    --coop-orange: #ff9f40;
+    --coop-gray: #767676;
+    --coop-white: #fff;
+    --coop-sidebar: 250px;
+  }
+
+  body {
+    min-inline-size: 320px;
+    margin: 0;
+    color: var(--coop-charcoal);
+    background: var(--coop-white);
+    font-family: 'Gen Interface JP', 'Noto Sans JP', sans-serif;
+  }
+}

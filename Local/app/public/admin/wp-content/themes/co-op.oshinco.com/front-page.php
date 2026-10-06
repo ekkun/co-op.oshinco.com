@@ -19,11 +19,11 @@ $news_query = new WP_Query(array('post_type' => 'news', 'posts_per_page' => 1, '
             <figure class="coop-case-card__media">
               <?php if (has_post_thumbnail()) : the_post_thumbnail('post-thumb', array('loading' => 'lazy')); else : ?><span class="coop-case-card__placeholder" aria-hidden="true"></span><?php endif; ?>
             </figure>
-            <div class="coop-case-card__body"><h2 class="coop-case-card__title"><?php the_title(); ?></h2><div class="coop-case-card__excerpt"><?php the_excerpt(); ?></div><span class="coop-case-card__arrow" aria-hidden="true">&#8594;</span></div>
+            <div class="coop-case-card__body"><h2 class="coop-case-card__title"><span class="coop-case-card__title-text"><?php the_title(); ?></span></h2><div class="coop-case-card__excerpt"><?php the_excerpt(); ?></div><ion-icon class="coop-case-card__arrow" name="arrow-round-forward" aria-hidden="true"></ion-icon></div>
           </a></article>
         <?php endwhile; ?>
       </div>
-      <?php if ($GLOBALS['wp_query']->max_num_pages > 1) : ?><ion-infinite-scroll threshold="300px"><ion-infinite-scroll-content loading-spinner="crescent" loading-text="Loading more works..."></ion-infinite-scroll-content></ion-infinite-scroll><?php endif; ?>
+      <?php if ($GLOBALS['wp_query']->max_num_pages > 1) : ?><div class="coop-infinite-scroll" aria-live="polite" aria-busy="false"><span class="coop-infinite-scroll__status"><span class="coop-infinite-scroll__spinner" aria-hidden="true"></span><span class="coop-infinite-scroll__label">Loading more articles...</span></span></div><?php endif; ?>
     <?php else : ?><p class="coop-cases__empty">公開中の実績はありません。</p><?php endif; ?>
   </section>
 </div>

@@ -14,12 +14,12 @@ $comp: 375;
 
 // px → vw 変換
 @function vw($size) {
-	@return math.div($size * 100, $comp) * 1vw;
+  @return math.div($size * 100, $comp) * 1vw;
 }
 
 // px → vmin 変換 (今回追加)
 @function vmin($size) {
-	@return math.div($size * 100, $comp) * 1vmin;
+  @return math.div($size * 100, $comp) * 1vmin;
 }
 
 /* --------------------------------
@@ -28,34 +28,34 @@ $comp: 375;
 // px → rem 変換 (16pxベース)
 // 2つの rem 関数を統合し、Dart Sass の math.div を使用
 @function rem($px, $base: 16) {
-	@return math.div($px, $base) * 1rem;
+  @return math.div($px, $base) * 1rem;
 }
 
 /* z-index取得 */
 @function z($key) {
-	@return map.get($z-map, $key);
+  @return map.get($z-map, $key);
 }
 
 /* --------------------------------
   Color操作
 -------------------------------- */
 @function tint($color, $percent) {
-	@return mix(white, $color, $percent);
+  @return mix(white, $color, $percent);
 }
 
 @function shade($color, $percent) {
-	@return mix(black, $color, $percent);
+  @return mix(black, $color, $percent);
 }
 
 /* --------------------------------
   Breakpoint
 -------------------------------- */
 @function breakpoint($key, $direction: up) {
-	@if $direction == up {
-		@return map.get($breakpoint-up, $key);
-	} @else if $direction == down {
-		@return map.get($breakpoint-down, $key);
-	} @else {
-		@error 'breakpoint()の第2引数は up か down にしてください。';
-	}
+  @if $direction == up {
+    @return map.get($breakpoint-up, $key);
+  } @else if $direction == down {
+    @return map.get($breakpoint-down, $key);
+  } @else {
+    @error 'breakpoint()の第2引数は up か down にしてください。';
+  }
 }
