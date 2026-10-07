@@ -7,7 +7,7 @@
 		$taxonomies = array(
 			'post' => array('category', 'post_tag'),
 			'news' => array('news_category', 'news_tags'),
-			'case' => array('case_category', 'case_tags'),
+			'portfolio' => array('portfolio_category', 'portfolio_tags'),
 		);
 		$category_taxonomy = $taxonomies[$post_type][0] ?? null;
 		$tag_taxonomy = $taxonomies[$post_type][1] ?? null;
@@ -55,10 +55,10 @@
 				<?php wp_link_pages(array('before' => '<nav class="coop-page-links" aria-label="' . esc_attr__('Page navigation', 'co-op-oshinco') . '">', 'after' => '</nav>')); ?>
 			</div>
 
-			<?php if (is_singular(array('post', 'case', 'news'))) : ?>
+			<?php if (is_singular(array('post', 'portfolio', 'news'))) : ?>
 				<nav class="coop-entry-nav" aria-label="<?php esc_attr_e('Post navigation', 'co-op-oshinco'); ?>">
-					<div class="coop-entry-nav__item coop-entry-nav__item--previous"><?php previous_post_link('%link', '<span>PREVIOUS</span>%title'); ?></div>
-					<div class="coop-entry-nav__item coop-entry-nav__item--next"><?php next_post_link('%link', '<span>NEXT</span>%title'); ?></div>
+					<div class="coop-entry-nav__item coop-entry-nav__item--previous"><?php previous_post_link('%link', '<ion-icon class="coop-entry-nav__icon" name="chevron-back" aria-hidden="true"></ion-icon><span class="coop-entry-nav__copy"><span class="coop-entry-nav__label">PREVIOUS</span><span class="coop-entry-nav__title">%title</span></span>'); ?></div>
+					<div class="coop-entry-nav__item coop-entry-nav__item--next"><?php next_post_link('%link', '<span class="coop-entry-nav__copy"><span class="coop-entry-nav__label">NEXT</span><span class="coop-entry-nav__title">%title</span></span><ion-icon class="coop-entry-nav__icon" name="chevron-forward" aria-hidden="true"></ion-icon>'); ?></div>
 				</nav>
 			<?php endif; ?>
 		</article>

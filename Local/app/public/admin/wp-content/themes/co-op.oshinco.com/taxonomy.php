@@ -6,8 +6,8 @@ if (str_starts_with($taxonomy, 'news_')) {
   return;
 }
 
-if (str_starts_with($taxonomy, 'case_')) {
-  require get_template_directory() . '/templates/archive/case.php';
+if (str_starts_with($taxonomy, 'portfolio_')) {
+  require get_template_directory() . '/templates/archive/portfolio.php';
   return;
 }
 

@@ -8,7 +8,7 @@ export function initCaseMasonry() {
 	const instance = new Masonry(grid, {
 		itemSelector: '.coop-case-card',
 		columnWidth: '.coop-cases__sizer',
-		gutter: 20,
+		gutter: 24,
 		percentPosition: true,
 		transitionDuration: '0.35s',
 	});

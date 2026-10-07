@@ -12,53 +12,98 @@
   display: flex;
   align-items: center;
   margin: 0;
-  padding-inline: 28px;
-  font-size: 12px;
+  padding-inline: 32px;
+  font-size: .75rem;
   font-weight: 600;
 }
+.coop-news__ticker,
+.coop-news__track {
+  position: relative;
+  min-block-size: 64px;
+  overflow: hidden;
+}
 .coop-news__link {
+  position: absolute;
+  inset: 0;
   display: grid;
   grid-template-columns: 90px 1fr auto;
   gap: 20px;
   align-items: center;
   padding-inline: 32px;
   color: inherit;
-  font-size: 10px;
+  font-size: .625rem;
   text-decoration: none;
+  opacity: 0;
+  transform: translateY(100%);
+  visibility: hidden;
+  transition: opacity 0.45s ease, transform 0.45s ease, visibility 0s linear 0.45s;
+}
+.coop-news__link.is-active {
+  z-index: 2;
+  opacity: 1;
+  transform: translateY(0);
+  visibility: visible;
+  transition-delay: 0s;
+}
+.coop-news__link.is-leaving {
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(-100%);
+  visibility: visible;
+  transition-delay: 0s;
 }
 .coop-news__link time {
   opacity: 0.75;
 }
 .coop-news__arrow {
-  font-size: 17px;
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  opacity: .64;
+  transition: opacity 200ms ease, translate 200ms ease;
+}
+.coop-news__arrow::before {
+  inline-size: 24px;
+  block-size: 1px;
+  background: currentColor;
+  content: '';
+}
+.coop-news__arrow ion-icon {
+  inline-size: 12px;
+  block-size: 12px;
+}
+.coop-news__link:hover .coop-news__arrow,
+.coop-news__link:focus-visible .coop-news__arrow {
+  opacity: 1;
+  translate: 4px 0;
 }
 .coop-news__empty {
   align-self: center;
   margin: 0;
   padding-inline: 32px;
-  font-size: 10px;
+  font-size: .625rem;
 }
 
 .coop-cases {
   container-type: inline-size;
-  padding-block: 38px 80px;
+  padding-block: 40px 80px;
   padding-inline: clamp(32px, 4.5vw, 64px);
 }
 .coop-cases__header {
-  margin-block-end: 30px;
+  margin-block-end: 32px;
 }
 .coop-cases__title {
   margin: 0;
-  font-size: 24px;
+  font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.3;
 }
 .coop-cases__grid {
-  margin-inline-end: -20px;
+  margin-inline-end: -24px;
 }
 .coop-cases__sizer,
 .coop-case-card {
-  inline-size: calc((100% - 40px) / 3);
+  inline-size: calc((100% - 48px) / 3);
 }
 .coop-case-card {
   min-inline-size: 0;
@@ -89,12 +134,12 @@
 .coop-case-card__body {
   position: relative;
   min-block-size: 132px;
-  padding-block: 18px 32px;
-  padding-inline: 14px 32px;
+  padding-block: 16px 32px;
+  padding-inline: 16px 32px;
 }
 .coop-case-card__title {
   margin: 0;
-  font-size: 15px;
+  font-size: .9375rem;
   font-weight: 600;
   line-height: 1.5;
 }
@@ -112,10 +157,10 @@
   background-size: 100% 0.8em;
 }
 .coop-case-card__excerpt {
-  margin-block-start: 17px;
+  margin-block-start: 16px;
   color: var(--coop-gray);
   font-family: 'Noto Serif JP', serif;
-  font-size: 10px;
+  font-size: .625rem;
   line-height: 1.9;
 }
 .coop-case-card__excerpt p {
@@ -127,7 +172,7 @@
   inset-block-end: 4px;
   inline-size: 16px;
   block-size: 16px;
-  font-size: 16px;
+  font-size: 1rem;
   transition: translate 0.2s ease;
 }
 .coop-case-card__link:hover img {
@@ -163,7 +208,7 @@
   animation: coop-loading-spin 0.7s linear infinite;
 }
 .coop-infinite-scroll__label {
-  font-size: 10px;
+  font-size: .625rem;
   letter-spacing: 0.08em;
 }
 .coop-infinite-scroll[aria-busy='true'] .coop-infinite-scroll__label {
@@ -182,7 +227,7 @@
 @container (inline-size <= 760px) {
   .coop-cases__sizer,
   .coop-case-card {
-    inline-size: calc((100% - 20px) / 2);
+    inline-size: calc((100% - 24px) / 2);
   }
 }
 
@@ -193,7 +238,11 @@
   }
   .coop-news__label {
     padding-inline: 16px;
-    font-size: 12px;
+    font-size: .75rem;
+  }
+  .coop-news__ticker,
+  .coop-news__track {
+    min-block-size: 54px;
   }
   .coop-news__link {
     grid-template-columns: 1fr auto;
@@ -213,10 +262,10 @@
   }
   .coop-cases {
     padding-block: 32px 64px;
-    padding-inline: 20px;
+    padding-inline: 24px;
   }
   .coop-cases__title {
-    font-size: 16px;
+    font-size: 1rem;
   }
   .coop-cases__header {
     margin-block-end: 24px;
@@ -229,11 +278,20 @@
     inline-size: 100%;
   }
   .coop-case-card {
-    margin-block-end: 42px;
+    margin-block-end: 40px;
   }
   .coop-case-card__body {
     min-block-size: 120px;
     padding-inline-start: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coop-news__link {
+    transition: none;
+  }
+  .coop-news__arrow {
+    transition: none;
   }
 }
 

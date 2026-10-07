@@ -3,4 +3,5 @@
  * WordPress template hierarchy fallback.
  * Template implementation lives under /templates.
  */
-require get_template_directory() . '/templates/single/default.php';
+$template_name = ('portfolio' === get_post_type()) ? 'portfolio' : 'default';
+require get_template_directory() . '/templates/single/' . $template_name . '.php';

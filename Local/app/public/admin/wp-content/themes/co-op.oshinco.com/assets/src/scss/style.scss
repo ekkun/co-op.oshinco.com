@@ -36,3 +36,9 @@
 @layer utilities {
   @include meta.load-css('utilities/index');
 }
+
+/* Splide本体がレイヤー外のため、上書きもレイヤー外で読み込む */
+@include meta.load-css('project/splide');
+
+/* WordPress本文ブロックのリセット上書き */
+@include meta.load-css('project/content');

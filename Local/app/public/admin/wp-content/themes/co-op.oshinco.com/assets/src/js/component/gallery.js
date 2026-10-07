@@ -18,15 +18,34 @@ export function initGalleries(Splide) {
 		track.appendChild(list);
 		gallery.appendChild(track);
 
-		new Splide(gallery, {
+		const splide = new Splide(gallery, {
 			type: items.length > 1 ? 'loop' : 'slide',
-			perPage: 1,
+			autoWidth: true,
+			focus: 'center',
 			gap: '1rem',
+			padding: { left: '32%', right: '32%' },
 			pagination: true,
 			arrows: items.length > 1,
 			keyboard: 'global',
+			updateOnMove: true,
+			breakpoints: {
+				767: { padding: { left: '20%', right: '20%' } },
+			},
 			reducedMotion: { speed: 0, rewindSpeed: 0 },
-		}).mount();
+		});
+
+		splide.on('mounted', () => {
+			gallery.querySelectorAll('.splide__arrow').forEach((button) => {
+				const icon = document.createElement('ion-icon');
+				const isPrevious = button.classList.contains('splide__arrow--prev');
+				icon.className = 'coop-gallery__arrow-icon';
+				icon.setAttribute('name', isPrevious ? 'chevron-back' : 'chevron-forward');
+				icon.setAttribute('aria-hidden', 'true');
+				button.replaceChildren(icon);
+			});
+		});
+
+		splide.mount();
 	};
 
 	document.addEventListener('DOMContentLoaded', () => {

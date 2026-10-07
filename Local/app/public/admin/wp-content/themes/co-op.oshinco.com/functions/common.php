@@ -22,14 +22,14 @@ function exclude_posts_from_query($query) {
   if (is_admin() || !$query->is_main_query()) return;
 
   if ($query->is_home()) {
-    // 旧「投稿」は実績へ移行し、トップでは実績だけを見せる。
-    $query->set('post_type', array('case'));
+    // 旧「投稿」はポートフォリオへ移行し、トップではポートフォリオだけを見せる。
+    $query->set('post_type', array('portfolio'));
   }
 
   if (
     $query->is_home()
-    || $query->is_post_type_archive(array('case', 'news'))
-    || $query->is_tax(array('case_category', 'case_tags', 'news_category', 'news_tags'))
+    || $query->is_post_type_archive(array('portfolio', 'news'))
+    || $query->is_tax(array('portfolio_category', 'portfolio_tags', 'news_category', 'news_tags'))
   ) {
     $query->set('posts_per_page', 6);
   }
@@ -140,14 +140,20 @@ function coop_attachment_gallery($size = 'thumbnail') {
   echo '</div>';
 }
 
-// ブロックエディタスタイル
-if (!function_exists('coop_block_editor_styles')) :
-  function coop_block_editor_styles() {
+// ブロックエディター内で使用するスタイルを登録する。
+if (!function_exists('coop_register_block_editor_style')) :
+  function coop_register_block_editor_style() {
     add_editor_style('assets/css/style.css');
+  }
+  add_action('after_setup_theme', 'coop_register_block_editor_style');
+endif;
+
+// フロント用CSSはブロックエディター画面でのみ読み込む。
+if (!function_exists('coop_enqueue_block_editor_style')) :
+  function coop_enqueue_block_editor_style() {
     wp_enqueue_style('coop-block-editor-styles', get_theme_file_uri('/assets/css/style.css'), array(), filemtime(get_template_directory() . '/assets/css/style.css'), 'all');
   }
-  add_action('enqueue_block_editor_assets', 'coop_block_editor_styles', 1);
-  add_action('init', 'coop_block_editor_styles');
+  add_action('enqueue_block_editor_assets', 'coop_enqueue_block_editor_style', 1);
 endif;
 
 // JS の no-js → js クラス切り替え

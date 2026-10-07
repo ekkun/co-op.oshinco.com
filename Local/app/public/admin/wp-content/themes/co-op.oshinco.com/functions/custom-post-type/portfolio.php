@@ -1,20 +1,20 @@
 <?php
-// カスタム投稿タイプ: 実績 (case)
+// カスタム投稿タイプ: ポートフォリオ (portfolio)
 
 $labels = array(
-  'name'               => '実績',
-  'singular_name'      => '実績',
-  'menu_name'          => '実績',
-  'all_items'          => '実績一覧',
+  'name'               => 'ポートフォリオ',
+  'singular_name'      => 'ポートフォリオ',
+  'menu_name'          => 'ポートフォリオ',
+  'all_items'          => 'ポートフォリオ一覧',
   'add_new'            => '新規追加',
-  'add_new_item'       => '新規実績を追加',
-  'edit_item'          => '実績の編集',
-  'new_item'           => '新規実績',
-  'view_item'          => '実績を表示',
-  'search_items'       => '実績を検索',
-  'not_found'          => '実績が見つかりませんでした。',
-  'not_found_in_trash' => 'ゴミ箱内に実績が見つかりませんでした。',
-  'parent_item_colon'  => '親実績',
+  'add_new_item'       => '新規ポートフォリオを追加',
+  'edit_item'          => 'ポートフォリオの編集',
+  'new_item'           => '新規ポートフォリオ',
+  'view_item'          => 'ポートフォリオを表示',
+  'search_items'       => 'ポートフォリオを検索',
+  'not_found'          => 'ポートフォリオが見つかりませんでした。',
+  'not_found_in_trash' => 'ゴミ箱内にポートフォリオが見つかりませんでした。',
+  'parent_item_colon'  => '親ポートフォリオ',
   'featured_image'        => 'アイキャッチ',
   'set_featured_image'    => 'アイキャッチを設定',
   'remove_featured_image' => 'アイキャッチを削除',
@@ -27,18 +27,21 @@ $args = array(
   'exclude_from_search' => false,
   'show_ui'             => true,
   'show_in_nav_menus'   => true,
-  'has_archive'         => true,
+  'has_archive'         => 'portfolio',
   'hierarchical'        => false,
-  'rewrite'             => array('slug' => 'case', 'with_front' => true, 'feeds' => false, 'pages' => true),
+  'rewrite'             => array('slug' => 'portfolio/-', 'with_front' => false, 'feeds' => false, 'pages' => true),
   'query_var'           => true,
   'can_export'          => true,
   'menu_position'       => 5,
-  'menu_icon'           => 'dashicons-portfolio',
+  'menu_icon'           => 'dashicons-edit-page',
   'supports'            => array('title', 'editor', 'author', 'thumbnail', 'excerpt', 'revisions', 'page-attributes'),
   'show_in_rest'        => true,
-  'taxonomies'          => array('case_category', 'case_tags'),
+  'taxonomies'          => array('portfolio_category', 'portfolio_tags'),
 );
-register_post_type('case', $args);
+register_post_type('portfolio', $args);
+
+// 個別ポートフォリオ: /portfolio/-/{post_id}/
+add_rewrite_rule('portfolio/-/([0-9]+)/?$', 'index.php?post_type=portfolio&p=$matches[1]', 'top');
 
 // カテゴリー
 $labels = array(
@@ -68,15 +71,15 @@ $args = array(
   'show_admin_column' => true,
   'hierarchical'      => true,
   'query_var'         => true,
-  'rewrite'           => array('slug' => 'case/category', 'with_front' => false, 'hierarchical' => true),
+  'rewrite'           => array('slug' => 'portfolio/category', 'with_front' => false, 'hierarchical' => true),
   'sort'              => true,
   'show_in_rest'      => true,
 );
-register_taxonomy('case_category', array('case'), $args);
+register_taxonomy('portfolio_category', array('portfolio'), $args);
 
 // リライトルール
-add_rewrite_rule('case/category/([^/]+)/?$', 'index.php?case_category=$matches[1]', 'top');
-add_rewrite_rule('case/category/([^/]+)/page/([0-9]+)/?$', 'index.php?case_category=$matches[1]&paged=$matches[2]', 'top');
+add_rewrite_rule('portfolio/category/([^/]+)/?$', 'index.php?portfolio_category=$matches[1]', 'top');
+add_rewrite_rule('portfolio/category/([^/]+)/page/([0-9]+)/?$', 'index.php?portfolio_category=$matches[1]&paged=$matches[2]', 'top');
 
 // タグ
 $labels = array(
@@ -106,12 +109,12 @@ $args = array(
   'show_admin_column' => true,
   'hierarchical'      => false,
   'query_var'         => true,
-  'rewrite'           => array('slug' => 'case/tags', 'with_front' => false, 'hierarchical' => true),
+  'rewrite'           => array('slug' => 'portfolio/tags', 'with_front' => false, 'hierarchical' => true),
   'sort'              => true,
   'show_in_rest'      => true,
 );
-register_taxonomy('case_tags', array('case'), $args);
+register_taxonomy('portfolio_tags', array('portfolio'), $args);
 
 // リライトルール
-add_rewrite_rule('case/tags/([^/]+)/?$', 'index.php?case_tags=$matches[1]', 'top');
-add_rewrite_rule('case/tags/([^/]+)/page/([0-9]+)/?$', 'index.php?case_tags=$matches[1]&paged=$matches[2]', 'top');
+add_rewrite_rule('portfolio/tags/([^/]+)/?$', 'index.php?portfolio_tags=$matches[1]', 'top');
+add_rewrite_rule('portfolio/tags/([^/]+)/page/([0-9]+)/?$', 'index.php?portfolio_tags=$matches[1]&paged=$matches[2]', 'top');
