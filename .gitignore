@@ -40,3 +40,10 @@ logs/*
 *.code-workspace
 memo.txt
 Local/app/sql/local.sql
+
+# Local SQL dumps
+/Local/app/sql/*.sql
+
+# Search Replace DB SQL dumps
+/Local/app/public/admin/srdbm-1008-remix/sql/input/*.sql
+/Local/app/public/admin/srdbm-1008-remix/sql/output/*.sql

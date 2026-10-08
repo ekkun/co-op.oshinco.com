@@ -28,6 +28,16 @@ function exclude_posts_from_query($query) {
 
   if (
     $query->is_home()
+    || $query->is_post_type_archive('portfolio')
+    || $query->is_tax(array('portfolio_category', 'portfolio_tags'))
+  ) {
+    // ポートフォリオは公開日時の新しい順で表示する。
+    $query->set('orderby', 'date');
+    $query->set('order', 'DESC');
+  }
+
+  if (
+    $query->is_home()
     || $query->is_post_type_archive(array('portfolio', 'news'))
     || $query->is_tax(array('portfolio_category', 'portfolio_tags', 'news_category', 'news_tags'))
   ) {
@@ -57,9 +67,9 @@ if (!function_exists('coop_theme_setup')) :
     add_theme_support('automatic-feed-links');
     // アイキャッチ有効化
     add_theme_support('post-thumbnails');
-    set_post_thumbnail_size(88, 88, true);
-    add_image_size('post-image', 973, 9999);
-    add_image_size('post-thumb', 508, 9999);
+    // set_post_thumbnail_size(88, 88, true);
+    // add_image_size('post-image', 973, 9999);
+    // add_image_size('post-thumb', 508, 9999);
     // ポストフォーマット
     add_theme_support('post-formats', array('gallery', 'image', 'video'));
     // カスタムロゴ
@@ -289,6 +299,22 @@ function disable_redirect_canonical($redirect_url) {
   return $redirect_url;
 }
 add_filter('redirect_canonical', 'disable_redirect_canonical');
+
+// 個別の添付ファイルページは公開せず、親投稿またはトップページへ転送する。
+function coop_redirect_attachment_pages() {
+  if (!is_attachment()) {
+    return;
+  }
+
+  $attachment = get_queried_object();
+  $redirect_url = !empty($attachment->post_parent)
+    ? get_permalink($attachment->post_parent)
+    : home_url('/');
+
+  wp_safe_redirect($redirect_url, 301);
+  exit;
+}
+add_action('template_redirect', 'coop_redirect_attachment_pages');
 
 // Get_terms() 特定の投稿タイプのみcountの対象にする
 /*function get_terms_clauses($clauses, $taxonomy, $args) {

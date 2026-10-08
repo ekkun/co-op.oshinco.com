@@ -6,7 +6,7 @@ wp.domReady(() => {
   wp.blocks.unregisterBlockVariation('core/heading', 'stretchy-heading'); // ストレッチ
   //wp.blocks.unregisterBlockType('core/list'); // リスト
   //wp.blocks.unregisterBlockType('core/quote'); // 引用
-  wp.blocks.unregisterBlockType('core/code'); // コード
+  //wp.blocks.unregisterBlockType('core/code'); // コード
   wp.blocks.unregisterBlockType('core/details'); // 詳細
   //wp.blocks.unregisterBlockType('core/freeform'); // クラシック
   wp.blocks.unregisterBlockType('core/preformatted'); // 整形済みテキスト
@@ -17,12 +17,14 @@ wp.domReady(() => {
 
   // メディア
   //wp.blocks.unregisterBlockType('core/image'); // 画像
-  wp.blocks.unregisterBlockType('core/gallery'); // ギャラリー
+  //wp.blocks.unregisterBlockType('core/gallery'); // ギャラリー
   wp.blocks.unregisterBlockType('core/audio'); // 音声
   wp.blocks.unregisterBlockType('core/cover'); // カバー
   wp.blocks.unregisterBlockType('core/file'); // ファイル
-  //wp.blocks.unregisterBlockType('core/media-text'); // メディアとテキスト
+  wp.blocks.unregisterBlockType('core/media-text'); // メディアとテキスト
   wp.blocks.unregisterBlockType('core/video'); // 動画
+  wp.blocks.unregisterBlockType('core/playlist'); // プレイリスト
+  wp.blocks.unregisterBlockType('core/icon'); // アイコン
 
   // デザイン
   wp.blocks.unregisterBlockType('core/accordion'); // アコーディオン
@@ -43,6 +45,7 @@ wp.domReady(() => {
   wp.blocks.unregisterBlockType('core/site-title'); // サイトのタイトル
   wp.blocks.unregisterBlockType('core/query-title'); // アーカイブタイトル
   wp.blocks.unregisterBlockType('core/post-terms'); // 投稿カテゴリー & 投稿タグ
+  wp.blocks.unregisterBlockType('core/tabs'); // タブ
 
   // ウィジェット
   //wp.blocks.unregisterBlockType('core/shortcode'); // ショートコード
@@ -87,6 +90,7 @@ wp.domReady(() => {
   // テーマ（テンプレートパーツ）
   wp.blocks.unregisterBlockType('core/template-part'); // テンプレートパーツ
   wp.blocks.unregisterBlockType('core/template'); // テンプレート
+  wp.blocks.unregisterBlockType('core/breadcrumbs'); // パンくず
 
   // 埋め込み
   wp.blocks.unregisterBlockVariation('core/embed', '');

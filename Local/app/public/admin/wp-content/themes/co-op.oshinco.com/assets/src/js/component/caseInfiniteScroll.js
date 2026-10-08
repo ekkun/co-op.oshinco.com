@@ -14,7 +14,7 @@ const createCard = (post) => {
 	const article = document.createElement('article');
 	article.className = `coop-case-card post-${post.id}`;
 	const media = post._embedded?.['wp:featuredmedia']?.[0];
-	const image = media?.media_details?.sizes?.['post-thumb']?.source_url || media?.source_url;
+	const image = media?.source_url;
 	const title = decodeHtml(post.title?.rendered);
 	const excerpt = stripHtml(post.excerpt?.rendered).trim();
 
@@ -26,7 +26,7 @@ const createCard = (post) => {
 			<div class="coop-case-card__body">
 				<h2 class="coop-case-card__title"><span class="coop-case-card__title-text"></span></h2>
 				<div class="coop-case-card__excerpt"><p></p></div>
-				<ion-icon class="coop-case-card__arrow" name="arrow-round-forward" aria-hidden="true"></ion-icon>
+				<span class="coop-case-card__arrow" aria-hidden="true"></span>
 			</div>
 		</a>`;
 	article.querySelector('.coop-case-card__title-text').textContent = title;
@@ -65,6 +65,8 @@ export function initCaseInfiniteScroll(masonry) {
 			const url = new URL(section.dataset.restUrl);
 			url.searchParams.set('page', String(page));
 			url.searchParams.set('per_page', '6');
+			url.searchParams.set('orderby', 'date');
+			url.searchParams.set('order', 'desc');
 			url.searchParams.set('_embed', 'wp:featuredmedia');
 			const response = await fetch(url.toString(), { headers: { Accept: 'application/json' } });
 			if (!response.ok) throw new Error(`Case request failed: ${response.status}`);

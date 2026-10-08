@@ -8,7 +8,7 @@
 
 <div class="archive-container">
 					
-	<h3><?php _e( 'Posts', 'fukasawa' ); ?></h3>
+	<h3><?php _e( 'Posts', 'co-op-oshinco' ); ?></h3>
 									
 	<ul>
 		<?php 
@@ -28,13 +28,13 @@
 		<?php endforeach; ?>
 	</ul>
 	
-	<h3><?php _e( 'Categories','fukasawa') ?></h3>
+	<h3><?php _e( 'Categories', 'co-op-oshinco' ) ?></h3>
 	
 	<ul>	            
 		<?php wp_list_categories( 'title_li='); ?>
 	</ul>
 	
-	<h3><?php _e( 'Tags','fukasawa') ?></h3>
+	<h3><?php _e( 'Tags', 'co-op-oshinco' ) ?></h3>
 	
 	<ul>
 		<?php 
@@ -49,25 +49,25 @@
 		?>
 	</ul>
 	
-	<h3><?php _e( 'Contributors', 'fukasawa' ); ?></h3>
+	<h3><?php _e( 'Contributors', 'co-op-oshinco' ); ?></h3>
 	
 	<ul>
 		<?php wp_list_authors(); ?> 
 	</ul>
 	
-	<h3><?php _e( 'Archives by Year', 'fukasawa' ); ?></h3>
+	<h3><?php _e( 'Archives by Year', 'co-op-oshinco' ); ?></h3>
 	
 	<ul>
 		<?php wp_get_archives( 'type=yearly' ); ?>
 	</ul>
 	
-	<h3><?php _e( 'Archives by Month', 'fukasawa' ); ?></h3>
+	<h3><?php _e( 'Archives by Month', 'co-op-oshinco' ); ?></h3>
 	
 	<ul>
 		<?php wp_get_archives( 'type=monthly' ); ?>
 	</ul>
 
-	<h3><?php _e( 'Archives by Day', 'fukasawa' ); ?></h3>
+	<h3><?php _e( 'Archives by Day', 'co-op-oshinco' ); ?></h3>
 	
 	<ul>
 		<?php wp_get_archives( 'type=daily' ); ?>

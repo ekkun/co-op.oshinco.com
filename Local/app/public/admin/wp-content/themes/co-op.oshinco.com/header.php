@@ -4,6 +4,14 @@
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="format-detection" content="telephone=no">
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCPYTY9QX0"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-QCPYTY9QX0');
+  </script>
   <link rel="icon" href="<?php echo esc_url(home_url('/favicon.ico')); ?>" sizes="32x32">
   <link rel="icon" href="<?php echo esc_url(home_url('/icon.svg')); ?>" type="image/svg+xml">
   <link rel="apple-touch-icon" href="<?php echo esc_url(home_url('/apple-touch-icon.png')); ?>">

@@ -249,7 +249,12 @@
         "color": {},
         "custom": {},
         "layout": {},
-        "spacing": {},
+        "spacing": {
+          "margin": {
+            "top": "1.6rem",
+            "bottom": "1.6rem"
+          }
+        },
         "typography": {}
       },
       "core/heading": {
@@ -470,14 +475,6 @@
         }
       },
       "flexible-table-block/table": {
-        "spacing": {
-          "margin": {
-            "top": "1.6rem",
-            "bottom": "1.6rem"
-          }
-        }
-      },
-      "acf/cta-title": {
         "spacing": {
           "margin": {
             "top": "1.6rem",
