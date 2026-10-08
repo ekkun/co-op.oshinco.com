@@ -19,11 +19,19 @@ add_action('admin_menu', 'hide_posts_menu');
 
 // 投稿（post）をフロントエンドのクエリから除外する
 function exclude_posts_from_query($query) {
-  if (!is_admin() && $query->is_main_query() && !$query->is_singular()) {
-    $post_types = $query->get('post_type');
-    if (empty($post_types) || $post_types === 'post') {
-      $query->set('post_type', array('case', 'news', 'page'));
-    }
+  if (is_admin() || !$query->is_main_query()) return;
+
+  if ($query->is_home()) {
+    // 旧「投稿」はポートフォリオへ移行し、トップではポートフォリオだけを見せる。
+    $query->set('post_type', array('portfolio'));
+  }
+
+  if (
+    $query->is_home()
+    || $query->is_post_type_archive(array('portfolio', 'news'))
+    || $query->is_tax(array('portfolio_category', 'portfolio_tags', 'news_category', 'news_tags'))
+  ) {
+    $query->set('posts_per_page', 6);
   }
 }
 add_action('pre_get_posts', 'exclude_posts_from_query');
@@ -71,40 +79,81 @@ if (!function_exists('coop_theme_setup')) :
   add_action('after_setup_theme', 'coop_theme_setup');
 endif;
 
-// JS エンキュー（fukasawa の flexslider + global.js を流用）
+// ウィジェットエリア。
+function coop_sidebar_registration() {
+  register_sidebar(array(
+    'name'          => __('Sidebar', 'co-op-oshinco'),
+    'id'            => 'sidebar',
+    'description'   => __('Widgets shown in the fixed sidebar.', 'co-op-oshinco'),
+    'before_title'  => '<h3 class="widget-title">',
+    'after_title'   => '</h3>',
+    'before_widget' => '<div id="%1$s" class="widget %2$s"><div class="widget-content clear">',
+    'after_widget'  => '</div></div>',
+  ));
+}
+add_action('widgets_init', 'coop_sidebar_registration');
+
+// Viteで生成したフロントエンドJSを読み込む。
 if (!function_exists('coop_enqueue_scripts')) :
   function coop_enqueue_scripts() {
-    wp_register_script('coop_flexslider', get_template_directory_uri() . '/assets/js/flexslider.js', array(), '2.7.0', true);
-    wp_enqueue_script('coop_global', get_template_directory_uri() . '/assets/js/global.js', array('jquery', 'masonry', 'imagesloaded', 'coop_flexslider'), wp_get_theme()->get('Version'), true);
+    wp_enqueue_script('coop_app', get_template_directory_uri() . '/assets/js/main.js', array(), filemtime(get_template_directory() . '/assets/js/main.js'), true);
     if (is_singular()) wp_enqueue_script('comment-reply');
   }
   add_action('wp_enqueue_scripts', 'coop_enqueue_scripts');
 endif;
 
-// CSS エンキュー（fukasawa からコピーしたスタイルを読み込む）
+// ViteのentryはES moduleとして読み込む。
+function coop_vite_script_tag($tag, $handle, $src) {
+  if ('coop_app' !== $handle) return $tag;
+  return '<script type="module" src="' . esc_url($src) . '"></script>' . "\n";
+}
+add_filter('script_loader_tag', 'coop_vite_script_tag', 10, 3);
+
+// Viteで生成したフロントエンドCSSを読み込む。
 if (!function_exists('coop_enqueue_styles')) :
   function coop_enqueue_styles() {
     if (!is_admin()) {
-      $ver = wp_get_theme()->get('Version');
-      // Google Fonts + フォント定義
-      wp_enqueue_style('coop_fonts', get_theme_file_uri('/assets/css/fonts.css'), array(), $ver);
-      // fukasawa メインスタイル
-      wp_enqueue_style('coop_fukasawa', get_theme_file_uri('/assets/css/fukasawa-style.css'), array('coop_fonts'), $ver);
-      // テーマ固有スタイル（style.css）
-      wp_enqueue_style('coop_style', get_stylesheet_uri(), array('coop_fukasawa'), $ver);
+      wp_enqueue_style('coop_app', get_theme_file_uri('/assets/css/style.css'), array(), filemtime(get_template_directory() . '/assets/css/style.css'));
     }
   }
   add_action('wp_enqueue_scripts', 'coop_enqueue_styles');
 endif;
 
-// ブロックエディタスタイル
-if (!function_exists('coop_block_editor_styles')) :
-  function coop_block_editor_styles() {
-    add_editor_style(array('assets/css/fukasawa-block-editor-styles.css', 'assets/css/fonts.css'));
-    wp_enqueue_style('coop-block-editor-styles', get_theme_file_uri('/assets/css/fukasawa-block-editor-styles.css'), array(), wp_get_theme()->get('Version'), 'all');
+// 添付画像を標準ギャラリーと同じSplideマークアップで出力する。
+function coop_attachment_gallery($size = 'thumbnail') {
+  $images = get_posts(array(
+    'numberposts'    => -1,
+    'orderby'        => 'menu_order',
+    'order'          => 'ASC',
+    'post_parent'    => get_the_ID(),
+    'post_type'      => 'attachment',
+    'post_status'    => 'inherit',
+    'post_mime_type' => 'image',
+  ));
+
+  if (!$images) return;
+
+  echo '<div class="wp-block-gallery">';
+  foreach ($images as $image) {
+    echo '<figure class="wp-block-image">' . wp_get_attachment_image($image->ID, $size) . '</figure>';
   }
-  add_action('enqueue_block_editor_assets', 'coop_block_editor_styles', 1);
-  add_action('init', 'coop_block_editor_styles');
+  echo '</div>';
+}
+
+// ブロックエディター内で使用するスタイルを登録する。
+if (!function_exists('coop_register_block_editor_style')) :
+  function coop_register_block_editor_style() {
+    add_editor_style('assets/css/style.css');
+  }
+  add_action('after_setup_theme', 'coop_register_block_editor_style');
+endif;
+
+// フロント用CSSはブロックエディター画面でのみ読み込む。
+if (!function_exists('coop_enqueue_block_editor_style')) :
+  function coop_enqueue_block_editor_style() {
+    wp_enqueue_style('coop-block-editor-styles', get_theme_file_uri('/assets/css/style.css'), array(), filemtime(get_template_directory() . '/assets/css/style.css'), 'all');
+  }
+  add_action('enqueue_block_editor_assets', 'coop_enqueue_block_editor_style', 1);
 endif;
 
 // JS の no-js → js クラス切り替え

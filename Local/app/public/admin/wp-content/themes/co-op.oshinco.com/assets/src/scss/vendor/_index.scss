@@ -1,12 +1,1 @@
-// src/scss/vendor/_index.scss
-@charset "utf-8";
-@use 'sass:meta';
-
-@include meta.load-css('kiso.css/kiso.css');
-@include meta.load-css('@splidejs/splide/dist/css/splide.min.css');
-//@include meta.load-css('jolty-ui/dist/jolty-ui.min.css');
-@include meta.load-css('scroll-hint/css/scroll-hint.css');
-
-//@forward 'kiso.css';
-//@forward 'jolty-ui';
-//@forward 'splide';
+// Framework CSS is imported by the Vite JavaScript entry.

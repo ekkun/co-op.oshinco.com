@@ -36,7 +36,7 @@
 			elseif ( $post_format == 'gallery' ) : ?>
 
 				<figure class="featured-media">
-					<?php fukasawa_flexslider( 'post-thumb' ); ?>
+					<?php coop_attachment_gallery( 'post-thumb' ); ?>
 				</figure><!-- .featured-media -->
 		
 			<?php 
@@ -59,9 +59,12 @@
 			// Standard format featured media
 			elseif ( has_post_thumbnail() ) : ?>
 			
-				<figure class="featured-media" href="<?php the_permalink(); ?>">
+				<figure class="featured-media">
 					<a href="<?php the_permalink(); ?>">	
 						<?php the_post_thumbnail( 'post-thumb' ); ?>
+					</a>
+					<a class="post-overlay" href="<?php the_permalink(); ?>" rel="bookmark" aria-label="<?php echo esc_attr(get_the_title()); ?>">
+						<p class="view"><?php _e( 'View', 'co-op-oshinco' ); ?> &rarr;</p>
 					</a>
 				</figure><!-- .featured-media -->
 					

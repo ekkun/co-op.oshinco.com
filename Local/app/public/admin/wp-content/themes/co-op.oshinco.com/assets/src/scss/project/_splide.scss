@@ -1,0 +1,95 @@
+/* Splide ships unlayered CSS, so these overrides must also remain unlayered. */
+.coop-gallery .splide__arrow {
+  inline-size: 64px;
+  block-size: 48px;
+  padding: 16px 24px;
+  border-block: 1px solid #cfcfcf;
+  border-radius: 0;
+  color: var(--coop-charcoal);
+  background: transparent;
+  opacity: 1;
+  transition: color 200ms ease, border-color 200ms ease, background-color 200ms ease, translate 200ms ease;
+}
+
+.coop-gallery .splide__arrow--prev { inset-inline-start: 24px; }
+.coop-gallery .splide__arrow--next { inset-inline-end: 24px; }
+
+.coop-gallery .splide__arrow:hover:not(:disabled),
+.coop-gallery .splide__arrow:focus-visible {
+  border-color: var(--coop-blue);
+  color: var(--coop-blue);
+  background: rgb(0 157 221 / 6%);
+  opacity: 1;
+}
+
+.coop-gallery .splide__arrow--prev:hover:not(:disabled),
+.coop-gallery .splide__arrow--prev:focus-visible { translate: -8px 0; }
+
+.coop-gallery .splide__arrow--next:hover:not(:disabled),
+.coop-gallery .splide__arrow--next:focus-visible { translate: 8px 0; }
+
+.coop-gallery .splide__arrow:focus-visible {
+  outline: 1px solid var(--coop-blue);
+  outline-offset: 4px;
+}
+
+.coop-gallery__arrow-icon {
+  inline-size: 16px;
+  block-size: 16px;
+}
+
+.coop-gallery .splide__pagination {
+  inset-block: auto 16px;
+  inset-inline: 50% auto;
+  display: flex;
+  inline-size: min(160px, calc(100% - 128px));
+  gap: 0;
+  padding: 0;
+  translate: -50% 0;
+}
+
+.coop-gallery .splide__pagination li {
+  display: block;
+  flex: 1 1 0;
+  margin: 0;
+}
+
+.coop-gallery .splide__pagination__page,
+.coop-gallery .splide__pagination__page.is-active {
+  display: block;
+  inline-size: 100%;
+  block-size: 2px;
+  margin: 0;
+  border-radius: 0;
+  opacity: 1;
+  transform: none;
+}
+
+.coop-gallery .splide__pagination__page {
+  background: rgb(255 255 255 / 64%);
+  transition: background-color 200ms ease;
+}
+
+.coop-gallery .splide__pagination__page.is-active { background: var(--coop-blue); }
+
+.coop-gallery .splide__pagination__page:hover,
+.coop-gallery .splide__pagination__page:focus-visible {
+  background: color-mix(in srgb, var(--coop-blue) 56%, transparent);
+}
+
+@media (width <= 767px) {
+  .coop-gallery .splide__arrow {
+    inline-size: 48px;
+    block-size: 48px;
+    padding: 16px;
+  }
+
+  .coop-gallery .splide__arrow--prev { inset-inline-start: 8px; }
+  .coop-gallery .splide__arrow--next { inset-inline-end: 8px; }
+  .coop-gallery .splide__pagination { inset-block-end: 8px; inline-size: min(120px, calc(100% - 96px)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coop-gallery .splide__arrow,
+  .coop-gallery .splide__pagination__page { transition: none; }
+}

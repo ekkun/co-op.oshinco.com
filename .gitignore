@@ -39,3 +39,4 @@ logs/*
 
 *.code-workspace
 memo.txt
+Local/app/sql/local.sql

@@ -5,9 +5,9 @@
 
 // SCSS Alias
 $z-map: (
-	header: 100,
-	modal: 500,
-	toast: 900
+  header: 100,
+  modal: 500,
+  toast: 900
 );
 
 // Breakpoint variables
@@ -24,45 +24,45 @@ $pc-md: 1440px;
 $pc-lg: 1600px; // 1608px
 
 $breakpoints: (
-	'xs': $xs,
-	's': $s,
-	'sm': $sm,
-	'md': $md,
-	'lg': $lg,
-	'tab': $tab,
-	'tab-lg': $tab-lg,
-	'xl': $xl,
-	'pc': $pc,
-	'pc-md': $pc-md,
-	'pc-lg': $pc-lg
+  'xs': $xs,
+  's': $s,
+  'sm': $sm,
+  'md': $md,
+  'lg': $lg,
+  'tab': $tab,
+  'tab-lg': $tab-lg,
+  'xl': $xl,
+  'pc': $pc,
+  'pc-md': $pc-md,
+  'pc-lg': $pc-lg
 ) !default;
 
 // min-width
 $breakpoint-up: (
-	'xs': '(width >= #{$xs})',
-	's': '(width >= #{$s})',
-	'sm': '(width >= #{$sm})',
-	'md': '(width >= #{$md})',
-	'lg': '(width >= #{$lg})',
-	'tab': '(width >= #{$tab})',
-	'tab-lg': '(width >= #{$tab-lg})',
-	'xl': '(width >= #{$xl})',
-	'pc': '(width >= #{$pc})',
-	'pc-md': '(width >= #{$pc-md})',
-	'pc-lg': '(width >= #{$pc-lg})'
+  'xs': '(width >= #{$xs})',
+  's': '(width >= #{$s})',
+  'sm': '(width >= #{$sm})',
+  'md': '(width >= #{$md})',
+  'lg': '(width >= #{$lg})',
+  'tab': '(width >= #{$tab})',
+  'tab-lg': '(width >= #{$tab-lg})',
+  'xl': '(width >= #{$xl})',
+  'pc': '(width >= #{$pc})',
+  'pc-md': '(width >= #{$pc-md})',
+  'pc-lg': '(width >= #{$pc-lg})'
 ) !default;
 
 // max-width
 $breakpoint-down: (
-	'xs': '(width < #{($xs)})',
-	's': '(width < #{($s)})',
-	'sm': '(width < #{($sm)})',
-	'md': '(width < #{($md)})',
-	'lg': '(width < #{($lg)})',
-	'tab': '(width < #{($tab)})',
-	'tab-lg': '(width < #{($tab-lg)})',
-	'xl': '(width < #{($xl)})',
-	'pc': '(width < #{($pc)})',
-	'pc-md': '(width < #{($pc-md)})',
-	'pc-lg': '(width < #{($pc-lg)})'
+  'xs': '(width < #{($xs)})',
+  's': '(width < #{($s)})',
+  'sm': '(width < #{($sm)})',
+  'md': '(width < #{($md)})',
+  'lg': '(width < #{($lg)})',
+  'tab': '(width < #{($tab)})',
+  'tab-lg': '(width < #{($tab-lg)})',
+  'xl': '(width < #{($xl)})',
+  'pc': '(width < #{($pc)})',
+  'pc-md': '(width < #{($pc-md)})',
+  'pc-lg': '(width < #{($pc-lg)})'
 ) !default;

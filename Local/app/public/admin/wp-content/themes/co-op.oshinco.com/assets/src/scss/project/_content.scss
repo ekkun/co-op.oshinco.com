@@ -1,0 +1,55 @@
+.entry-content > .wp-block-list {
+  margin-block: 0 var(--content-gap);
+}
+
+.entry-content .wp-block-list {
+  padding: 0;
+  list-style: none;
+}
+
+.entry-content .wp-block-list .wp-block-list {
+  margin-block: 16px 0;
+  padding-inline-start: 24px;
+}
+
+.entry-content .wp-block-list > li {
+  position: relative;
+  padding-inline-start: 32px;
+}
+
+.entry-content .wp-block-list > li + li {
+  margin-block-start: 16px;
+}
+
+.entry-content .wp-block-list > li > :first-child { margin-block-start: 0; }
+.entry-content .wp-block-list > li > :last-child { margin-block-end: 0; }
+
+.entry-content ul.wp-block-list > li::before {
+  position: absolute;
+  inset-block-start: .8em;
+  inset-inline-start: 8px;
+  inline-size: 6px;
+  block-size: 6px;
+  border: 1px solid var(--coop-blue);
+  content: '';
+  rotate: 45deg;
+}
+
+.entry-content ol.wp-block-list {
+  counter-reset: coop-list-item;
+}
+
+.entry-content ol.wp-block-list > li {
+  counter-increment: coop-list-item;
+}
+
+.entry-content ol.wp-block-list > li::before {
+  position: absolute;
+  inset-block-start: .15em;
+  inset-inline-start: 0;
+  color: var(--coop-blue);
+  content: counter(coop-list-item, decimal-leading-zero);
+  font-size: .6875rem;
+  font-weight: 600;
+  letter-spacing: .08em;
+}

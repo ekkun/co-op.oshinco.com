@@ -1,0 +1,60 @@
+.wrapper { inline-size: auto; max-inline-size: none; margin-inline-start: var(--coop-sidebar); }
+.skip-link { position: fixed; inset-block-start: -80px; inset-inline-start: 16px; z-index: 200; padding: 16px; color: #111; background: #fff; }
+.skip-link:focus { inset-block-start: 16px; }
+
+.coop-header {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-start: 0;
+  z-index: 50;
+  display: flex;
+  inline-size: var(--coop-sidebar);
+  min-block-size: 100dvh;
+  padding-block: 40px 32px;
+  padding-inline: 32px;
+  flex-direction: column;
+  color: #fff;
+  background: var(--coop-charcoal);
+}
+.coop-logo { display: block; inline-size: 100%; color: #fff; font-size: 1rem; font-weight: 600; letter-spacing: .12em; text-decoration: none; }
+.coop-logo__name { display: block; padding: 16px; border: 2px solid currentColor; text-align: center; white-space: nowrap; transition: border-color .25s ease, background-color .25s ease; }
+.coop-logo:hover .coop-logo__name,
+.coop-logo:focus-visible .coop-logo__name { border-color: #009ddd; background-color: #009ddd; }
+.coop-navigation { margin-block-start: 40px; padding-block-start: 40px; border-block-start: 1px solid rgb(255 255 255 / 25%); }
+.coop-navigation__list { display: grid; gap: 28px; margin: 0; padding: 0; list-style: none; }
+.coop-navigation__item { min-inline-size: 0; }
+.coop-navigation__link { display: block; inline-size: 100%; color: #fff; font-size: .75rem; font-weight: 500; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }
+.coop-navigation__label { position: relative; isolation: isolate; display: inline-block; }
+.coop-navigation__label::before { position: absolute; inset-block-end: .1em; inset-inline: 0; z-index: -1; block-size: .8em; background: #009ddd; content: ''; opacity: .85; transform: scaleX(0) skewX(-8deg); transform-origin: left center; transition: transform .3s ease; }
+.coop-navigation__link:hover .coop-navigation__label::before,
+.coop-navigation__link:focus-visible .coop-navigation__label::before { transform: scaleX(1); }
+.coop-header__foot { margin-block-start: auto; font-size: .5rem; letter-spacing: .04em; }
+.coop-header__foot p { margin: 0; }
+.coop-menu-toggle { display: none; }
+
+@media (width <= 767px) {
+  .wrapper { margin-inline-start: 0; padding-block-start: 72px; }
+  .coop-header { inset-block: 0 auto; inset-inline: 0; inline-size: 100%; min-block-size: 0; block-size: 72px; padding-block: 16px; padding-inline: 24px; flex-direction: row; align-items: center; justify-content: space-between; }
+  .coop-header__brand { position: relative; z-index: 2; }
+  .coop-logo { inline-size: 202px; font-size: .875rem; }
+  .coop-logo__name { padding: 8px 16px; }
+  .coop-menu-toggle { position: relative; z-index: 3; display: block; inline-size: 40px; block-size: 40px; padding: 0; background: transparent; }
+  .coop-menu-toggle__line { position: absolute; inset-block-start: 50%; inset-inline-start: 50%; display: block; inline-size: 22px; block-size: 1px; background: #fff; translate: -50% -50%; transition: transform .25s ease; transform-origin: center; }
+  .coop-menu-toggle__line:first-of-type { transform: translateY(-4px); }
+  .coop-menu-toggle__line:nth-of-type(2) { transform: translateY(4px); }
+  .is-coop-menu-open .coop-menu-toggle__line:first-of-type { transform: rotate(45deg); }
+  .is-coop-menu-open .coop-menu-toggle__line:nth-of-type(2) { transform: rotate(-45deg); }
+  .is-coop-menu-open .coop-menu-toggle { background: #666; }
+  .coop-navigation { position: fixed; inset: 0; z-index: 1; display: flex; margin: 0; padding-block: 128px 32px; padding-inline: 24px; flex-direction: column; border: 0; background: var(--coop-charcoal); visibility: hidden; opacity: 0; pointer-events: none; transition: opacity .2s ease, visibility .2s ease; }
+  .is-coop-menu-open { overflow: hidden; }
+  .is-coop-menu-open .coop-navigation { visibility: visible; opacity: 1; pointer-events: auto; }
+  .coop-navigation__list { gap: 0; padding-block-start: 32px; border-block-start: 1px solid rgb(255 255 255 / 25%); }
+  .coop-navigation__item { margin: 0; border: 0; }
+  .coop-navigation__link { padding-block: 16px; font-size: 1.5rem; font-weight: 500; letter-spacing: .08em; line-height: 1; }
+  .coop-header__foot { position: fixed; inset-inline-end: 24px; inset-block-end: 24px; z-index: 2; display: none; }
+  .is-coop-menu-open .coop-header__foot { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coop-logo__name, .coop-navigation, .coop-navigation__label::before, .coop-menu-toggle__line { transition: none; }
+}

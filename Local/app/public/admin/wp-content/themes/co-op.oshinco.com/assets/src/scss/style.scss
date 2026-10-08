@@ -10,34 +10,35 @@
 /* レイヤー宣言だけ */
 @use 'core/config.layer';
 
-/* コア（変数・関数・mixin） */
-//@use 'core/index' as core;
-
 /* base層（中で @layer reset/base を定義） */
 @use 'base/index' as *;
 
-/* vendor層：外部ライブラリ（Splide など） */
-//@use 'vendor/index' as *;
 @layer vendor {
-	@include meta.load-css('vendor/index');
+  @include meta.load-css('vendor/index');
 }
 
 /* layout層 */
 @layer layout {
-	@include meta.load-css('layout/index');
+  @include meta.load-css('layout/index');
 }
 
 /* components層 */
 @layer components {
-	@include meta.load-css('components/index');
+  @include meta.load-css('components/index');
 }
 
 /* project層（ページ単位） */
 @layer project {
-	@include meta.load-css('project/index');
+  @include meta.load-css('project/index');
 }
 
 /* utilities層（最後に勝つ） */
 @layer utilities {
-	@include meta.load-css('utilities/index');
+  @include meta.load-css('utilities/index');
 }
+
+/* Splide本体がレイヤー外のため、上書きもレイヤー外で読み込む */
+@include meta.load-css('project/splide');
+
+/* WordPress本文ブロックのリセット上書き */
+@include meta.load-css('project/content');

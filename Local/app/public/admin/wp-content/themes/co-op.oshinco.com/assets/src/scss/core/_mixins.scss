@@ -9,146 +9,146 @@
 
 /* media query */
 @mixin mq($key, $direction: up) {
-	@media #{breakpoint($key, $direction)} {
-		@content;
-	}
+  @media #{breakpoint($key, $direction)} {
+    @content;
+  }
 }
 
 /* font size */
 @mixin font-size($size, $base: 16) {
-	font-size: math.div($size, $base) + rem;
+  font-size: math.div($size, $base) + rem;
 }
 
 /* clear fix */
 @mixin clearfix {
-	zoom: 1;
+  zoom: 1;
 
-	&::before,
-	&::after {
-		display: table;
-		content: '';
-	}
+  &::before,
+  &::after {
+    display: table;
+    content: '';
+  }
 
-	&::after {
-		clear: both;
-	}
+  &::after {
+    clear: both;
+  }
 }
 
 /* フレックス中央揃え */
 @mixin flex-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 // Hover
 @mixin hover {
-	@media (hover: hover) and (pointer: fine) {
-		@content;
-	}
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
 }
 
 @mixin any-hover {
-	@media (any-hover: hover) {
-		@content;
-	}
+  @media (any-hover: hover) {
+    @content;
+  }
 }
 
 // Transition
 @mixin transition($property: all, $duration: 0.2s, $timingFunction: ease-out, $delay: 0s) {
-	transition-property: $property;
-	transition-duration: $duration;
-	transition-timing-function: $timingFunction;
-	transition-delay: $delay;
+  transition-property: $property;
+  transition-duration: $duration;
+  transition-timing-function: $timingFunction;
+  transition-delay: $delay;
 }
 
 // Ellipsis
 @mixin ellipsis($line-clamp: 2) {
-	display: -webkit-box;
-	text-overflow: ellipsis;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: $line-clamp;
-	min-height: 0;
-	overflow: hidden;
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: $line-clamp;
+  min-height: 0;
+  overflow: hidden;
 }
 
 // 'line-height' Remove TOP and/or BOTTOM margins
 // $position: top | bottom | both
 @mixin line-height($line-height, $position: both) {
-	// 疑似要素の共通定義
-	&::before,
-	&::after {
-		content: '';
-		display: block;
-		width: 0;
-		height: 0;
-	}
+  // 疑似要素の共通定義
+  &::before,
+  &::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 0;
+  }
 
-	// TOP を消す
-	@if $position == top or $position == both {
-		&::before {
-			margin-top: calc((1 - #{$line-height}) * 0.5em);
-		}
-	} @else {
-		&::before {
-			display: none;
-		}
-	}
+  // TOP を消す
+  @if $position == top or $position == both {
+    &::before {
+      margin-top: calc((1 - #{$line-height}) * 0.5em);
+    }
+  } @else {
+    &::before {
+      display: none;
+    }
+  }
 
-	// BOTTOM を消す
-	@if $position == bottom or $position == both {
-		&::after {
-			margin-bottom: calc((1 - #{$line-height}) * 0.5em);
-		}
-	} @else {
-		&::after {
-			display: none;
-		}
-	}
+  // BOTTOM を消す
+  @if $position == bottom or $position == both {
+    &::after {
+      margin-bottom: calc((1 - #{$line-height}) * 0.5em);
+    }
+  } @else {
+    &::after {
+      display: none;
+    }
+  }
 }
 
 // oklch Gradient
 // $direction: angle (45deg) or keyword (to bottom right, to top left など)
 @mixin oklch-gradient($direction, $from, $to) {
-	background: linear-gradient(#{$direction}, oklch(from #{$from} l c h), oklch(from #{$to} l c h));
+  background: linear-gradient(#{$direction}, oklch(from #{$from} l c h), oklch(from #{$to} l c h));
 }
 
 @mixin oklch-alpha-gradient($direction, $from, $from-alpha, $to, $to-alpha) {
-	background: linear-gradient(#{$direction}, oklch(from #{$from} l c h / #{$from-alpha}), oklch(from #{$to} l c h / #{$to-alpha}));
+  background: linear-gradient(#{$direction}, oklch(from #{$from} l c h / #{$from-alpha}), oklch(from #{$to} l c h / #{$to-alpha}));
 }
 
 // Link Icon
 //@mixin link-icon($width: 1em, $height: 1em, $margin-inline: 0.4em 0, $margin-block: 0, $image: '/assets/images/common/icon_exlink_black.svg') {
-//	content: '';
-//	display: inline-block;
-//	width: $width;
-//	height: $height;
-//	background-image: url(#{$image});
-//	background-position: 0 0;
-//	background-repeat: no-repeat;
-//	background-size: contain;
-//	margin-inline: $margin-inline;
-//	margin-block: $margin-block;
-//	vertical-align: middle;
+//  content: '';
+//  display: inline-block;
+//  width: $width;
+//  height: $height;
+//  background-image: url(#{$image});
+//  background-position: 0 0;
+//  background-repeat: no-repeat;
+//  background-size: contain;
+//  margin-inline: $margin-inline;
+//  margin-block: $margin-block;
+//  vertical-align: middle;
 //}
 @mixin icon-mask($color: var(--color-black), $image: '/assets/images/common/icon_arrow.svg', $size-w: 100%, $size-h: auto) {
-	background-color: $color;
-	mask-image: url(#{$image});
-	mask-position: center;
-	mask-repeat: no-repeat;
-	mask-size: $size-w $size-h;
+  background-color: $color;
+  mask-image: url(#{$image});
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: $size-w $size-h;
 }
 @mixin icon-exlink($width: 1em, $height: 1em, $color: var(--color-black), $image: '/assets/images/common/icon_exlink.svg', $margin-inline: 0.4em 0, $margin-block: 0) {
-	content: '';
-	display: inline-block;
-	inline-size: $width;
-	block-size: $height;
-	background-color: $color;
-	mask-image: url(#{$image});
-	mask-position: center;
-	mask-repeat: no-repeat;
-	mask-size: contain;
-	margin-inline: $margin-inline;
-	margin-block: $margin-block;
-	vertical-align: middle;
+  content: '';
+  display: inline-block;
+  inline-size: $width;
+  block-size: $height;
+  background-color: $color;
+  mask-image: url(#{$image});
+  mask-position: center;
+  mask-repeat: no-repeat;
+  mask-size: contain;
+  margin-inline: $margin-inline;
+  margin-block: $margin-block;
+  vertical-align: middle;
 }

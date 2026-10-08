@@ -1,0 +1,48 @@
+body {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  position: relative !important;
+  inline-size: 100vw !important;
+  block-size: 100vh !important;
+  background-color: #fff !important;
+}
+
+body::before {
+  content: '' !important;
+  /*display: block !important;*/
+  position: absolute !important;
+  inset: 0 !important;
+  background-color: #444 !important;
+  z-index: -1 !important;
+}
+
+body::after {
+  content: '' !important;
+  /*display: block !important;*/
+  position: absolute !important;
+  inset: 10px !important;
+  background-color: #fff !important;
+  z-index: -1 !important;
+}
+
+#login h1 a {
+  inline-size: 320px !important;
+  block-size: 68px !important;
+  background-image: url(./logo-login.svg) !important;
+  background-size: contain !important;
+  margin: 0 auto 10px !important;
+}
+
+#login form {
+  border: 1px solid #444 !important;
+  box-shadow: unset !important;
+}
+
+#login *:not(#loginform):not(#loginform *) {
+  /*color: #fff;*/
+}
+
+#login_error {
+  /*color: #ff0000 !important;*/
+}

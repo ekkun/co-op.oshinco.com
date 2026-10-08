@@ -1,75 +1,41 @@
 <?php get_header(); ?>
-<?php
-if (function_exists('yoast_breadcrumb')) {
-  yoast_breadcrumb('<div class="p-breadcrumbs">', '</div>');
-}
-?>
-<div class="p-breadcrumbs">
-  <?php
-  $args = array(
-    'nav_div' => 'nav',
-    'nav_div_class' => 'p-breadcrumbs__inner',
-    'aria_label' => 'breadcrumbs',
-    'ul_class' => 'p-breadcrumbs__list',
-    'li_class' => '',
-    'li_active_class' => 'is-active',
-    'aria_current' => 'page',
-    'separator' => ' ',
-    'post_type' => 'news',
-  );
-  custom_breadcrumb($args);
-  ?>
-</div>
-<div id="content">
-  <?php if (have_posts()) : ?>
-    <?php $post = $posts[0]; // Hack. Set $post so that the_date() works.
-    ?>
-    <?php /* If this is a category archive */ if (is_category()) { ?>
-      <h2>Archive for the &#8216;<?php single_cat_title(); ?>&#8217; Category</h2>
-    <?php /* If this is a tag archive */ } elseif (is_tag()) { ?>
-      <h2>Posts Tagged &#8216;<?php single_tag_title(); ?>&#8217;</h2>
-    <?php /* If this is a daily archive */ } elseif (is_day()) { ?>
-      <h2>Archive for <?php the_time(get_option('date_format')); ?></h2>
-    <?php /* If this is a monthly archive */ } elseif (is_month()) { ?>
-      <h2>Archive for <?php the_time('F Y'); ?></h2>
-    <?php /* If this is a yearly archive */ } elseif (is_year()) { ?>
-      <h2>Archive for <?php the_time('Y'); ?></h2>
-    <?php /* If this is an author archive */ } elseif (is_author()) { ?>
-      <h2>Author Archive</h2>
-    <?php /* If this is a paged archive */ } elseif (isset($_GET['paged']) && !empty($_GET['paged'])) { ?>
-      <h2>Blog Archives</h2>
-    <?php } ?>
-    <div class="navigation">
-      <div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
-      <div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
-    </div>
-    <?php while (have_posts()) : the_post(); ?>
-      <div class="post" id="post-<?php the_ID(); ?>">
-        <h3 class="post-title"><a href="<?php the_permalink() ?>" rel="bookmark" title="Permanent Link to <?php the_title_attribute(); ?>"><?php the_title(); ?></a></h3>
-        <div class="postmetadata">Posted on <?php the_time(get_option('date_format')) ?>, <?php the_time(get_option('time_format')) ?>, by <?php the_author() ?>, under <?php the_category(', ') ?>.</div>
-        <div class="entry">
-          <?php the_excerpt(); ?>
-        </div>
-        <div class="postmetadata">
-          <?php if (function_exists('the_tags'))
-            the_tags(__('Tags: '), ', ', '<br />');
-          ?>
-        </div>
-      <?php endwhile; ?>
-      <?php
-      if (function_exists('pagination')) {
-        pagination($wp_query->max_num_pages, get_query_var('paged'));
-      }
-      ?>
-      <?php /*
-<div class="navigation">
-<div class="alignleft"><?php next_posts_link('&laquo; Older Entries') ?></div>
-<div class="alignright"><?php previous_posts_link('Newer Entries &raquo;') ?></div>
-</div>
-*/ ?>
-    <?php else : ?>
-      <h2 class="center">Not Found</h2>
-    <?php endif; ?>
+
+<div class="coop-archive coop-news-archive">
+  <section class="coop-news-list" aria-labelledby="coop-archive-title" data-archive-infinite-scroll data-container-selector=".coop-news-list__items" data-item-selector=".coop-news-list__item" data-next-page="<?php echo esc_url(get_next_posts_page_link()); ?>">
+    <header class="coop-archive__header">
+      <h1 class="coop-archive__title" id="coop-archive-title">NEWS</h1>
+      <?php if (get_the_archive_description()) : ?>
+        <div class="coop-archive__description"><?php echo wp_kses_post(wpautop(get_the_archive_description())); ?></div>
+      <?php endif; ?>
+    </header>
+
+    <?php if (have_posts()) : ?>
+      <div class="coop-news-list__items">
+        <?php while (have_posts()) : the_post();
+          $news_url = function_exists('get_field') ? get_field('news_url') : '';
+          $legacy_url = function_exists('get_field') ? get_field('url') : '';
+          $permalink = $news_url ?: ($legacy_url ?: get_permalink());
+          $external_link = function_exists('get_field') ? get_field('news_external-link') : null;
+          $legacy_target = function_exists('get_field') ? get_field('window_target') : '';
+          $open_new_window = !empty($external_link) || '_blank' === $legacy_target;
+          $terms = get_the_terms(get_the_ID(), 'news_category');
+          $category = $terms && !is_wp_error($terms) ? reset($terms) : null;
+        ?>
+          <article <?php post_class('coop-news-list__item'); ?>>
+            <a class="coop-news-list__link" href="<?php echo esc_url($permalink); ?>"<?php echo $open_new_window ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>>
+              <time class="coop-news-list__date" datetime="<?php echo esc_attr(get_the_date('c')); ?>"><?php echo esc_html(get_the_date('Y.m.d')); ?></time>
+              <span class="coop-news-list__category"><?php echo esc_html($category ? $category->name : 'NEWS'); ?></span>
+              <h2 class="coop-news-list__title"><?php the_title(); ?></h2>
+              <span class="coop-news-list__arrow" aria-hidden="true">&#8599;</span>
+            </a>
+          </article>
+        <?php endwhile; ?>
       </div>
-      <?php get_sidebar(); ?>
-      <?php get_footer(); ?>
+      <?php if ($GLOBALS['wp_query']->max_num_pages > 1) : ?><div class="coop-infinite-scroll" aria-live="polite" aria-busy="false"><span class="coop-infinite-scroll__status"><span class="coop-infinite-scroll__spinner" aria-hidden="true"></span><span class="coop-infinite-scroll__label">Loading more articles...</span></span></div><?php endif; ?>
+    <?php else : ?>
+      <p class="coop-archive__empty">公開中のニュースはありません。</p>
+    <?php endif; ?>
+  </section>
+</div>
+
+<?php get_footer(); ?>

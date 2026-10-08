@@ -2,7 +2,6 @@
    base層スタイルの集約ポイント（読み込みは style.scss から） */
 
 @forward 'reset';
-@forward 'variables';
 @forward 'base';
 @forward 'fonts';
-@forward 'typography';
+@forward 'theme';

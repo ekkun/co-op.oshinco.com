@@ -27,9 +27,9 @@ $args = array(
   'exclude_from_search' => false,
   'show_ui' => true,
   'show_in_nav_menus' => false,
-  'has_archive' => true,
+  'has_archive' => 'news',
   'hierarchical' => false,
-  'rewrite' => array('slug' => 'news', 'with_front' => true, 'feeds' => false, 'pages' => true),
+  'rewrite' => array('slug' => 'news/-', 'with_front' => false, 'feeds' => false, 'pages' => true),
   'query_var' => true,
   'can_export' => true,
   'menu_position' => 4,
@@ -39,6 +39,9 @@ $args = array(
   'taxonomies' => array('news_category', 'news_tags'),
 );
 register_post_type('news', $args);
+
+// 個別ニュース: /news/-/{post_id}/
+add_rewrite_rule('news/-/([0-9]+)/?$', 'index.php?post_type=news&p=$matches[1]', 'top');
 
 // カテゴリー
 $labels = array(
