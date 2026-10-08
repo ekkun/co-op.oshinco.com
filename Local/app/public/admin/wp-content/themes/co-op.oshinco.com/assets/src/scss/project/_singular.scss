@@ -1,7 +1,7 @@
 .coop-singular { padding-block-end: clamp(72px, 9vw, 128px); }
 .coop-entry { letter-spacing: .08em; }
 .coop-entry__header { position: relative; display: grid; block-size: 320px; margin-block-end: clamp(48px, 8vw, 96px); place-items: center; overflow: hidden; color: var(--coop-white); isolation: isolate; }
-.coop-entry__header::before { position: absolute; inset: -24px; z-index: -2; background-image: var(--coop-entry-hero-image); background-position: center; background-size: cover; content: ''; filter: blur(6px); transform: scale(1.04); }
+.coop-entry__header::before { position: absolute; inset: -24px; z-index: -2; background-image: var(--coop-entry-hero-image); background-position: center; background-size: cover; content: ''; filter: blur(0.375rem); transform: scale(1.04); }
 .coop-entry__header::after { position: absolute; inset: 0; z-index: -1; background: color-mix(in srgb, var(--coop-charcoal) 40%, transparent); content: ''; }
 .coop-entry__header-inner { inline-size: min(calc(100% - clamp(40px, 14vw, 208px)), 1120px); }
 .coop-entry__title { max-inline-size: 900px; margin: 0; font-size: clamp(1.375rem, 2.5vw, 1.875rem); font-weight: 700; letter-spacing: .04em; line-height: 1.45; text-wrap: balance; }
@@ -17,7 +17,8 @@
 .coop-entry-nav { inline-size: min(calc(100% - clamp(40px, 14vw, 208px)), 1120px); margin-inline: auto; }
 .coop-entry-nav__item { min-inline-size: 0; }
 .coop-entry-nav__item + .coop-entry-nav__item { border-inline-start: 1px solid #cfcfcf; }
-.coop-entry-nav a { display: flex; min-block-size: 112px; gap: 16px; align-items: center; padding-block: 24px; padding-inline: 24px; color: inherit; font-size: .75rem; text-decoration: none; transition: color 200ms ease, background-color 200ms ease; }
+.coop-entry-nav__link { display: flex; min-block-size: 112px; gap: 16px; align-items: center; padding-block: 24px; padding-inline: 24px; color: inherit; font-size: .75rem; text-decoration: none; transition: color 200ms ease, background-color 200ms ease; }
+.coop-entry-nav__link.is-disabled { color: var(--coop-gray); cursor: default; opacity: .48; }
 .coop-entry-nav a:hover,
 .coop-entry-nav a:focus-visible { color: var(--coop-blue); background-color: rgb(0 157 221 / 6%); }
 .coop-entry-nav a:focus-visible { outline: 1px solid var(--coop-blue); outline-offset: -1px; }
@@ -32,7 +33,7 @@
 .coop-entry-nav__item--next a:hover .coop-entry-nav__icon,
 .coop-entry-nav__item--next a:focus-visible .coop-entry-nav__icon { translate: 4px 0; }
 .coop-entry-nav__item--next { text-align: end; }
-.coop-entry-nav__item--next a { justify-content: flex-end; }
+.coop-entry-nav__item--next .coop-entry-nav__link { justify-content: flex-end; }
 
 @media (width <= 767px) {
   .coop-singular { padding-block-end: 72px; }

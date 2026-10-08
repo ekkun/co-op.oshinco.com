@@ -1,3 +1,9 @@
 /*
 * ADMIN STYLE
 */
+
+.admin-aside-hr {
+  border: none;
+  border-top: 1px solid rgb(0 0 0 / 1);
+  border-bottom: 1px solid rgb(255 255 255 / 0.25);
+}

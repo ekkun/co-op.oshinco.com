@@ -1,0 +1,57 @@
+:is(
+  .coop-news__label,
+  .coop-cases__title,
+  .coop-archive__title,
+  .coop-entry__title
+) {
+  display: block;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  padding: .3em .65em;
+  border: 3px solid currentColor;
+  line-height: 1.4;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-wrap: nowrap;
+  white-space: nowrap;
+}
+
+.coop-news__label {
+  align-self: center;
+  justify-self: center;
+  padding: 4px 12px;
+  border-width: 2px;
+}
+
+.coop-home:not(.coop-archive) .coop-cases__title {
+  padding: 8px 24px;
+}
+
+.coop-archive__title {
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.coop-entry__title {
+  box-sizing: border-box;
+  inline-size: fit-content;
+  min-inline-size: 0;
+  padding-inline: 24px;
+}
+
+.coop-entry__header-inner {
+  min-inline-size: 0;
+}
+
+@media (width >= 768px) {
+  .coop-entry__title {
+    font-size: 1.5rem;
+  }
+}
+
+@media (width <= 425px) {
+  .coop-entry__title {
+    max-inline-size: 100%;
+    padding-inline: 16px;
+  }
+}

@@ -1,0 +1,102 @@
+body:has(.coop-not-found) {
+  overflow: hidden;
+}
+
+body:has(.coop-not-found) .wrapper {
+  overflow: hidden;
+}
+
+.coop-not-found {
+  position: relative;
+  isolation: isolate;
+  block-size: 100vh;
+  min-block-size: 480px;
+  background: #d9d9d9;
+  overflow: hidden;
+}
+
+.coop-not-found__grid {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  grid-template-rows: repeat(5, minmax(0, 1fr));
+  gap: 1px;
+  background: var(--coop-white);
+}
+
+.coop-not-found__photo {
+  position: relative;
+  display: block;
+  min-inline-size: 0;
+  min-block-size: 0;
+  background-color: #d9d9d9;
+  overflow: hidden;
+}
+
+.coop-not-found__photo::before {
+  position: absolute;
+  inset: -8px;
+  background-image: var(--coop-404-image);
+  background-position: center;
+  background-size: cover;
+  content: '';
+  filter: blur(0.125rem);
+  transform: scale(1.05);
+  transition: filter .4s ease, transform .4s ease;
+}
+
+.coop-not-found__photo:hover::before,
+.coop-not-found__photo:focus-visible::before {
+  filter: blur(0);
+  transform: scale(1.12);
+}
+
+.coop-not-found__veil {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: color-mix(in srgb, var(--coop-white) 80%, transparent);
+  pointer-events: none;
+}
+
+.coop-not-found__title {
+  position: absolute;
+  inset-block-start: 50%;
+  inset-inline-start: 50%;
+  z-index: 2;
+  inline-size: 300px;
+  margin: 0;
+  padding: 5px 16px 6px;
+  border: 3px solid var(--coop-charcoal);
+  color: var(--coop-charcoal);
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: .12em;
+  line-height: 1.4;
+  text-align: center;
+  white-space: nowrap;
+  transform: translate(-50%, -50%);
+}
+
+@media (width <= 767px) {
+  .coop-not-found {
+    block-size: calc(100dvh - 72px);
+  }
+
+  .coop-not-found__grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-rows: repeat(7, minmax(0, 1fr));
+  }
+
+  .coop-not-found__title {
+    inline-size: min(300px, calc(100% - 48px));
+    font-size: 1.125rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .coop-not-found__photo::before {
+    transition: none;
+  }
+}

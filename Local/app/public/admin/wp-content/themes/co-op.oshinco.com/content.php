@@ -36,7 +36,7 @@
 			elseif ( $post_format == 'gallery' ) : ?>
 
 				<figure class="featured-media">
-					<?php coop_attachment_gallery( 'post-thumb' ); ?>
+					<?php coop_attachment_gallery( 'full' ); ?>
 				</figure><!-- .featured-media -->
 		
 			<?php 
@@ -46,10 +46,10 @@
 
 				<figure class="featured-media">
 
-					<?php the_post_thumbnail( 'post-thumb' ); ?>
+					<?php the_post_thumbnail( 'full' ); ?>
 
 					<a class="post-overlay" href="<?php the_permalink(); ?>" rel="bookmark">
-						<p class="view"><?php _e( 'View', 'fukasawa' ); ?> &rarr;</p>
+						<p class="view"><?php _e( 'View', 'co-op-oshinco' ); ?> &rarr;</p>
 					</a>
 
 				</figure><!-- .featured-media -->
@@ -61,7 +61,7 @@
 			
 				<figure class="featured-media">
 					<a href="<?php the_permalink(); ?>">	
-						<?php the_post_thumbnail( 'post-thumb' ); ?>
+						<?php the_post_thumbnail( 'full' ); ?>
 					</a>
 					<a class="post-overlay" href="<?php the_permalink(); ?>" rel="bookmark" aria-label="<?php echo esc_attr(get_the_title()); ?>">
 						<p class="view"><?php _e( 'View', 'co-op-oshinco' ); ?> &rarr;</p>

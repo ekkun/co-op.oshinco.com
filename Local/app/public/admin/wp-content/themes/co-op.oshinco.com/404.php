@@ -1,25 +1,81 @@
-<?php get_header(); ?>
+<?php
+/**
+ * 404 page template.
+ *
+ * @package co-op-oshinco
+ */
 
-<div class="content">
+$coop_flickr_feeds = array(
+  'https://www.flickr.com/services/feeds/photos_public.gne?id=56004767@N00&lang=en-us&format=atom',
+  'https://www.flickr.com/services/feeds/photos_public.gne?id=39138472@N08&lang=en-us&format=atom',
+  'https://www.flickr.com/services/feeds/photos_public.gne?id=31655482@N00&lang=en-us&format=atom',
+);
 
-  <article class="post single entry">
+/**
+ * Return Flickr photos from a public Atom feed.
+ *
+ * @param string $feed_url Flickr public feed URL.
+ * @return array<int, array{image: string, link: string, title: string}>
+ */
+function coop_get_flickr_feed_photos($feed_url) {
+  require_once ABSPATH . WPINC . '/feed.php';
 
-    <div class="post-inner section-inner thin">
+  $feed = fetch_feed($feed_url);
+  if (is_wp_error($feed)) {
+    return array();
+  }
 
-      <header class="post-header">
-        <h1 class="post-title"><?php _e('Error 404', 'fukasawa'); ?></h1>
-      </header><!-- .post-header -->
+  $photos = array();
+  foreach ($feed->get_items(0, 60) as $item) {
+    $enclosure = $item->get_enclosure();
+    $image_url = $enclosure ? $enclosure->get_link() : '';
 
-      <div class="post-content entry-content">
+    if (!$image_url) {
+      $media = $item->get_item_tags('http://search.yahoo.com/mrss/', 'content');
+      $image_url = isset($media[0]['attribs']['']['url']) ? $media[0]['attribs']['']['url'] : '';
+    }
 
-        <p><?php _e("It seems like you have tried to open a page that doesn't exist. It could have been deleted, moved, or it never existed at all. You are welcome to search for what you are looking for with the form below.", 'fukasawa'); ?></p>
+    if (!$image_url) {
+      continue;
+    }
 
-        <?php get_search_form(); ?>
+    $photos[] = array(
+      'image' => $image_url,
+      'link'  => $item->get_permalink(),
+      'title' => wp_strip_all_tags($item->get_title()),
+    );
+  }
 
-      </div><!-- .post-content -->
+  return $photos;
+}
 
-  </article><!-- .post -->
+$coop_flickr_photos = array();
+foreach ($coop_flickr_feeds as $coop_flickr_feed) {
+  $coop_flickr_photos = array_merge($coop_flickr_photos, coop_get_flickr_feed_photos($coop_flickr_feed));
+}
+shuffle($coop_flickr_photos);
+$coop_flickr_photos = array_slice($coop_flickr_photos, 0, 35);
 
-</div><!-- .content -->
+get_header();
+?>
+
+<div class="coop-not-found">
+  <div class="coop-not-found__grid">
+    <?php foreach ($coop_flickr_photos as $coop_flickr_photo) : ?>
+      <a
+        class="coop-not-found__photo"
+        href="<?php echo esc_url($coop_flickr_photo['link']); ?>"
+        target="_blank"
+        rel="noopener noreferrer"
+        style="--coop-404-image: url('<?php echo esc_url($coop_flickr_photo['image']); ?>');"
+      >
+        <span class="screen-reader-text"><?php echo esc_html($coop_flickr_photo['title']); ?></span>
+      </a>
+    <?php endforeach; ?>
+  </div>
+
+  <div class="coop-not-found__veil" aria-hidden="true"></div>
+  <h1 class="coop-not-found__title">PAGE NOT FOUND</h1>
+</div>
 
 <?php get_footer(); ?>

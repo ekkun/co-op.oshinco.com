@@ -2,8 +2,17 @@
 
 <div class="coop-archive coop-news-archive">
   <section class="coop-news-list" aria-labelledby="coop-archive-title" data-archive-infinite-scroll data-container-selector=".coop-news-list__items" data-item-selector=".coop-news-list__item" data-next-page="<?php echo esc_url(get_next_posts_page_link()); ?>">
-    <header class="coop-archive__header">
-      <h1 class="coop-archive__title" id="coop-archive-title">NEWS</h1>
+    <header class="coop-archive__header<?php echo have_posts() ? ' has-items' : ''; ?>">
+      <h1 class="coop-archive__title" id="coop-archive-title">
+        <?php
+        if (is_tax()) {
+          $term = get_queried_object();
+          echo esc_html($term->name . ' / NEWS');
+        } else {
+          echo 'NEWS';
+        }
+        ?>
+      </h1>
       <?php if (get_the_archive_description()) : ?>
         <div class="coop-archive__description"><?php echo wp_kses_post(wpautop(get_the_archive_description())); ?></div>
       <?php endif; ?>
@@ -26,7 +35,7 @@
               <time class="coop-news-list__date" datetime="<?php echo esc_attr(get_the_date('c')); ?>"><?php echo esc_html(get_the_date('Y.m.d')); ?></time>
               <span class="coop-news-list__category"><?php echo esc_html($category ? $category->name : 'NEWS'); ?></span>
               <h2 class="coop-news-list__title"><?php the_title(); ?></h2>
-              <span class="coop-news-list__arrow" aria-hidden="true">&#8599;</span>
+              <span class="coop-news-list__arrow" aria-hidden="true"></span>
             </a>
           </article>
         <?php endwhile; ?>

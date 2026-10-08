@@ -10,12 +10,12 @@ import Splide from '@splidejs/splide';
 import { addIcons } from 'ionicons';
 import { defineCustomElement as defineIonIcon } from 'ionicons/components/ion-icon.js';
 import { arrowBack, arrowForward, chevronBack, chevronForward } from 'ionicons/icons';
-import './component/adjustViewport';
 import { initGalleries } from './component/gallery';
 import { initCaseInfiniteScroll } from './component/caseInfiniteScroll';
 import { initCaseMasonry } from './component/caseMasonry';
 import { initArchiveInfiniteScroll } from './component/archiveInfiniteScroll';
 import { initNewsTicker } from './component/newsTicker';
+import { initCodeBlocks } from './component/codeBlocks';
 
 addIcons({
 	'arrow-round-back': arrowBack,
@@ -29,6 +29,7 @@ const caseMasonry = initCaseMasonry();
 initCaseInfiniteScroll(caseMasonry);
 initArchiveInfiniteScroll(caseMasonry);
 initNewsTicker();
+initCodeBlocks();
 
 const menuToggle = document.querySelector('.coop-menu-toggle');
 const navigation = document.querySelector('.coop-navigation');

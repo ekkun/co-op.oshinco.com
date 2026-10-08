@@ -56,9 +56,25 @@
 			</div>
 
 			<?php if (is_singular(array('post', 'portfolio', 'news'))) : ?>
+				<?php
+				$previous_post = get_previous_post();
+				$next_post = get_next_post();
+				?>
 				<nav class="coop-entry-nav" aria-label="<?php esc_attr_e('Post navigation', 'co-op-oshinco'); ?>">
-					<div class="coop-entry-nav__item coop-entry-nav__item--previous"><?php previous_post_link('%link', '<ion-icon class="coop-entry-nav__icon" name="chevron-back" aria-hidden="true"></ion-icon><span class="coop-entry-nav__copy"><span class="coop-entry-nav__label">PREVIOUS</span><span class="coop-entry-nav__title">%title</span></span>'); ?></div>
-					<div class="coop-entry-nav__item coop-entry-nav__item--next"><?php next_post_link('%link', '<span class="coop-entry-nav__copy"><span class="coop-entry-nav__label">NEXT</span><span class="coop-entry-nav__title">%title</span></span><ion-icon class="coop-entry-nav__icon" name="chevron-forward" aria-hidden="true"></ion-icon>'); ?></div>
+					<div class="coop-entry-nav__item coop-entry-nav__item--previous">
+						<?php if ($previous_post) : ?>
+							<a class="coop-entry-nav__link" href="<?php echo esc_url(get_permalink($previous_post)); ?>"><ion-icon class="coop-entry-nav__icon" name="chevron-back" aria-hidden="true"></ion-icon><span class="coop-entry-nav__copy"><span class="coop-entry-nav__label">PREVIOUS</span><span class="coop-entry-nav__title"><?php echo esc_html(get_the_title($previous_post)); ?></span></span></a>
+						<?php else : ?>
+							<span class="coop-entry-nav__link is-disabled" aria-disabled="true"><ion-icon class="coop-entry-nav__icon" name="chevron-back" aria-hidden="true"></ion-icon><span class="coop-entry-nav__copy"><span class="coop-entry-nav__label">PREVIOUS</span><span class="coop-entry-nav__title">記事はありません</span></span></span>
+						<?php endif; ?>
+					</div>
+					<div class="coop-entry-nav__item coop-entry-nav__item--next">
+						<?php if ($next_post) : ?>
+							<a class="coop-entry-nav__link" href="<?php echo esc_url(get_permalink($next_post)); ?>"><span class="coop-entry-nav__copy"><span class="coop-entry-nav__label">NEXT</span><span class="coop-entry-nav__title"><?php echo esc_html(get_the_title($next_post)); ?></span></span><ion-icon class="coop-entry-nav__icon" name="chevron-forward" aria-hidden="true"></ion-icon></a>
+						<?php else : ?>
+							<span class="coop-entry-nav__link is-disabled" aria-disabled="true"><span class="coop-entry-nav__copy"><span class="coop-entry-nav__label">NEXT</span><span class="coop-entry-nav__title">記事はありません</span></span><ion-icon class="coop-entry-nav__icon" name="chevron-forward" aria-hidden="true"></ion-icon></span>
+						<?php endif; ?>
+					</div>
 				</nav>
 			<?php endif; ?>
 		</article>

@@ -1,0 +1,4 @@
+
+# SQL dumps
+/Local/app/sql/*.sql
+/Local/app/public/admin/srdbm-1008-remix/sql/**/*.sql
