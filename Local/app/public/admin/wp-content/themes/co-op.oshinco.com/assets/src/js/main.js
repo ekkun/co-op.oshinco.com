@@ -16,6 +16,7 @@ import { initCaseMasonry } from './component/caseMasonry';
 import { initArchiveInfiniteScroll } from './component/archiveInfiniteScroll';
 import { initNewsTicker } from './component/newsTicker';
 import { initCodeBlocks } from './component/codeBlocks';
+import { initBlurText } from './component/blurText';
 
 addIcons({
 	'arrow-round-back': arrowBack,
@@ -30,6 +31,7 @@ initCaseInfiniteScroll(caseMasonry);
 initArchiveInfiniteScroll(caseMasonry);
 initNewsTicker();
 initCodeBlocks();
+initBlurText();
 
 const menuToggle = document.querySelector('.coop-menu-toggle');
 const navigation = document.querySelector('.coop-navigation');

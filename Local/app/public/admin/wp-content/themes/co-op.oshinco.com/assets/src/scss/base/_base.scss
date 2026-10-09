@@ -65,6 +65,26 @@
     }
   }
 
+  // JavaScriptで文字ノードだけを包み、画像や背景には影響させない
+  .has-coop-text-blur {
+    --coop-blur: 0.02rem;
+  }
+
+  .coop-text-blur {
+    filter: none;
+    text-shadow:
+      0 0 0.06rem color-mix(in srgb, currentColor 25%, transparent),
+      0 0 0.12rem color-mix(in srgb, currentColor 10%, transparent);
+  }
+
+  @media (width >= 768px) {
+    .coop-text-blur {
+      text-shadow:
+        0 0 0.08rem color-mix(in srgb, currentColor 25%, transparent),
+        0 0 0.16rem color-mix(in srgb, currentColor 10%, transparent);
+    }
+  }
+
   /* アプリ的UI操作感 */
   :focus-visible {
     //outline: 2px solid var(--color-primary);

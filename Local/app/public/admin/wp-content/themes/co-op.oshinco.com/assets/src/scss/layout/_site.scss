@@ -18,8 +18,15 @@
 }
 .coop-logo { display: block; inline-size: 100%; color: #fff; font-size: 1rem; font-weight: 600; letter-spacing: .12em; text-decoration: none; }
 .coop-logo__name { display: block; padding: 8px 16px; border: 3px solid currentColor; text-align: center; white-space: nowrap; transition: border-color .25s ease, background-color .25s ease; }
-.coop-logo:hover .coop-logo__name,
-.coop-logo:focus-visible .coop-logo__name { border-color: #009ddd; background-color: #009ddd; }
+.has-coop-text-blur .coop-logo__name { position: relative; isolation: isolate; overflow: hidden; transition: border-color 200ms ease; }
+.has-coop-text-blur .coop-logo__name::before { position: absolute; z-index: 0; inset: 0; background-color: var(--coop-blue); clip-path: circle(0 at var(--coop-hover-x, 12%) var(--coop-hover-y, 100%)); content: ''; transition: clip-path 480ms cubic-bezier(.22, 1, .36, 1); pointer-events: none; }
+.has-coop-text-blur .coop-logo:hover .coop-logo__name,
+.has-coop-text-blur .coop-logo:focus-visible .coop-logo__name { border-color: var(--coop-blue); }
+.has-coop-text-blur .coop-logo:hover .coop-logo__name::before,
+.has-coop-text-blur .coop-logo:focus-visible .coop-logo__name::before { clip-path: circle(150% at var(--coop-hover-x, 12%) var(--coop-hover-y, 100%)); }
+.has-coop-text-blur .coop-logo__name .coop-text-blur { position: relative; z-index: 1; transition: text-shadow 240ms ease; }
+.has-coop-text-blur .coop-logo:hover .coop-text-blur,
+.has-coop-text-blur .coop-logo:focus-visible .coop-text-blur { text-shadow: none; }
 .coop-navigation { margin-block-start: 40px; padding-block-start: 40px; border-block-start: 1px solid rgb(255 255 255 / 25%); }
 .coop-navigation__list { display: grid; gap: 28px; margin: 0; padding: 0; list-style: none; }
 .coop-navigation__item { min-inline-size: 0; }
@@ -56,5 +63,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .coop-logo__name, .coop-navigation, .coop-navigation__label::before, .coop-menu-toggle__line { transition: none; }
+  .coop-logo__name, .coop-logo__name::before, .coop-navigation, .coop-navigation__label::before, .coop-menu-toggle__line { transition: none; }
 }
