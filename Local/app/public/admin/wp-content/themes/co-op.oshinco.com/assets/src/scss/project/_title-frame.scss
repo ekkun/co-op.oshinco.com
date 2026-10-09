@@ -4,6 +4,7 @@
   .coop-archive__title,
   .coop-entry__title
 ) {
+  position: relative;
   display: block;
   inline-size: fit-content;
   max-inline-size: 100%;
@@ -14,6 +15,26 @@
   text-overflow: ellipsis;
   text-wrap: nowrap;
   white-space: nowrap;
+
+}
+
+.has-coop-text-blur :is(
+  .coop-news__label,
+  .coop-cases__title,
+  .coop-archive__title,
+  .coop-entry__title
+) {
+  border-color: transparent;
+
+  &::before {
+    position: absolute;
+    inset: 0;
+    border: inherit;
+    border-color: currentColor;
+    content: '';
+    filter: blur(var(--coop-blur));
+    pointer-events: none;
+  }
 }
 
 .coop-news__label {
@@ -53,5 +74,16 @@
   .coop-entry__title {
     max-inline-size: 100%;
     padding-inline: 16px;
+  }
+}
+
+@media (width <= 767px) {
+  .has-coop-text-blur :is(
+    .coop-news__label,
+    .coop-cases__title,
+    .coop-archive__title,
+    .coop-entry__title
+  )::before {
+    filter: none;
   }
 }

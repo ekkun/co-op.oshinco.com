@@ -138,6 +138,63 @@
 
 .inquiry .mw_wp_form .submit .button:active { filter: brightness(0.84); }
 
+.has-coop-text-blur.inquiry .mw_wp_form .submit {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 8px;
+  background: var(--ion-color-primary);
+}
+
+.has-coop-text-blur.inquiry .mw_wp_form .submit::before {
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  background: #444;
+  clip-path: circle(0 at var(--coop-hover-x, 12%) var(--coop-hover-y, 100%));
+  content: '';
+  transition: clip-path 480ms cubic-bezier(.22, 1, .36, 1);
+  pointer-events: none;
+}
+
+.has-coop-text-blur.inquiry .mw_wp_form .submit:hover::before,
+.has-coop-text-blur.inquiry .mw_wp_form .submit:focus-within::before {
+  clip-path: circle(150% at var(--coop-hover-x, 12%) var(--coop-hover-y, 100%));
+}
+
+.has-coop-text-blur.inquiry .mw_wp_form .submit .button {
+  position: relative;
+  z-index: 1;
+  background: transparent;
+  filter: none;
+  text-shadow:
+    0 0 0.06rem color-mix(in srgb, currentColor 25%, transparent),
+    0 0 0.12rem color-mix(in srgb, currentColor 10%, transparent);
+  transition: border-color 200ms ease, text-shadow 240ms ease;
+}
+
+.has-coop-text-blur.inquiry .mw_wp_form .submit .button:hover,
+.has-coop-text-blur.inquiry .mw_wp_form .submit .button:focus-visible {
+  border-color: #444;
+  text-shadow: none;
+}
+
+.has-coop-text-blur.inquiry .mw_wp_form .submit .button:active { text-shadow: none; }
+
+@media (width >= 768px) {
+  .has-coop-text-blur.inquiry .mw_wp_form .submit .button {
+    text-shadow:
+      0 0 0.08rem color-mix(in srgb, currentColor 25%, transparent),
+      0 0 0.16rem color-mix(in srgb, currentColor 10%, transparent);
+  }
+
+  .has-coop-text-blur.inquiry .mw_wp_form .submit .button:hover,
+  .has-coop-text-blur.inquiry .mw_wp_form .submit .button:focus-visible,
+  .has-coop-text-blur.inquiry .mw_wp_form .submit .button:active {
+    text-shadow: none;
+  }
+}
+
 .inquiry .mw_wp_form_confirm label {
   padding-block-end: 8px;
   border-block-end: 1px solid #e1e4e8;
@@ -152,11 +209,13 @@
   .inquiry .mw_wp_form .submit .button {
     inline-size: 100%;
   }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
   .inquiry .mw_wp_form :where(input, textarea, select),
-  .inquiry .mw_wp_form .submit .button {
+  .inquiry .mw_wp_form .submit .button,
+  .inquiry .mw_wp_form .submit::before {
     transition: none;
   }
 }
