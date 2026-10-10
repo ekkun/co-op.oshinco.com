@@ -4,6 +4,19 @@
   <meta charset="<?php bloginfo('charset'); ?>">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <meta name="format-detection" content="telephone=no">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#ffffff" data-coop-theme-color>
+  <script>
+    (function () {
+      var storedTheme;
+      try { storedTheme = localStorage.getItem('coop-theme'); } catch (error) {}
+      var theme = storedTheme === 'day' || storedTheme === 'night'
+        ? storedTheme
+        : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'night' : 'day');
+      document.documentElement.dataset.theme = theme;
+      document.documentElement.style.colorScheme = theme === 'night' ? 'dark' : 'light';
+    }());
+  </script>
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-QCPYTY9QX0"></script>
   <script>
@@ -12,8 +25,7 @@
     gtag('js', new Date());
     gtag('config', 'G-QCPYTY9QX0');
   </script>
-  <link rel="icon" href="<?php echo esc_url(home_url('/favicon.ico')); ?>" sizes="32x32">
-  <link rel="icon" href="<?php echo esc_url(home_url('/icon.svg')); ?>" type="image/svg+xml">
+  <link rel="icon" href="<?php echo esc_url(home_url('/icon.svg')); ?>" type="image/svg+xml" data-coop-favicon data-day-href="<?php echo esc_url(home_url('/icon.svg')); ?>" data-night-href="<?php echo esc_url(home_url('/icon.svg#night')); ?>">
   <link rel="apple-touch-icon" href="<?php echo esc_url(home_url('/apple-touch-icon.png')); ?>">
   <link rel="manifest" href="<?php echo esc_url(home_url('/manifest.json')); ?>">
   <?php wp_head(); ?>
@@ -49,6 +61,11 @@
       ));
       ?>
     </nav>
+    <button class="coop-theme-toggle" type="button" role="switch" aria-checked="false" aria-label="Nightモードに切り替える" data-coop-theme-toggle>
+      <span class="coop-theme-toggle__label coop-theme-toggle__label--day" aria-hidden="true">Day</span>
+      <span class="coop-theme-toggle__track" aria-hidden="true"><span class="coop-theme-toggle__thumb"></span></span>
+      <span class="coop-theme-toggle__label coop-theme-toggle__label--night" aria-hidden="true">Night</span>
+    </button>
     <div class="coop-header__foot"><p>&copy; <?php echo esc_html(wp_date('Y')); ?> Oshinco Co-op.</p></div>
   </header>
 <main class="wrapper" id="site-content">

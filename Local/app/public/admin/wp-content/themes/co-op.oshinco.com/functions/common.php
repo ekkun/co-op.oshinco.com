@@ -103,6 +103,69 @@ function coop_sidebar_registration() {
 }
 add_action('widgets_init', 'coop_sidebar_registration');
 
+// Flickr公開フィード（404と固定フォトフッターで共用）。
+function coop_get_flickr_feed_urls() {
+  return array(
+    'https://www.flickr.com/services/feeds/photos_public.gne?id=56004767@N00&lang=en-us&format=atom',
+    'https://www.flickr.com/services/feeds/photos_public.gne?id=39138472@N08&lang=en-us&format=atom',
+    'https://www.flickr.com/services/feeds/photos_public.gne?id=31655482@N00&lang=en-us&format=atom',
+  );
+}
+
+/**
+ * Flickr公開Atomフィードから写真を返す。
+ *
+ * @param string $feed_url Flickr公開フィードURL。
+ * @return array<int, array{image: string, link: string, title: string}>
+ */
+function coop_get_flickr_feed_photos($feed_url) {
+  require_once ABSPATH . WPINC . '/feed.php';
+
+  $feed = fetch_feed($feed_url);
+  if (is_wp_error($feed)) return array();
+
+  $photos = array();
+  foreach ($feed->get_items(0, 60) as $item) {
+    $enclosure = $item->get_enclosure();
+    $image_url = $enclosure ? $enclosure->get_link() : '';
+
+    if (!$image_url) {
+      $media = $item->get_item_tags('http://search.yahoo.com/mrss/', 'content');
+      $image_url = isset($media[0]['attribs']['']['url']) ? $media[0]['attribs']['']['url'] : '';
+    }
+
+    if (!$image_url) continue;
+
+    $photos[] = array(
+      'image' => $image_url,
+      'link'  => $item->get_permalink(),
+      'title' => wp_strip_all_tags($item->get_title()),
+    );
+  }
+
+  return $photos;
+}
+
+/**
+ * 3つのFlickrフィードをまとめ、ランダムな写真を返す。
+ *
+ * @param int $limit 最大件数。
+ * @return array<int, array{image: string, link: string, title: string}>
+ */
+function coop_get_flickr_photos($limit = 35) {
+  static $photos = null;
+
+  if (null === $photos) {
+    $photos = array();
+    foreach (coop_get_flickr_feed_urls() as $feed_url) {
+      $photos = array_merge($photos, coop_get_flickr_feed_photos($feed_url));
+    }
+    shuffle($photos);
+  }
+
+  return array_slice($photos, 0, $limit);
+}
+
 // Viteで生成したフロントエンドJSを読み込む。
 if (!function_exists('coop_enqueue_scripts')) :
   function coop_enqueue_scripts() {
