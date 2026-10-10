@@ -5,14 +5,37 @@
     --coop-orange: #ff9f40;
     --coop-gray: #767676;
     --coop-white: #fff;
+    --coop-background: #fff;
+    --coop-text: #444;
+    --coop-muted: #767676;
+    --coop-subtle: #f3f3f3;
+    --coop-border: #d8d8d8;
+    --coop-header-background: #444;
+    --coop-header-text: #fff;
     --coop-sidebar: 280px;
+    color-scheme: light;
+  }
+
+  :root[data-theme='night'] {
+    --coop-charcoal: #f2f2f2;
+    --coop-gray: #b8b8b8;
+    --coop-white: #444;
+    --coop-background: #444;
+    --coop-text: #f2f2f2;
+    --coop-muted: #b8b8b8;
+    --coop-subtle: #505050;
+    --coop-border: #6a6a6a;
+    --coop-header-background: #f2f2f2;
+    --coop-header-text: #333;
+    color-scheme: dark;
   }
 
   body {
     min-inline-size: 320px;
     margin: 0;
-    color: var(--coop-charcoal);
-    background: var(--coop-white);
+    color: var(--coop-text);
+    background: var(--coop-background);
     font-family: 'Gen Interface JP', 'Noto Sans JP', sans-serif;
+    transition: color 200ms ease, background-color 200ms ease;
   }
 }

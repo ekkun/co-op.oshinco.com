@@ -33,6 +33,38 @@ initNewsTicker();
 initCodeBlocks();
 initBlurText();
 
+const themeToggle = document.querySelector('[data-coop-theme-toggle]');
+const favicon = document.querySelector('[data-coop-favicon]');
+const themeColor = document.querySelector('[data-coop-theme-color]');
+const systemTheme = window.matchMedia('(prefers-color-scheme: dark)');
+
+const applyTheme = (theme) => {
+	document.documentElement.dataset.theme = theme;
+	document.documentElement.style.colorScheme = theme === 'night' ? 'dark' : 'light';
+	if (themeToggle) {
+		themeToggle.setAttribute('aria-checked', String(theme === 'night'));
+		themeToggle.setAttribute('aria-label', `${theme === 'night' ? 'Day' : 'Night'}モードに切り替える`);
+	}
+	if (favicon) favicon.href = theme === 'night' ? favicon.dataset.nightHref : favicon.dataset.dayHref;
+	if (themeColor) themeColor.content = theme === 'night' ? '#444444' : '#ffffff';
+};
+
+let storedTheme = null;
+try { storedTheme = localStorage.getItem('coop-theme'); } catch (error) {}
+applyTheme(storedTheme === 'day' || storedTheme === 'night' ? storedTheme : (systemTheme.matches ? 'night' : 'day'));
+
+themeToggle?.addEventListener('click', () => {
+	const theme = document.documentElement.dataset.theme === 'night' ? 'day' : 'night';
+	try { localStorage.setItem('coop-theme', theme); } catch (error) {}
+	applyTheme(theme);
+});
+
+systemTheme.addEventListener('change', (event) => {
+	let preference = null;
+	try { preference = localStorage.getItem('coop-theme'); } catch (error) {}
+	if (!preference) applyTheme(event.matches ? 'night' : 'day');
+});
+
 const menuToggle = document.querySelector('.coop-menu-toggle');
 const navigation = document.querySelector('.coop-navigation');
 

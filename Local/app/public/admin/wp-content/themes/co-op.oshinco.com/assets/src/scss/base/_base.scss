@@ -30,7 +30,7 @@
     min-inline-size: 320px;
     //width: max(375px, 100%);
     min-block-size: 100dvh;
-    background-color: var(--white);
+    background-color: var(--coop-background);
     overflow-wrap: anywhere; /* 収まらない場合に折り返す */
     word-break: normal; /* 単語の分割はデフォルトに依存 */
     line-break: strict; /* 禁則処理を厳格に適用 */

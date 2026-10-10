@@ -1,0 +1,53 @@
+:root[data-theme='night'] {
+  .coop-case-card__media,
+  .coop-case-card__placeholder,
+  .wp-block-group,
+  .wp-block-verse,
+  .coop-gallery .splide__track,
+  .coop-gallery .splide__slide,
+  .wp-block-flexible-table-block-table th {
+    background: var(--coop-subtle);
+  }
+
+  .entry-content :where(h1, h2, h3, h4, h5, h6),
+  .wp-block-flexible-table-block-table :where(th, td) {
+    color: var(--coop-text);
+  }
+
+  .wp-block-table td,
+  .wp-block-flexible-table-block-table table,
+  .ion-page,
+  ion-content {
+    color: var(--coop-text);
+    background: var(--coop-background);
+  }
+
+  .wp-block-table.is-style-stripes tbody tr:nth-child(odd) td {
+    background: var(--coop-subtle);
+  }
+
+  .coop-archive__header,
+  .coop-news-list__items,
+  .coop-news-list__item,
+  .coop-entry-nav,
+  .coop-entry-nav__item + .coop-entry-nav__item,
+  .wp-block-pullquote,
+  .wp-block-table :where(th, td),
+  .wp-block-details,
+  .wp-block-file,
+  .wp-block-flexible-table-block-table :where(th, td),
+  .wp-block-yoast-faq-block,
+  .schema-faq-section,
+  .wp-block-latest-posts li,
+  .wp-block-categories-list li,
+  .wp-block-archives-list li {
+    border-color: var(--coop-border);
+  }
+
+  input,
+  textarea,
+  select {
+    color: var(--coop-text);
+    background-color: var(--coop-background);
+  }
+}
