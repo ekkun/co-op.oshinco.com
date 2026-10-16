@@ -37,6 +37,15 @@ function exclude_posts_from_query($query) {
   }
 
   if (
+    $query->is_post_type_archive('news')
+    || $query->is_tax(array('news_category', 'news_tags'))
+  ) {
+    // ニュース系アーカイブは公開日時の新しい順で表示する。
+    $query->set('orderby', 'date');
+    $query->set('order', 'DESC');
+  }
+
+  if (
     $query->is_home()
     || $query->is_post_type_archive(array('portfolio', 'news'))
     || $query->is_tax(array('portfolio_category', 'portfolio_tags', 'news_category', 'news_tags'))
